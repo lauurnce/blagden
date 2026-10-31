@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 const LINKS = [
-  { href: "/demo", label: "Run file demo" },
-  { href: "/forecast", label: "Race-morning forecast" },
+  { href: "/demo", label: "Run file demo", short: "Demo" },
+  { href: "/forecast", label: "Race-morning forecast", short: "Forecast" },
 ] as const;
 
 export default function SiteHeader() {
@@ -27,7 +27,8 @@ export default function SiteHeader() {
             href={l.href}
             className="text-sm underline-offset-4 hover:underline"
           >
-            {l.label}
+            <span className="sm:hidden">{l.short}</span>
+            <span className="hidden sm:inline">{l.label}</span>
           </Link>
         ))}
       </nav>
