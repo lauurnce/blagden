@@ -170,3 +170,18 @@ flowchart LR
 **Brief.** A short race-morning brief is written from templates, using only the computed numbers, and a grounding check rejects any number that was not computed. An optional LLM provider can reword it; it is off by default.
 
 **Browser.** The core is ported to TypeScript, so the web demo runs the same maths on your device. Golden JSON fixtures written by the Python code are asserted by both test suites.
+
+## The science
+
+Every equation, parameter and threshold is recorded with its source in [docs/SCIENCE.md](docs/SCIENCE.md). Anything that could not be checked against a source is marked UNVERIFIED and does not ship.
+
+| Method | What it estimates | Source |
+|---|---|---|
+| ECTemp | Core temperature, each minute, from heart rate | Buller et al. 2013, [Physiol Meas 34:781](https://doi.org/10.1088/0967-3334/34/7/781) |
+| ECTemp in elite athletes | Accuracy in heat, and the limit above 39.0 C | de Korte et al. 2022, [Front Sports Act Living 4:882254](https://doi.org/10.3389/fspor.2022.882254) |
+| Physiological Strain Index | Combined thermal and heart strain, 0 to 10 | Moran, Shitzer and Pandolf 1998, [Am J Physiol 275:R129](https://doi.org/10.1152/ajpregu.1998.275.1.R129) |
+| Liljegren WBGT | Wet bulb globe temperature from weather data | Liljegren et al. 2008, [J Occup Environ Hyg 5:645](https://doi.org/10.1080/15459620802310770) |
+| Heat index | Apparent temperature in shade, shown on the PAGASA scale | Rothfusz 1990, via the US National Weather Service; PAGASA categories |
+| Heat risk bands | Race flags and guidance by WBGT | Armstrong et al. 2007, [Med Sci Sports Exerc 39:556](https://doi.org/10.1249/MSS.0b013e31802fa199); World Athletics 2020; Racinais et al. |
+| Heat and performance | Slowdown per degree of WBGT | Ely et al. 2007, [Med Sci Sports Exerc 39:487](https://doi.org/10.1249/mss.0b013e31802d3aba); Mantzios et al. 2022 |
+| Riegel | Finish time at a new distance from a recent race | Riegel 1981, American Scientist 69:285 |
