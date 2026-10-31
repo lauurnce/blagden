@@ -204,3 +204,18 @@ Every equation, parameter and threshold is recorded with its source in [docs/SCI
 - **Outside the published data.** Recreational runners on a humid Manila morning are beyond the studies behind the heat adjustment, so every prediction is flagged as extrapolated and carries a wide range.
 - **No acclimatisation term.** Being used to the heat helps, but no race data gives an effect size, so v0.1 does not model it.
 - **Privacy.** Run files are processed on your device, in the CLI or the browser, and are never uploaded. Fixtures in this repository are synthetic.
+
+## Roadmap (v0.2 ideas)
+
+- Heat-adjusted pace plan and race-morning brief in the browser
+- The validation study with a running club, run as pre-registered
+- The sigmoid ECTemp variant, once its derivative is checked against the primary source
+- PSI strain bands, once the 1998 category table is read
+- A Content Security Policy for the web app
+- Publishing the package to PyPI
+
+## License
+
+[MIT](LICENSE). Weather data by [Open-Meteo.com](https://open-meteo.com/) (CC BY 4.0).
+
+Built by [Lawrence Panes](https://lauurnce.is-a.dev).
