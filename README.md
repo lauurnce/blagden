@@ -18,3 +18,7 @@ The banner is animated. Click it, or open [blagden.vercel.app](https://blagden.v
 ## Why
 
 A Manila race morning is often above 26 C with humidity over 80 percent before the gun goes off, and the sun is up within the first hour. In that air sweat evaporates slowly, so a pace that feels easy in the cool can push core temperature high. Blagden puts numbers on that for a runner: how hot your body likely ran, how hot race morning will be, and what pace that heat allows.
+
+## The name
+
+In January and April 1775, the physician Charles Blagden walked into a room heated above 260 F, about 127 C. Eggs beside the thermometer roasted hard in about twenty minutes. A beefsteak, with bellows blowing on it, was "pretty well done in thirteen minutes." Blagden walked out after eight minutes. He credited perspiration, "that cooling evaporation," with part of that. His host, George Fordyce, found the catch: in damp air, sweat cannot evaporate. A Manila race morning is the damp room. ([Blagden 1775](https://doi.org/10.1098/rstl.1775.0048), [free scan](https://archive.org/details/jstor-106218))
