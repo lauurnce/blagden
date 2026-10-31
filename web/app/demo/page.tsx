@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import DemoClient from "./DemoClient";
 
 export const metadata: Metadata = {
-  title: "Run file demo · Blagden",
+  title: "Run file demo",
   description:
     "Estimate core temperature and strain from a run file, processed on your device.",
 };

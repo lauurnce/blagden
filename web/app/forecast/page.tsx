@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import ForecastClient from "./ForecastClient";
 
 export const metadata: Metadata = {
-  title: "Race-morning forecast · Blagden",
+  title: "Race-morning forecast",
   description: "Hourly WBGT, heat index and risk for a race venue and morning.",
 };
 
