@@ -445,6 +445,26 @@ def render(data: dict[str, Any]) -> str:
     return json.dumps(data, indent=1, allow_nan=False) + "\n"
 
 
+# Freshness check tolerance. Trigonometric functions can differ in the last
+# bit between C libraries (macOS and Linux), so floats are compared within a
+# relative 1e-9, far tighter than any fixture's own tolerance.
+CHECK_REL_TOL = 1e-9
+CHECK_ABS_TOL = 1e-12
+
+
+def same(a: Any, b: Any) -> bool:
+    """Return True when two parsed fixtures match, with floats within the check tolerance."""
+    if isinstance(a, bool) or isinstance(b, bool) or a is None or b is None:
+        return a is b or a == b
+    if isinstance(a, int | float) and isinstance(b, int | float):
+        return math.isclose(a, b, rel_tol=CHECK_REL_TOL, abs_tol=CHECK_ABS_TOL)
+    if isinstance(a, dict) and isinstance(b, dict):
+        return a.keys() == b.keys() and all(same(a[k], b[k]) for k in a)
+    if isinstance(a, list) and isinstance(b, list):
+        return len(a) == len(b) and all(same(x, y) for x, y in zip(a, b, strict=True))
+    return bool(a == b)
+
+
 def main(argv: list[str] | None = None) -> int:
     """Write the fixtures, or with --check report any that are stale."""
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -455,7 +475,9 @@ def main(argv: list[str] | None = None) -> int:
         path = OUT_DIR / name
         text = render(build())
         if args.check:
-            if not path.exists() or path.read_text(encoding="utf-8") != text:
+            if not path.exists() or not same(
+                json.loads(path.read_text(encoding="utf-8")), json.loads(text)
+            ):
                 stale.append(name)
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
