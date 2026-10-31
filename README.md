@@ -185,3 +185,13 @@ Every equation, parameter and threshold is recorded with its source in [docs/SCI
 | Heat risk bands | Race flags and guidance by WBGT | Armstrong et al. 2007, [Med Sci Sports Exerc 39:556](https://doi.org/10.1249/MSS.0b013e31802fa199); World Athletics 2020; Racinais et al. |
 | Heat and performance | Slowdown per degree of WBGT | Ely et al. 2007, [Med Sci Sports Exerc 39:487](https://doi.org/10.1249/mss.0b013e31802d3aba); Mantzios et al. 2022 |
 | Riegel | Finish time at a new distance from a recent race | Riegel 1981, American Scientist 69:285 |
+
+## Validation
+
+**What the tests prove.** The Python suite (pytest, 654 tests) and the web suite (vitest, 388 tests; Playwright, 9 end-to-end tests) check that each module matches its source equations, handles missing data without filling it in, and rejects bad input. WBGT is checked against ECMWF's thermofeel implementation of the same model. The end-to-end tests confirm that a run file is never sent off the device and that the pages pass axe WCAG 2.1 AA checks.
+
+**Parity between Python and the browser.** `scripts/make_golden.py` writes golden JSON fixtures from the Python reference for ECTemp, PSI, solar position, WBGT, heat index, risk, ingest, strain and the race-morning table. vitest asserts every TypeScript result against them within a stored tolerance, so the demo computes the same numbers as the CLI.
+
+**Published accuracy of ECTemp.** In the 2013 validation the estimate had a bias of -0.03 +/- 0.32 C, 95 percent limits of agreement of +/- 0.63 C, and an RMSE of about 0.30 C against measured core temperature. In 101 elite athletes exercising in heat (de Korte et al. 2022) it agreed within about +/- 0.45 C on average, but detected fewer than half of the readings above 39.0 C.
+
+**What is not yet validated.** No published study covers recreational runners in humid tropical heat, and the heat-adjusted predictions extrapolate beyond the race data they are built on. The [validation plan](docs/VALIDATION_PLAN.md) sets out, before any data exists, how predictions will be tested against real race results.
