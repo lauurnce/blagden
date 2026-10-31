@@ -14,3 +14,7 @@ Heat intelligence for runners in the tropics: core temperature from your heart r
 The banner is animated. Click it, or open [blagden.vercel.app](https://blagden.vercel.app), to try the live demo: drop in a run file and watch the estimate build, minute by minute, on your own device.
 
 <a href="https://blagden.vercel.app/demo"><img src="docs/screenshots/demo-readme.png" width="720" alt="The run file demo with a synthetic 30-minute run loaded: summary figures, the limitation note, and a chart of estimated core temperature and heart rate."></a>
+
+## Why
+
+A Manila race morning is often above 26 C with humidity over 80 percent before the gun goes off, and the sun is up within the first hour. In that air sweat evaporates slowly, so a pace that feels easy in the cool can push core temperature high. Blagden puts numbers on that for a runner: how hot your body likely ran, how hot race morning will be, and what pace that heat allows.
