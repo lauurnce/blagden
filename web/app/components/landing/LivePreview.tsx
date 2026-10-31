@@ -200,12 +200,12 @@ export default function LivePreview() {
                 </dd>
               </div>
             ))}
-            <div className="col-span-3 lg:col-span-1">
-              <Link className="font-medium underline" href="/demo">
-                Try it with your own run file
-              </Link>
-            </div>
           </dl>
+          <p className="mt-6">
+            <Link className="font-medium underline" href="/demo">
+              Try it with your own run file
+            </Link>
+          </p>
         </div>
       </div>
     </Section>
