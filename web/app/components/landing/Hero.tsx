@@ -9,10 +9,12 @@ export default function Hero() {
         <p className="text-sm font-medium text-muted">{SITE_TAGLINE}</p>
         <h1
           id="hero-title"
-          className="mt-4 max-w-3xl font-serif text-5xl leading-[1.05] tracking-tight sm:text-7xl"
+          className="mt-4 max-w-4xl font-serif text-5xl leading-[1.05] tracking-tight sm:text-7xl"
         >
           The steak cooked.{" "}
-          <span className="italic text-heat-hot">He didn&rsquo;t.</span>
+          <span className="whitespace-nowrap italic text-heat-hot">
+            He didn&rsquo;t.
+          </span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
           Blagden turns the heart rate from your run into an estimate of core
