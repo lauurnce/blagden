@@ -106,3 +106,67 @@ Weather data by Open-Meteo.com (CC BY 4.0)
 ```
 
 Every command takes `--json` for machine-readable output, `--out` for PNG and SVG charts, and `--report` for a Markdown report. `blagden brief` writes the race-morning brief from the same numbers.
+
+## How it works
+
+```mermaid
+flowchart LR
+  subgraph IN["Inputs"]
+    RF["Run file (.fit, .gpx, .tcx)"]
+    OM[("Open-Meteo API")]
+    PB["PaceBrain checkpoint (optional)"]
+  end
+
+  subgraph PY["Python package: blagden"]
+    ING["ingest: read, clean, resample to 1 min"]
+    PHY["physio: ectemp, psi, strain summary"]
+    WX["weather: client + cache, solar, wbgt, heat index, risk"]
+    PRD["predict: riegel, pacebrain adapter, heat adjust"]
+    BRF["brief: facts, templates, grounding check, optional LLM"]
+    APP["app, charts, report"]
+    CLI["cli: Typer app"]
+    CON["constants: every sourced number"]
+  end
+
+  subgraph SH["Shared (language neutral)"]
+    FX[("web/tests/golden/*.json")]
+    TPL[("shared/brief_templates.json")]
+  end
+
+  subgraph WEB["web: Next.js on Vercel"]
+    WIN["lib/ingest: FIT, GPX, TCX in the browser"]
+    WCO["lib: TypeScript port of ectemp, psi, strain, solar, wbgt, heat index, risk, race morning; venues"]
+    UI["app: landing page, /demo, /forecast"]
+  end
+
+  RF --> ING --> PHY --> BRF
+  OM --> WX --> PRD --> BRF
+  WX --> BRF
+  PB -. optional extra .-> PRD
+  CON --> PHY
+  CON --> WX
+  CON --> PRD
+  TPL --> BRF
+  PHY --> APP
+  WX --> APP
+  PRD --> APP
+  BRF --> APP
+  APP --> CLI
+  RF --> WIN --> WCO --> UI
+  OM --> WCO
+  PHY -. "scripts/make_golden.py writes" .-> FX
+  WX -. writes .-> FX
+  FX -. "vitest asserts" .-> WCO
+```
+
+**Ingest.** A .fit, .gpx or .tcx file is read, cleaned and resampled to one-minute heart rate. Gaps stay gaps; heart rate is never filled in. GPS positions are used only for distance and are never printed or uploaded.
+
+**Core temperature and strain.** The ECTemp extended Kalman filter turns the heart rate series into an estimate of core temperature, minute by minute. The Physiological Strain Index combines that estimate with heart rate on a 0 to 10 scale.
+
+**Weather and heat stress.** The hourly forecast from Open-Meteo (air temperature, humidity, wind, sunlight and pressure) goes through the Liljegren model to give WBGT for each hour of the race window. The heat index on the PAGASA scale and the race flag bands are computed alongside.
+
+**Prediction.** A baseline finish time from Riegel's formula, or from PaceBrain if installed, is slowed for the WBGT you will run through, with a range. Every prediction says when the conditions are beyond the published data.
+
+**Brief.** A short race-morning brief is written from templates, using only the computed numbers, and a grounding check rejects any number that was not computed. An optional LLM provider can reword it; it is off by default.
+
+**Browser.** The core is ported to TypeScript, so the web demo runs the same maths on your device. Golden JSON fixtures written by the Python code are asserted by both test suites.
