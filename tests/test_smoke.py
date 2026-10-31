@@ -5,7 +5,7 @@ from blagden.cli import app
 
 
 def test_package_has_version() -> None:
-    assert blagden.__version__ == "0.0.1"
+    assert blagden.__version__ == "0.1.0"
 
 
 def test_cli_prints_version() -> None:

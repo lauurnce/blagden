@@ -1,6 +1,6 @@
 [project]
 name = "blagden"
-version = "0.0.1"
+version = "0.1.0"
 description = "Heat intelligence for runners in the tropics."
 readme = "README.md"
 license = "MIT"
