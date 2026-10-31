@@ -44,11 +44,16 @@ Run files are processed locally or in the browser and are never uploaded. The on
 
 ## The name
 
-In 1774 and 1775 Charles Blagden, a physician who later became Secretary of the Royal Society, ran experiments in a room heated to about 127 C (260 F). Eggs left in the room roasted hard and a steak cooked in 13 minutes with bellows blowing on it, while the people inside stayed far cooler than the air. Blagden was among the first to state explicitly that sweating is how the body regulates its temperature.
+In January and April 1775 Charles Blagden, a physician who later became Secretary of the Royal Society, joined George Fordyce and others in a room Fordyce heated with an iron stove. On 3 April a thermometer rose one or two degrees above 260 F (about 127 C). Eggs set near it were "roasted quite hard" in about twenty minutes, and a beefsteak with bellows blowing on it was "pretty well done in thirteen minutes." Blagden stayed eight minutes. He wrote that "the living powers were very much assisted by the perspiration, that cooling evaporation which is a further provision of nature for enabling animals to support great heats," though he thought another "provision of nature" did most of the work. Fordyce, in a damp room at 130 F, saw vapour condense on his skin instead of evaporating, his pulse reached 139, and he found dry air easier to bear.
 
 The catch in Manila: in humid air sweat cannot evaporate well, so that cooling partly fails. Blagden the tool exists to measure how much.
 
-Source: Blagden C. Experiments and observations in an heated room. Philosophical Transactions of the Royal Society, 1775. The figures above are to be checked against the primary text before they appear on the landing page.
+Sources, read from scans of the primary text on the Internet Archive:
+
+- Blagden C. Experiments and observations in an heated room. Philosophical Transactions of the Royal Society 1775;65:111-123. https://doi.org/10.1098/rstl.1775.0013 ; scan https://archive.org/details/philtrans04749677 (23 January experiments, Fordyce's moist-air trial).
+- Blagden C. Further experiments and observations in an heated room. Philosophical Transactions of the Royal Society 1775;65:484-494. https://doi.org/10.1098/rstl.1775.0048 ; scan https://archive.org/details/jstor-106218 (3 April experiments, 260 F, eggs, steaks, perspiration).
+
+Corrections against the earlier draft of this section: the experiments were in 1775 only (January and April), not 1774 and 1775; the eggs took about twenty minutes; and Blagden did not credit sweating as the main regulator, only as a powerful assistant.
 
 ## Constraints
 
