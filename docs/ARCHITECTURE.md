@@ -408,7 +408,7 @@ As built in B12 and B13 (D-027).
 
 ```
 web/
-  app/                 / (home), /demo (run file analysis on the device), /forecast (venue WBGT); components/
+  app/                 / (landing page), /demo (run file analysis on the device), /forecast (venue WBGT); components/, components/landing/; opengraph-image, icon, sitemap, robots
   lib/                 ectemp.ts, psi.ts, strain.ts, solar.ts, wbgt.ts, heatIndex.ts, risk.ts, raceMorning.ts,
                        openMeteo.ts (browser fetch, same request as Python), venues.ts (cited presets)
   lib/ingest/          gpx.ts and tcx.ts (DOMParser, local names), fit.ts (fit-file-parser), clean.ts,
@@ -727,6 +727,8 @@ Privacy controls that ship with the deployment:
 - Content Security Policy with `connect-src 'self' https://api.open-meteo.com https://archive-api.open-meteo.com` so a dependency cannot phone home with a run file.
 - The Playwright test fails if any request leaves the page to a host other than those.
 - Vercel request logs contain the forecast page URL and the viewer's IP, as for any site; they never contain file contents because no file is ever sent.
+
+As deployed (D-028): Vercel project `blagden`, root directory `web/`, framework Next.js, connected to `lauurnce/blagden` on GitHub, production at https://blagden.vercel.app. All routes are prerendered as static content. The landing page loads no third-party resource; fonts are self-hosted. Lighthouse on production (mobile, then desktop): performance 97 and 100, accessibility 100, best practices 100, SEO 100. The Content Security Policy above is not yet set.
 
 The Python package is published to PyPI as `blagden` at release 0.1.0 with `uv build` and `uv publish`, using a trusted-publisher GitHub Actions workflow triggered by a `v*` tag. A release is cut only when the CI pipeline on `main` is green.
 
