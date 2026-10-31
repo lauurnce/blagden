@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420"
+  width="1200" height="420" role="img" aria-labelledby="t d">
+<title id="t">Blagden: heat intelligence for runners in the tropics</title>
+<desc id="d">A runner on a Manila race morning as the sun rises. Heart rate pulses below,
+and an estimated core temperature curve climbs past 39.0 C over a synthetic 4-hour run.</desc>
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#0c1018"/>
+    <stop offset="1" stop-color="#16243a">
+      <animate attributeName="stop-color" values="#16243a;#6b3a22;#6b3a22" keyTimes="0.0000;0.8200;1.0000"
+        dur="12.0s" repeatCount="indefinite"/>
+    </stop>
+  </linearGradient>
+  <linearGradient id="heat" x1="0" y1="1" x2="0" y2="0">
+    <stop offset="0" stop-color="#8fb3dd"/><stop offset="0.5" stop-color="#f0b35e"/>
+    <stop offset="1" stop-color="#f2836f"/>
+  </linearGradient>
+  <radialGradient id="glow"><stop offset="0" stop-color="#f0b35e" stop-opacity="0.55"/>
+    <stop offset="1" stop-color="#f0b35e" stop-opacity="0"/></radialGradient>
+  <clipPath id="left"><rect x="0" y="0" width="590" height="420"/></clipPath>
+  <clipPath id="card"><rect width="1200" height="420" rx="22"/></clipPath>
+</defs>
+<g clip-path="url(#card)">
+<rect width="1200" height="420" fill="url(#sky)"/>
+<g clip-path="url(#left)">
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -210;0 -210"
+      keyTimes="0.0000;0.8200;1.0000" dur="12.0s" repeatCount="indefinite"/>
+    <circle cx="470" cy="360" r="110" fill="url(#glow)"/>
+    <circle cx="470" cy="360" r="34" fill="#f2836f">
+      <animate attributeName="fill" values="#f2836f;#f0b35e;#f0b35e" keyTimes="0.0000;0.8200;1.0000"
+        dur="12.0s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g>
+  <animateTransform attributeName="transform" type="translate" values="0 0;-600 0"
+    dur="16s" repeatCount="indefinite"/>
+  <g><g fill="#1b2433"><rect x="0" y="300" width="30" height="40"/><rect x="34" y="270" width="30" height="70"/><rect x="60" y="288" width="30" height="52"/><rect x="96" y="244" width="30" height="96"/><rect x="128" y="280" width="30" height="60"/><rect x="170" y="220" width="30" height="120"/><rect x="206" y="266" width="30" height="74"/><rect x="250" y="286" width="30" height="54"/><rect x="284" y="236" width="30" height="104"/><rect x="322" y="274" width="30" height="66"/><rect x="360" y="252" width="30" height="88"/><rect x="402" y="292" width="30" height="48"/><rect x="440" y="228" width="30" height="112"/><rect x="478" y="270" width="30" height="70"/><rect x="520" y="282" width="30" height="58"/><rect x="556" y="248" width="30" height="92"/></g></g><g transform="translate(600 0)"><g fill="#1b2433"><rect x="0" y="300" width="30" height="40"/><rect x="34" y="270" width="30" height="70"/><rect x="60" y="288" width="30" height="52"/><rect x="96" y="244" width="30" height="96"/><rect x="128" y="280" width="30" height="60"/><rect x="170" y="220" width="30" height="120"/><rect x="206" y="266" width="30" height="74"/><rect x="250" y="286" width="30" height="54"/><rect x="284" y="236" width="30" height="104"/><rect x="322" y="274" width="30" height="66"/><rect x="360" y="252" width="30" height="88"/><rect x="402" y="292" width="30" height="48"/><rect x="440" y="228" width="30" height="112"/><rect x="478" y="270" width="30" height="70"/><rect x="520" y="282" width="30" height="58"/><rect x="556" y="248" width="30" height="92"/></g></g><g transform="translate(1200 0)"><g fill="#1b2433"><rect x="0" y="300" width="30" height="40"/><rect x="34" y="270" width="30" height="70"/><rect x="60" y="288" width="30" height="52"/><rect x="96" y="244" width="30" height="96"/><rect x="128" y="280" width="30" height="60"/><rect x="170" y="220" width="30" height="120"/><rect x="206" y="266" width="30" height="74"/><rect x="250" y="286" width="30" height="54"/><rect x="284" y="236" width="30" height="104"/><rect x="322" y="274" width="30" height="66"/><rect x="360" y="252" width="30" height="88"/><rect x="402" y="292" width="30" height="48"/><rect x="440" y="228" width="30" height="112"/><rect x="478" y="270" width="30" height="70"/><rect x="520" y="282" width="30" height="58"/><rect x="556" y="248" width="30" height="92"/></g></g>
+</g>
+  <rect x="0" y="340" width="600" height="80" fill="#0c1018"/>
+  <line x1="0" x2="600" y1="341" y2="341" stroke="#3a4558" stroke-width="2"
+    stroke-dasharray="40 30">
+    <animate attributeName="stroke-dashoffset" values="0;70" dur="0.5s" repeatCount="indefinite"/>
+  </line>
+  <g>
+  <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0;0 -5;0 0"
+    dur="0.6s" repeatCount="indefinite"/>
+  <g transform="translate(250 272)">
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="-38;32;-38"
+      dur="0.6s" begin="-0.3s" repeatCount="indefinite"/>
+    <line x1="0" y1="0" x2="0" y2="34" stroke="#7a6a58" stroke-width="7"
+      stroke-linecap="round"/>
+    <g transform="translate(0 34)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="8;70;8"
+          dur="0.6s" begin="-0.3s" repeatCount="indefinite"/>
+        <line x1="0" y1="0" x2="0" y2="32" stroke="#7a6a58" stroke-width="7"
+          stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</g>
+  <g transform="translate(259 226)">
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="40;-40;40"
+      dur="0.6s" begin="0s" repeatCount="indefinite"/>
+    <line x1="0" y1="0" x2="0" y2="22" stroke="#7a6a58" stroke-width="6"
+      stroke-linecap="round"/>
+    <g transform="translate(0 22)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="-80;-60;-80"
+          dur="0.6s" begin="0s" repeatCount="indefinite"/>
+        <line x1="0" y1="0" x2="0" y2="20" stroke="#7a6a58" stroke-width="6"
+          stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</g>
+  <line x1="250" y1="272" x2="260" y2="222" stroke="#ece6dc" stroke-width="8"
+    stroke-linecap="round"/>
+  <circle cx="263" cy="208" r="10" fill="#ece6dc"/>
+  <g transform="translate(250 272)">
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="-38;32;-38"
+      dur="0.6s" begin="0s" repeatCount="indefinite"/>
+    <line x1="0" y1="0" x2="0" y2="34" stroke="#ece6dc" stroke-width="7"
+      stroke-linecap="round"/>
+    <g transform="translate(0 34)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="8;70;8"
+          dur="0.6s" begin="0s" repeatCount="indefinite"/>
+        <line x1="0" y1="0" x2="0" y2="32" stroke="#ece6dc" stroke-width="7"
+          stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</g>
+  <g transform="translate(259 226)">
+  <g>
+    <animateTransform attributeName="transform" type="rotate" values="40;-40;40"
+      dur="0.6s" begin="-0.3s" repeatCount="indefinite"/>
+    <line x1="0" y1="0" x2="0" y2="22" stroke="#ece6dc" stroke-width="6"
+      stroke-linecap="round"/>
+    <g transform="translate(0 22)">
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="-80;-60;-80"
+          dur="0.6s" begin="-0.3s" repeatCount="indefinite"/>
+        <line x1="0" y1="0" x2="0" y2="20" stroke="#ece6dc" stroke-width="6"
+          stroke-linecap="round"/>
+      </g>
+    </g>
+  </g>
+</g>
+</g>
+</g>
+<g clip-path="url(#left)">
+  <path d="M0 382 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0 l30 0 l6 -14 l6 26 l6 -40 l6 34 l6 -6 l30 0" fill="none" stroke="#f2836f" stroke-width="2" stroke-opacity="0.85">
+    <animateTransform attributeName="transform" type="translate" values="0 0;-90 0"
+      dur="0.75s" repeatCount="indefinite"/>
+  </path>
+</g>
+<text x="48" y="78" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="46" fill="#ece6dc">Blagden</text>
+<text x="48" y="110" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" fill="#b4ada3">Heat intelligence for
+  runners in the tropics.</text>
+<text x="48" y="140" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" fill="#f0b35e">Heart rate in. Core
+  temperature, race-morning WBGT and a pace plan out.</text>
+<rect x="604" y="42" width="576"
+  height="358" rx="18" fill="#141a25" stroke="#2b3240"/>
+<text x="628" y="70" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" letter-spacing="2.4"
+  fill="#f0b35e" font-weight="600">ESTIMATED CORE TEMPERATURE · SYNTHETIC 4-HOUR RUN</text>
+<line x1="650" x2="1150" y1="286.1" y2="286.1" stroke="#ece6dc" stroke-opacity="0.08"/><text x="640" y="290.1" fill="#b4ada3" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" text-anchor="end">37.0</text><line x1="650" x2="1150" y1="251.5" y2="251.5" stroke="#ece6dc" stroke-opacity="0.08"/><text x="640" y="255.5" fill="#b4ada3" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" text-anchor="end">37.5</text><line x1="650" x2="1150" y1="216.8" y2="216.8" stroke="#ece6dc" stroke-opacity="0.08"/><text x="640" y="220.8" fill="#b4ada3" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" text-anchor="end">38.0</text><line x1="650" x2="1150" y1="182.1" y2="182.1" stroke="#ece6dc" stroke-opacity="0.08"/><text x="640" y="186.1" fill="#b4ada3" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" text-anchor="end">38.5</text><line x1="650" x2="1150" y1="147.5" y2="147.5" stroke="#ece6dc" stroke-opacity="0.08"/><text x="640" y="151.5" fill="#b4ada3" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" text-anchor="end">39.0</text><line x1="650" x2="1150" y1="112.8" y2="112.8" stroke="#ece6dc" stroke-opacity="0.08"/><text x="640" y="116.8" fill="#b4ada3" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" text-anchor="end">39.5</text>
+<rect x="650" y="92" width="500" height="55.5" fill="#f2836f"
+  fill-opacity="0.07"/>
+<line x1="650" x2="1150" y1="147.5" y2="147.5" stroke="#f2836f" stroke-dasharray="6 5"/>
+<text x="1146" y="165.5" text-anchor="end" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12"
+  fill="#b4ada3">Less sensitive above 39.0 C</text>
+<path d="M650.0,284.2 L652.1,282.2 L654.2,280.0 L656.3,277.7 L658.4,275.2 L660.5,272.7 L662.6,270.0 L664.6,267.2 L666.7,264.4 L668.8,261.4 L670.9,258.4 L673.0,255.2 L675.1,252.0 L677.2,248.7 L679.3,245.3 L681.4,242.0 L683.5,238.9 L685.6,236.0 L687.7,233.1 L689.7,230.2 L691.8,227.4 L693.9,224.7 L696.0,222.0 L698.1,219.4 L700.2,216.8 L702.3,214.4 L704.4,212.0 L706.5,209.8 L708.6,207.7 L710.7,205.7 L712.8,203.8 L714.9,202.1 L716.9,200.5 L719.0,199.0 L721.1,197.6 L723.2,196.3 L725.3,194.9 L727.4,193.6 L729.5,192.3 L731.6,190.9 L733.7,189.6 L735.8,188.1 L737.9,186.7 L740.0,185.3 L742.1,183.9 L744.1,182.5 L746.2,181.2 L748.3,179.9 L750.4,178.7 L752.5,177.7 L754.6,176.7 L756.7,175.8 L758.8,175.0 L760.9,174.3 L763.0,173.6 L765.1,172.9 L767.2,172.3 L769.2,171.6 L771.3,170.9 L773.4,170.1 L775.5,169.3 L777.6,168.5 L779.7,167.6 L781.8,166.7 L783.9,165.8 L786.0,164.8 L788.1,164.0 L790.2,163.1 L792.3,162.4 L794.4,161.7 L796.4,161.1 L798.5,160.6 L800.6,160.2 L802.7,159.8 L804.8,159.5 L806.9,159.2 L809.0,158.8 L811.1,158.5 L813.2,158.1 L815.3,157.6 L817.4,157.1 L819.5,156.5 L821.5,155.9 L823.6,155.2 L825.7,154.5 L827.8,153.8 L829.9,153.2 L832.0,152.6 L834.1,152.0 L836.2,151.5 L838.3,151.5 L840.4,151.5 L842.5,151.5 L844.6,151.5 L846.7,151.3 L848.7,151.1 L850.8,150.9 L852.9,150.6 L855.0,150.3 L857.1,149.9 L859.2,149.5 L861.3,149.0 L863.4,148.4 L865.5,147.8 L867.6,147.2 L869.7,146.6 L871.8,146.0 L873.8,145.5 L875.9,145.0 L878.0,144.6 L880.1,144.3 L882.2,144.0 L884.3,143.9 L886.4,143.8 L888.5,143.7 L890.6,143.6 L892.7,143.5 L894.8,143.4 L896.9,143.2 L899.0,142.9 L901.0,142.6 L903.1,142.2 L905.2,141.8 L907.3,141.3 L909.4,140.7 L911.5,140.2 L913.6,139.7 L915.7,139.3 L917.8,138.9 L919.9,138.5 L922.0,138.3 L924.1,138.1 L926.2,138.0 L928.2,137.9 L930.3,137.9 L932.4,137.9 L934.5,137.8 L936.6,137.8 L938.7,137.6 L940.8,137.4 L942.9,137.1 L945.0,136.8 L947.1,136.4 L949.2,135.9 L951.3,135.4 L953.3,135.0 L955.4,134.5 L957.5,134.1 L959.6,133.7 L961.7,133.4 L963.8,133.2 L965.9,133.1 L968.0,133.0 L970.1,132.9 L972.2,132.9 L974.3,132.9 L976.4,132.9 L978.5,132.8 L980.5,132.7 L982.6,132.5 L984.7,132.3 L986.8,131.9 L988.9,131.6 L991.0,131.1 L993.1,130.7 L995.2,130.2 L997.3,129.7 L999.4,129.3 L1001.5,129.0 L1003.6,128.7 L1005.6,128.5 L1007.7,128.4 L1009.8,128.3 L1011.9,128.3 L1014.0,128.3 L1016.1,128.3 L1018.2,128.2 L1020.3,128.2 L1022.4,128.1 L1024.5,127.9 L1026.6,127.7 L1028.7,127.3 L1030.8,127.0 L1032.8,126.5 L1034.9,126.1 L1037.0,125.6 L1039.1,125.2 L1041.2,124.8 L1043.3,124.4 L1045.4,124.1 L1047.5,123.9 L1049.6,123.8 L1051.7,123.7 L1053.8,123.7 L1055.9,123.7 L1057.9,123.7 L1060.0,123.7 L1062.1,123.7 L1064.2,123.6 L1066.3,123.4 L1068.4,123.4 L1070.5,123.4 L1072.6,123.0 L1074.7,122.5 L1076.8,122.0 L1078.9,121.5 L1081.0,121.0 L1083.1,120.6 L1085.1,120.2 L1087.2,119.9 L1089.3,119.7 L1091.4,119.6 L1093.5,119.5 L1095.6,119.5 L1097.7,119.5 L1099.8,119.5 L1101.9,119.4 L1104.0,119.4 L1106.1,119.3 L1108.2,119.1 L1110.3,118.8 L1112.3,118.5 L1114.4,118.1 L1116.5,117.7 L1118.6,117.2 L1120.7,116.7 L1122.8,116.3 L1124.9,115.8 L1127.0,115.5 L1129.1,115.2 L1131.2,115.0 L1133.3,114.8 L1135.4,114.8 L1137.4,114.7 L1139.5,114.7 L1141.6,114.7 L1143.7,114.7 L1145.8,114.7 L1147.9,114.6 L1150.0,114.4" fill="none" stroke="url(#heat)" stroke-width="3.5" stroke-linecap="round"
+  pathLength="1" stroke-dasharray="1" stroke-dashoffset="1">
+  <animate attributeName="stroke-dashoffset" values="1;0;0" keyTimes="0.0000;0.8200;1.0000" dur="12.0s"
+    repeatCount="indefinite"/>
+</path>
+<circle r="6" fill="#f2836f" stroke="#0c1018" stroke-width="2">
+  <animateMotion path="M650.0,284.2 L652.1,282.2 L654.2,280.0 L656.3,277.7 L658.4,275.2 L660.5,272.7 L662.6,270.0 L664.6,267.2 L666.7,264.4 L668.8,261.4 L670.9,258.4 L673.0,255.2 L675.1,252.0 L677.2,248.7 L679.3,245.3 L681.4,242.0 L683.5,238.9 L685.6,236.0 L687.7,233.1 L689.7,230.2 L691.8,227.4 L693.9,224.7 L696.0,222.0 L698.1,219.4 L700.2,216.8 L702.3,214.4 L704.4,212.0 L706.5,209.8 L708.6,207.7 L710.7,205.7 L712.8,203.8 L714.9,202.1 L716.9,200.5 L719.0,199.0 L721.1,197.6 L723.2,196.3 L725.3,194.9 L727.4,193.6 L729.5,192.3 L731.6,190.9 L733.7,189.6 L735.8,188.1 L737.9,186.7 L740.0,185.3 L742.1,183.9 L744.1,182.5 L746.2,181.2 L748.3,179.9 L750.4,178.7 L752.5,177.7 L754.6,176.7 L756.7,175.8 L758.8,175.0 L760.9,174.3 L763.0,173.6 L765.1,172.9 L767.2,172.3 L769.2,171.6 L771.3,170.9 L773.4,170.1 L775.5,169.3 L777.6,168.5 L779.7,167.6 L781.8,166.7 L783.9,165.8 L786.0,164.8 L788.1,164.0 L790.2,163.1 L792.3,162.4 L794.4,161.7 L796.4,161.1 L798.5,160.6 L800.6,160.2 L802.7,159.8 L804.8,159.5 L806.9,159.2 L809.0,158.8 L811.1,158.5 L813.2,158.1 L815.3,157.6 L817.4,157.1 L819.5,156.5 L821.5,155.9 L823.6,155.2 L825.7,154.5 L827.8,153.8 L829.9,153.2 L832.0,152.6 L834.1,152.0 L836.2,151.5 L838.3,151.5 L840.4,151.5 L842.5,151.5 L844.6,151.5 L846.7,151.3 L848.7,151.1 L850.8,150.9 L852.9,150.6 L855.0,150.3 L857.1,149.9 L859.2,149.5 L861.3,149.0 L863.4,148.4 L865.5,147.8 L867.6,147.2 L869.7,146.6 L871.8,146.0 L873.8,145.5 L875.9,145.0 L878.0,144.6 L880.1,144.3 L882.2,144.0 L884.3,143.9 L886.4,143.8 L888.5,143.7 L890.6,143.6 L892.7,143.5 L894.8,143.4 L896.9,143.2 L899.0,142.9 L901.0,142.6 L903.1,142.2 L905.2,141.8 L907.3,141.3 L909.4,140.7 L911.5,140.2 L913.6,139.7 L915.7,139.3 L917.8,138.9 L919.9,138.5 L922.0,138.3 L924.1,138.1 L926.2,138.0 L928.2,137.9 L930.3,137.9 L932.4,137.9 L934.5,137.8 L936.6,137.8 L938.7,137.6 L940.8,137.4 L942.9,137.1 L945.0,136.8 L947.1,136.4 L949.2,135.9 L951.3,135.4 L953.3,135.0 L955.4,134.5 L957.5,134.1 L959.6,133.7 L961.7,133.4 L963.8,133.2 L965.9,133.1 L968.0,133.0 L970.1,132.9 L972.2,132.9 L974.3,132.9 L976.4,132.9 L978.5,132.8 L980.5,132.7 L982.6,132.5 L984.7,132.3 L986.8,131.9 L988.9,131.6 L991.0,131.1 L993.1,130.7 L995.2,130.2 L997.3,129.7 L999.4,129.3 L1001.5,129.0 L1003.6,128.7 L1005.6,128.5 L1007.7,128.4 L1009.8,128.3 L1011.9,128.3 L1014.0,128.3 L1016.1,128.3 L1018.2,128.2 L1020.3,128.2 L1022.4,128.1 L1024.5,127.9 L1026.6,127.7 L1028.7,127.3 L1030.8,127.0 L1032.8,126.5 L1034.9,126.1 L1037.0,125.6 L1039.1,125.2 L1041.2,124.8 L1043.3,124.4 L1045.4,124.1 L1047.5,123.9 L1049.6,123.8 L1051.7,123.7 L1053.8,123.7 L1055.9,123.7 L1057.9,123.7 L1060.0,123.7 L1062.1,123.7 L1064.2,123.6 L1066.3,123.4 L1068.4,123.4 L1070.5,123.4 L1072.6,123.0 L1074.7,122.5 L1076.8,122.0 L1078.9,121.5 L1081.0,121.0 L1083.1,120.6 L1085.1,120.2 L1087.2,119.9 L1089.3,119.7 L1091.4,119.6 L1093.5,119.5 L1095.6,119.5 L1097.7,119.5 L1099.8,119.5 L1101.9,119.4 L1104.0,119.4 L1106.1,119.3 L1108.2,119.1 L1110.3,118.8 L1112.3,118.5 L1114.4,118.1 L1116.5,117.7 L1118.6,117.2 L1120.7,116.7 L1122.8,116.3 L1124.9,115.8 L1127.0,115.5 L1129.1,115.2 L1131.2,115.0 L1133.3,114.8 L1135.4,114.8 L1137.4,114.7 L1139.5,114.7 L1141.6,114.7 L1143.7,114.7 L1145.8,114.7 L1147.9,114.6 L1150.0,114.4" keyPoints="0;1;1" keyTimes="0.0000;0.8200;1.0000" calcMode="linear"
+    dur="12.0s" repeatCount="indefinite"/>
+</circle>
+<text x="650" y="346" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#b4ada3">time</text>
+<text x="820" y="346" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#b4ada3">heart rate</text>
+<text x="990" y="346" font-family="Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="13" fill="#b4ada3">core temperature</text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="1">11 min<animate attributeName="opacity" values="1;0" keyTimes="0.0000;0.0342" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">21 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.0342;0.0683" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">31 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.0683;0.1025" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">41 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1025;0.1367" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">51 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1367;0.1708" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">61 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1708;0.2050" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">71 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2050;0.2392" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">81 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2392;0.2733" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">91 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2733;0.3075" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">101 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3075;0.3417" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">111 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3417;0.3758" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">121 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3758;0.4100" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">130 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4100;0.4442" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">140 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4442;0.4783" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">150 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4783;0.5125" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">160 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5125;0.5467" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">170 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5467;0.5808" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">180 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5808;0.6150" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">190 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6150;0.6492" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">200 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6492;0.6833" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">210 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6833;0.7175" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">220 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7175;0.7517" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">230 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7517;0.7858" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="650" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">240 min<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7858;0.9999" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="1">133 bpm<animate attributeName="opacity" values="1;0" keyTimes="0.0000;0.0342" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">150 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.0342;0.0683" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">151 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.0683;0.1025" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">152 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1025;0.1367" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">153 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1367;0.1708" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">154 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1708;0.2050" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">154 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2050;0.2392" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">155 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2392;0.2733" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">157 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2733;0.3075" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">157 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3075;0.3417" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">158 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3417;0.3758" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">158 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3758;0.4100" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">160 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4100;0.4442" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">159 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4442;0.4783" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">162 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4783;0.5125" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">161 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5125;0.5467" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">163 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5467;0.5808" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">162 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5808;0.6150" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">165 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6150;0.6492" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">164 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6492;0.6833" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">166 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6833;0.7175" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">165 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7175;0.7517" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">168 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7517;0.7858" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="820" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">167 bpm<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7858;0.9999" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="1">37.40 C<animate attributeName="opacity" values="1;0" keyTimes="0.0000;0.0342" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">37.85 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.0342;0.0683" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.19 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.0683;0.1025" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.39 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1025;0.1367" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.58 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1367;0.1708" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.68 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.1708;0.2050" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.80 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2050;0.2392" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.86 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2392;0.2733" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.94 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.2733;0.3075" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">38.97 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3075;0.3417" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.05 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3417;0.3758" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.07 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.3758;0.4100" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.13 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4100;0.4442" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.14 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4442;0.4783" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.20 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.4783;0.5125" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.22 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5125;0.5467" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.27 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5467;0.5808" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.28 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.5808;0.6150" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.34 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6150;0.6492" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.35 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6492;0.6833" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.40 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.6833;0.7175" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.41 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7175;0.7517" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.47 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7517;0.7858" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+<text x="990" y="382" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="30" fill="#ece6dc" opacity="0">39.48 C<animate attributeName="opacity" values="0;1;0" keyTimes="0.0000;0.7858;0.9999" calcMode="discrete" dur="12.0s" repeatCount="indefinite"/></text>
+</g>
+</svg>
