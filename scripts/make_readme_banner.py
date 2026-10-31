@@ -10,6 +10,7 @@ only, because GitHub renders README images without scripts.
 from __future__ import annotations
 
 import math
+import random
 from pathlib import Path
 
 from blagden.physio.ectemp import estimate_core_temp
@@ -65,83 +66,183 @@ def stepped(texts: list[str], x: float, y: float, style: str) -> str:
     return "\n".join(out)
 
 
-def limb(
-    x: float,
-    y: float,
-    upper: float,
-    lower: float,
-    swing: str,
-    bend: str,
-    delay: float,
-    width: float,
-    color: str,
-) -> str:
-    """One leg or arm: a segment that swings, with a second that bends at its end."""
-    return f"""<g transform="translate({x} {y})">
-  <g>
-    <animateTransform attributeName="transform" type="rotate" values="{swing}"
-      dur="0.6s" begin="{delay}s" repeatCount="indefinite"/>
-    <line x1="0" y1="0" x2="0" y2="{upper}" stroke="{color}" stroke-width="{width}"
-      stroke-linecap="round"/>
-    <g transform="translate(0 {upper})">
-      <g>
-        <animateTransform attributeName="transform" type="rotate" values="{bend}"
-          dur="0.6s" begin="{delay}s" repeatCount="indefinite"/>
-        <line x1="0" y1="0" x2="0" y2="{lower}" stroke="{color}" stroke-width="{width}"
-          stroke-linecap="round"/>
-      </g>
-    </g>
+STRIDE = 0.64  # seconds per running stride
+SKIN, SKIN_BACK = "#c08457", "#7d5537"
+SINGLET, SINGLET_BACK = "#e0794f", "#9a4c30"
+SHORTS = "#1d2a40"
+SHOE, SHOE_BACK = "#ece6dc", "#8e8a83"
+
+
+def anim_rotate(values: str, times: str, delay: float) -> str:
+    return (
+        f'<animateTransform attributeName="transform" type="rotate" values="{values}" '
+        f'keyTimes="{times}" calcMode="spline" '
+        f'keySplines="{";".join(["0.45 0 0.55 1"] * (len(times.split(";")) - 1))}" '
+        f'dur="{STRIDE}s" begin="{delay}s" repeatCount="indefinite"/>'
+    )
+
+
+def segment(length: float, w0: float, w1: float, color: str) -> str:
+    """Draw a tapered limb segment hanging down from the origin."""
+    return (
+        f'<path d="M{-w0 / 2:.1f} 0 L{w0 / 2:.1f} 0 L{w1 / 2:.1f} {length} '
+        f'L{-w1 / 2:.1f} {length} Z" fill="{color}"/>'
+        f'<circle r="{w0 / 2:.1f}" fill="{color}"/>'
+        f'<circle cy="{length}" r="{w1 / 2:.1f}" fill="{color}"/>'
+    )
+
+
+def leg(x: float, y: float, delay: float, skin: str, shoe: str) -> str:
+    """Draw a leg: thigh swings at the hip, shin folds back at the knee, shoe at the foot."""
+    thigh = anim_rotate("-34;30;-34", "0;0.5;1", delay)
+    shin = anim_rotate("6;12;100;24;6", "0;0.45;0.68;0.88;1", delay)
+    return f"""<g transform="translate({x} {y})"><g>{thigh}
+  <path d="M-9 -2 L9 -2 L8 16 L-8 16 Z" fill="{SHORTS}"/>
+  {segment(40, 17, 12, skin)}
+  <g transform="translate(0 40)"><g>{shin}
+    {segment(38, 12, 8, skin)}
+    <rect x="-6" y="34" width="20" height="8" rx="4" fill="{shoe}"/>
+  </g></g>
+</g></g>"""
+
+
+def arm(x: float, y: float, delay: float, skin: str) -> str:
+    """Draw an arm: upper arm swings at the shoulder, forearm held bent forward."""
+    upper = anim_rotate("32;-36;32", "0;0.5;1", delay)
+    fore = anim_rotate("-78;-100;-78", "0;0.5;1", delay)
+    return f"""<g transform="translate({x} {y})"><g>{upper}
+  {segment(26, 11, 9, skin)}
+  <g transform="translate(0 26)"><g>{fore}
+    {segment(24, 9, 7, skin)}
+    <circle cy="25" r="5" fill="{skin}"/>
+  </g></g>
+</g></g>"""
+
+
+def runner(x: float, y: float) -> str:
+    """Draw a runner with body mass whose hip sits at (x, y), facing right."""
+    half = -STRIDE / 2
+    sx, sy = x + 9, y - 52  # shoulder
+    torso = (
+        f'<path d="M{x - 11} {y + 4} C{x - 14} {y - 20} {x - 6} {y - 50} {x + 3} {y - 58} '
+        f'L{x + 19} {y - 56} C{x + 20} {y - 40} {x + 16} {y - 16} {x + 11} {y + 4} Z" '
+        f'fill="{SINGLET}"/>'
+    )
+    trim = (
+        f'<path d="M{x - 11} {y - 6} L{x + 12} {y - 6}" stroke="{SINGLET_BACK}" stroke-width="2"/>'
+    )
+    head = f"""<g transform="translate({x + 15} {y - 74})">
+  <rect x="-5" y="6" width="10" height="10" rx="3" fill="{SKIN}"/>
+  <ellipse cx="2" cy="0" rx="12" ry="13" fill="{SKIN}"/>
+  <path d="M-11 -2 C-11 -14 4 -18 13 -8 L13 -4 C6 -6 -2 -6 -11 -2 Z" fill="#1a1410"/>
+  <path d="M-12 -4 L14 -7" stroke="{WARM}" stroke-width="3" stroke-linecap="round"/>
+</g>"""
+    return f"""<g>
+  <animateTransform attributeName="transform" type="translate"
+    values="0 0;0 -6;0 0;0 -6;0 0" keyTimes="0;0.25;0.5;0.75;1"
+    dur="{STRIDE}s" repeatCount="indefinite"/>
+  <ellipse cx="{x + 2}" cy="342" rx="34" ry="4" fill="#000" opacity="0.35"/>
+  <g transform="rotate(8 {x} {y})">
+    {arm(sx, sy, 0, SKIN_BACK)}
+    {leg(x, y, half, SKIN_BACK, SHOE_BACK)}
+    {torso}{trim}
+    <path d="M{x - 12} {y - 4} L{x + 12} {y - 4} L{x + 13} {y + 12} L{x - 13} {y + 12} Z"
+      fill="{SHORTS}"/>
+    {leg(x, y, 0, SKIN, SHOE)}
+    {head}
+    {arm(sx, sy, half, SKIN)}
   </g>
 </g>"""
 
 
-def runner(x: float, y: float) -> str:
-    """Draw a stick runner whose hip sits at (x, y)."""
-    leg_swing, leg_bend = "-38;32;-38", "8;70;8"
-    arm_swing, arm_bend = "40;-40;40", "-80;-60;-80"
-    back = "#7a6a58"
+def building(
+    rng: random.Random, x: float, w: float, h: float, base: float, fill: str, lit: float
+) -> str:
+    """Draw one building: a body with an optional setback, crown or spire, and windows."""
+    top = base - h
+    parts = [f'<rect x="{x:.0f}" y="{top:.0f}" width="{w:.0f}" height="{h:.0f}"/>']
+    kind = rng.random()
+    if kind < 0.3:  # setback tier
+        tw = w * rng.uniform(0.5, 0.7)
+        th = rng.uniform(12, 26)
+        parts.append(
+            f'<rect x="{x + (w - tw) / 2:.0f}" y="{top - th:.0f}" width="{tw:.0f}" '
+            f'height="{th:.0f}"/>'
+        )
+        top -= th
+    elif kind < 0.5:  # spire with antenna
+        parts.append(
+            f'<path d="M{x + w * 0.2:.0f} {top:.0f} L{x + w / 2:.0f} {top - 22:.0f} '
+            f'L{x + w * 0.8:.0f} {top:.0f} Z"/>'
+        )
+        parts.append(f'<rect x="{x + w / 2 - 1:.0f}" y="{top - 40:.0f}" width="2" height="20"/>')
+    elif kind < 0.65:  # slanted crown
+        parts.append(
+            f'<path d="M{x:.0f} {top:.0f} L{x + w:.0f} {top - 16:.0f} L{x + w:.0f} {top:.0f} Z"/>'
+        )
+    elif kind < 0.8:  # rooftop water tank and mast
+        parts.append(
+            f'<rect x="{x + w * 0.15:.0f}" y="{top - 8:.0f}" width="10" height="8"/>'
+            f'<rect x="{x + w * 0.7:.0f}" y="{top - 18:.0f}" width="2" height="18"/>'
+        )
+    body = "".join(parts)
+    windows = []
+    if lit > 0:
+        for wy in range(int(base - h + 8), int(base - 6), 9):
+            for wx in range(int(x + 5), int(x + w - 6), 7):
+                if rng.random() < lit:
+                    op = rng.uniform(0.35, 0.85)
+                    windows.append(
+                        f'<rect x="{wx}" y="{wy}" width="3" height="4" '
+                        f'fill="#f4c27a" opacity="{op:.2f}"/>'
+                    )
+    return f'<g fill="{fill}">{body}</g>' + "".join(windows)
+
+
+def city_tile(seed: int, fill: str, hmin: float, hmax: float, lit: float) -> str:
+    """One 600 px wide strip of buildings."""
+    rng = random.Random(seed)
+    out, x = [], 0.0
+    while x < 600:
+        w = min(rng.uniform(26, 58), 600 - x)
+        if w < 10:
+            break
+        out.append(building(rng, x, w, rng.uniform(hmin, hmax), 340, fill, lit))
+        x += w + rng.choice([0, 0, 2, 4])
+    return "".join(out)
+
+
+def palm(x: float, h: float) -> str:
+    """Draw a palm tree silhouette rooted at ground level."""
+    top_x, top_y = x + 10, 340 - h
+    fronds = "".join(
+        f'<path d="M{top_x} {top_y} q{dx * 0.5:.0f} {-18 + dy:.0f} {dx} {dy + 6:.0f}" '
+        f'stroke="#0a0e15" stroke-width="5" fill="none" stroke-linecap="round"/>'
+        for dx, dy in [(-40, 10), (-30, 22), (38, 12), (30, 24), (-10, 26), (14, -4), (-20, -2)]
+    )
+    trunk = (
+        f'<path d="M{x} 340 C{x + 2} {340 - h / 2} {x + 8} {top_y + 20} {top_x} {top_y}" '
+        f'stroke="#0a0e15" stroke-width="6" fill="none" stroke-linecap="round"/>'
+    )
+    return trunk + fronds
+
+
+def scroller(content: str, dur: float) -> str:
+    """Repeat a 600 px tile three times and scroll it left forever."""
     return f"""<g>
-  <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0;0 -5;0 0"
-    dur="0.6s" repeatCount="indefinite"/>
-  {limb(x, y, 34, 32, leg_swing, leg_bend, -0.3, 7, back)}
-  {limb(x + 9, y - 46, 22, 20, arm_swing, arm_bend, 0, 6, back)}
-  <line x1="{x}" y1="{y}" x2="{x + 10}" y2="{y - 50}" stroke="{INK}" stroke-width="8"
-    stroke-linecap="round"/>
-  <circle cx="{x + 13}" cy="{y - 64}" r="10" fill="{INK}"/>
-  {limb(x, y, 34, 32, leg_swing, leg_bend, 0, 7, INK)}
-  {limb(x + 9, y - 46, 22, 20, arm_swing, arm_bend, -0.3, 6, INK)}
+  <animateTransform attributeName="transform" type="translate" values="0 0;-600 0"
+    dur="{dur}s" repeatCount="indefinite"/>
+  <g>{content}</g><g transform="translate(600 0)">{content}</g>
+  <g transform="translate(1200 0)">{content}</g>
 </g>"""
 
 
 def skyline() -> str:
-    """Two copies of a simple city silhouette that scroll left forever."""
-    blocks = [
-        (0, 40),
-        (34, 70),
-        (60, 52),
-        (96, 96),
-        (128, 60),
-        (170, 120),
-        (206, 74),
-        (250, 54),
-        (284, 104),
-        (322, 66),
-        (360, 88),
-        (402, 48),
-        (440, 112),
-        (478, 70),
-        (520, 58),
-        (556, 92),
-    ]
-    rects = "".join(
-        f'<rect x="{bx}" y="{340 - bh}" width="30" height="{bh}"/>' for bx, bh in blocks
-    )
-    tile = f'<g fill="#1b2433">{rects}</g>'
-    return f"""<g>
-  <animateTransform attributeName="transform" type="translate" values="0 0;-600 0"
-    dur="16s" repeatCount="indefinite"/>
-  <g>{tile}</g><g transform="translate(600 0)">{tile}</g><g transform="translate(1200 0)">{tile}</g>
-</g>"""
+    """Draw a far hazy skyline and a near lit skyline, scrolling at different speeds."""
+    far = city_tile(3, "#222c42", 50, 140, 0.0)
+    near = city_tile(11, "#141b28", 30, 105, 0.16)
+    palms = palm(70, 92) + palm(330, 78) + palm(470, 100)
+    return scroller(far, 40) + scroller(near, 18) + scroller(palms, 7)
 
 
 def heartbeat() -> str:
@@ -254,7 +355,7 @@ and an estimated core temperature curve climbs past 39.0 C over a synthetic 4-ho
     stroke-dasharray="40 30">
     <animate attributeName="stroke-dashoffset" values="0;70" dur="0.5s" repeatCount="indefinite"/>
   </line>
-  {runner(250, 272)}
+  {runner(250, 262)}
 </g>
 {heartbeat()}
 <text x="48" y="78" font-family="{SERIF}" font-size="46" fill="{INK}">Blagden</text>
