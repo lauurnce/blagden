@@ -38,3 +38,5 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 
 ## Day 11
 - [ ] B14 Landing page, README, SCIENCE.md review, validation plan, release 0.1.0 (40 to 60)
+  - [x] Landing page at / with story, problem, how it works, live preview, science, limitations and footer; Open Graph image, icons, sitemap, robots.txt; Vercel deploy at https://blagden.vercel.app; repo homepage set
+  - [ ] README, SCIENCE.md review, validation plan, release 0.1.0
