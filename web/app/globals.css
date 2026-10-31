@@ -82,3 +82,19 @@ html {
   background: var(--background);
   padding: 0.5rem 0.75rem;
 }
+
+/* Live preview: the curve draws itself once it scrolls into view. */
+.draw-on-view .draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.draw-on-view[data-drawn] .draw-line {
+  transition: stroke-dashoffset 3.2s cubic-bezier(0.33, 0, 0.2, 1);
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .draw-on-view .draw-line {
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}
