@@ -13,24 +13,25 @@ flowchart LR
   end
 
   subgraph PY["Python package: blagden"]
-    ING["ingest: read, resample to 1 min, quality flags"]
-    PHY["physio: ectemp, psi"]
-    WX["weather: client + cache, solar, wbgt, heat index, risk, venues"]
+    ING["ingest: read, clean, resample to 1 min"]
+    PHY["physio: ectemp, psi, strain summary"]
+    WX["weather: client + cache, solar, wbgt, heat index, risk"]
     PRD["predict: riegel, pacebrain adapter, heat adjust"]
     BRF["brief: facts, templates, grounding check, optional LLM"]
+    APP["app, charts, report"]
     CLI["cli: Typer app"]
     CON["constants: every sourced number"]
   end
 
   subgraph SH["Shared (language neutral)"]
     FX[("web/tests/golden/*.json")]
-    TPL[("shared/brief_templates.json, shared/venues.json")]
+    TPL[("shared/brief_templates.json")]
   end
 
   subgraph WEB["web: Next.js on Vercel"]
     WIN["lib/ingest: FIT, GPX, TCX in the browser"]
-    WCO["lib/core: TypeScript port of physio, solar, wbgt, heat index, risk, riegel, adjust, brief"]
-    UI["app: demo page, forecast panel, landing page"]
+    WCO["lib: TypeScript port of ectemp, psi, strain, solar, wbgt, heat index, risk, race morning; venues"]
+    UI["app: landing page, /demo, /forecast"]
   end
 
   RF --> ING --> PHY --> BRF
@@ -40,17 +41,16 @@ flowchart LR
   CON --> PHY
   CON --> WX
   CON --> PRD
-  PHY --> CLI
-  WX --> CLI
-  PRD --> CLI
-  BRF --> CLI
+  TPL --> BRF
+  PHY --> APP
+  WX --> APP
+  PRD --> APP
+  BRF --> APP
+  APP --> CLI
   RF --> WIN --> WCO --> UI
   OM --> WCO
-  TPL --> BRF
-  TPL --> WCO
   PHY -. "scripts/make_golden.py writes" .-> FX
   WX -. writes .-> FX
-  PRD -. writes .-> FX
   FX -. "vitest asserts" .-> WCO
 ```
 
