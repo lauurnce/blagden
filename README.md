@@ -195,3 +195,12 @@ Every equation, parameter and threshold is recorded with its source in [docs/SCI
 **Published accuracy of ECTemp.** In the 2013 validation the estimate had a bias of -0.03 +/- 0.32 C, 95 percent limits of agreement of +/- 0.63 C, and an RMSE of about 0.30 C against measured core temperature. In 101 elite athletes exercising in heat (de Korte et al. 2022) it agreed within about +/- 0.45 C on average, but detected fewer than half of the readings above 39.0 C.
 
 **What is not yet validated.** No published study covers recreational runners in humid tropical heat, and the heat-adjusted predictions extrapolate beyond the race data they are built on. The [validation plan](docs/VALIDATION_PLAN.md) sets out, before any data exists, how predictions will be tested against real race results.
+
+## Limitations and safety
+
+- **Training insight, not medical advice.** Blagden is not a diagnosis and not a go or no-go decision for a race. If you feel unwell in the heat, stop and get help.
+- **Less sensitive above 39.0 C.** The heart-rate method can miss high core temperatures. A low estimate does not mean you are safe.
+- **Estimates, not measurements.** Core temperature comes from heart rate alone. WBGT comes from a forecast and is accurate to about 1 C.
+- **Outside the published data.** Recreational runners on a humid Manila morning are beyond the studies behind the heat adjustment, so every prediction is flagged as extrapolated and carries a wide range.
+- **No acclimatisation term.** Being used to the heat helps, but no race data gives an effect size, so v0.1 does not model it.
+- **Privacy.** Run files are processed on your device, in the CLI or the browser, and are never uploaded. Fixtures in this repository are synthetic.
