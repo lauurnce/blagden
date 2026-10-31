@@ -137,3 +137,13 @@ def test_ingest_reproduces_fixture(case: dict[str, Any]) -> None:
     assert report.values_removed == exp["values_removed"]
     assert m.n_samples.tolist() == exp["n_samples"] and m.has_hr.tolist() == exp["has_hr"]
     assert_close(m.hr_bpm, exp["hr_bpm"], 1e-9)
+
+
+def test_freshness_check_ignores_last_bit_float_differences() -> None:
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from make_golden import same
+
+    assert same({"x": [1.0, None, True, "a"]}, {"x": [1.0 + 1e-15, None, True, "a"]})
+    assert not same({"x": [1.0]}, {"x": [1.000001]})
+    assert not same({"x": 1.0}, {"y": 1.0})
+    assert not same({"x": [1.0, 2.0]}, {"x": [1.0]})
