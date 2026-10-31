@@ -4,6 +4,6 @@ import { VERSION } from "../lib/version";
 
 describe("version", () => {
   it("matches the Python package version", () => {
-    expect(VERSION).toBe("0.0.1");
+    expect(VERSION).toBe("0.1.0");
   });
 });
