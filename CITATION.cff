@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use Blagden, please cite it as below."
+title: "Blagden: heat intelligence for runners in the tropics"
+type: software
+authors:
+  - family-names: Panes
+    given-names: Lawrence
+    website: "https://lauurnce.is-a.dev"
+version: 0.1.0
+date-released: 2026-10-31
+license: MIT
+repository-code: "https://github.com/lauurnce/blagden"
+url: "https://blagden.vercel.app"
+abstract: >-
+  Blagden estimates core body temperature from run heart rate with the
+  ECTemp extended Kalman filter, forecasts WBGT for a race venue from public
+  forecast data, and produces a heat-adjusted finish-time prediction with a
+  range. It ships as a Python library and CLI and an in-browser demo.
+keywords:
+  - running
+  - heat stress
+  - WBGT
+  - core temperature
+  - Kalman filter
+  - sports science
+  - Philippines
