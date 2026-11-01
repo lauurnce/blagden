@@ -152,7 +152,7 @@ Proposal: v0.1 ships the `BaselinePredictor` seam with Riegel and a manual basel
 
 Reason: PaceBrain's own model card states "Do not use these models to plan a real race"; its six inputs come from neither a run file nor a forecast; its dependencies (torch, pandas, scikit-learn, matplotlib, streamlit) are heavy for a 2,561-parameter network; no weights ship; and on its synthetic data the repository's log-linear baseline is twice as accurate. Cost of including it anyway: about 8 commits in B9 with an "experimental" label.
 
-Status: awaiting Lawrence's answer at the B4 gate. Until then D-002 stands.
+Status: not adopted. Lawrence's B10 prompt asked for the adapter with a Riegel fallback; see D-024. D-002 stands.
 
 ## D-020 · 2026-11-06 · Synthetic fixtures for GPX and TCX only; FIT tests use local files
 
@@ -185,3 +185,11 @@ Decision: `blagden.weather.openmeteo` requests ten hourly variables (SCIENCE.md 
 Reason: Lawrence's B8 prompt asked for these modules and for tests on recorded responses and reference values. thermofeel is an independent, maintained, Apache-2.0 port that takes the same direct fraction and zenith inputs, so it tests the port at every level. Running the original C code was blocked in this environment, and lwbgt was not added. Forecast irradiance is given as instantaneous values, so computing the sun at the same instant avoids the code's averaging-period shift. Missing inputs give no WBGT rather than an approximation (SCIENCE.md section 4).
 
 Alternatives considered: Compiling Liljegren's C code as the oracle (blocked; the script can be revisited if Lawrence approves running it). Hour-mean radiation with the sun at the half hour (rejected: the instant variables avoid the shift). thermofeel's 0.62 m/s KNMI floor on 10 m wind (not applied: not part of the reference code). A third-party HTTP library (rejected: the standard library is enough for one GET).
+
+## D-024 · 2026-11-01 · Heat-adjusted prediction as built; PaceBrain adapter in v0.1 with Riegel fallback
+
+Decision: `blagden.predict.baseline` provides `RiegelPredictor` (exponent 1.06), `ManualBaseline`, and `PaceBrainPredictor`, which imports PaceBrain only when used and maps race distances to its trained 5, 10, 21.1 and 42.2 km. `choose_baseline` uses PaceBrain when its inputs are given and it can run; otherwise it falls back to Riegel and adds "PaceBrain is not installed; used Riegel instead" (or the missing-checkpoint reason) to the warnings. Every PaceBrain prediction carries its model card's caution and any training-range warnings. `blagden.predict.heat` applies D-015 unchanged and adds the race-window WBGT average and a plain-language main driver: no adjustment, heat, or baseline uncertainty when the baseline range is wider than the heat effect. `scripts/backtest_heat.py` scores unadjusted and adjusted predictions (MAE, MAPE, range coverage) against archive weather, with a synthetic CSV in `examples/`. PaceBrain is not declared as a package extra; it is installed separately (for example `uv pip install -e ../pacebrain`).
+
+Reason: Lawrence's B10 prompt asked for the adapter agreed in ARCHITECTURE.md section 5.3 and for a Riegel fallback that says so, which settles D-019 against postponement. Declaring a git-URL extra would make the lock file resolve torch and the rest of PaceBrain's stack for every install. The driver text answers the prompt's "main driver in words" from numbers already computed, so it cannot disagree with them.
+
+Alternatives considered: Postpone the adapter (D-019, not adopted). A `pacebrain` extra in pyproject.toml (deferred until PaceBrain publishes a tagged release with weights). Using the baseline time for the window instead of solving for the adjusted time (rejected: the slowest runners are on course in the hottest hours).
