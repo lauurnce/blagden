@@ -298,9 +298,10 @@ CLI: `blagden race-morning --lat LAT --lon LON --date YYYY-MM-DD [--start 4] [--
 
 ### 2.5 blagden.predict (ported except the PaceBrain adapter)
 
-```python
-from typing import Protocol, Mapping
+As built in B10 (D-024).
 
+```python
+# blagden.predict.baseline
 @dataclass(frozen=True)
 class BaselinePrediction:
     distance_km: float
@@ -309,39 +310,39 @@ class BaselinePrediction:
     hi_s: float | None
     source: Literal["riegel", "pacebrain", "manual"]
     inputs: Mapping[str, float]
-    warnings: tuple[str, ...]       # for example "outside PaceBrain training range"
+    warnings: tuple[str, ...]       # fallback notes, Riegel range, PaceBrain caution and ranges
 
 class BaselinePredictor(Protocol):
     def predict(self, distance_km: float) -> BaselinePrediction: ...
 
-class RiegelPredictor:
-    def __init__(self, *, known_distance_km: float, known_time_s: float, exponent: float = 1.06,
-                 interval_fraction: float | None = None) -> None:
-        """exponent from SCIENCE.md 6. interval_fraction is a declared assumption, not a sourced value;
-        None means no interval."""
-    def predict(self, distance_km: float) -> BaselinePrediction: ...
+RiegelPredictor(known_distance_km, known_time_s, exponent=1.06, interval_fraction=None)
+ManualBaseline(distance_km, time_s)
+PaceBrainPredictor(features: PaceBrainFeatures, checkpoint_path=Path("models/finish_predictor.pt"))
+def choose_baseline(distance_km, *, known_distance_km=None, known_time_s=None, pacebrain=None,
+                    checkpoint_path=None, interval_fraction=None) -> BaselinePrediction:
+    """PaceBrain when it can run; otherwise Riegel with a warning that says why."""
 
+# blagden.predict.heat
 @dataclass(frozen=True)
 class HeatAdjustedPrediction:
-    time_s: float
-    lo_s: float
-    hi_s: float
+    time_s: float; lo_s: float; hi_s: float
     level: Literal["elite", "nonelite"]
     k_per_c: float
-    wbgt_race_c: float
-    wbgt_base_c: float
-    delta_wbgt_c: float
+    wbgt_race_c: float; wbgt_base_c: float; delta_wbgt_c: float
     extrapolated: bool
     baseline_wbgt_defaulted: bool
+    driver: Literal["none", "heat", "baseline_uncertainty"]
+    driver_text: str
     baseline: BaselinePrediction
 
-def runner_level(baseline: BaselinePrediction) -> Literal["elite", "nonelite"]:
-    """Elite if the marathon-equivalent time (Riegel-scaled to 42.195 km) is under 2:30:00 (D-015)."""
-
-def heat_adjust(baseline: BaselinePrediction, wbgt_race_c: float, *, wbgt_base_c: float | None = None,
-                level: Literal["elite", "nonelite"] | None = None) -> HeatAdjustedPrediction:
-    """D-015 formula with slope ranges and the doubling above 25 C."""
+def runner_level(baseline) -> Literal["elite", "nonelite"]: ...
+def heat_adjust(baseline, wbgt_race_c, *, wbgt_base_c=None, level=None) -> HeatAdjustedPrediction: ...
+def window_wbgt(hourly: Sequence[tuple[datetime, float | None]], start: datetime, duration_s: float) -> float: ...
+def predict_for_window(baseline, hourly, start, *, wbgt_base_c=None, level=None) -> HeatAdjustedPrediction:
+    """Solves the window and the adjusted time together (SCIENCE.md 6)."""
 ```
+
+`scripts/backtest_heat.py CSV [--json]` reports MAE, MAPE and range coverage for unadjusted and adjusted predictions on past races, using archive weather; `examples/backtest_synthetic.csv` is a synthetic sample.
 
 ### 2.6 blagden.brief (facts and rendering ported; LLM path Python only)
 
@@ -598,7 +599,9 @@ Read from ../pacebrain on 2026-11-09:
 - No notion of weather anywhere in the code.
 - `pacebrain.eval.riegel_predict` exists, with an audit showing plain Riegel mis-specified against the synthetic formula.
 
-### 5.2 Proposal: postpone the PaceBrain adapter to v0.2, keep the seam
+### 5.2 Proposal (not adopted): postpone the PaceBrain adapter to v0.2, keep the seam
+
+Lawrence chose to build the adapter in v0.1 with a Riegel fallback (D-024). The proposal is kept below for the record.
 
 Recommendation, which changes the B1 answer recorded in D-002 and needs Lawrence's approval:
 
@@ -614,7 +617,7 @@ Reasons:
 
 Cost of including it anyway: about 8 commits in B9 for the adapter, a fake-predictor test double, and an "experimental" label on every output. The build plan in section 10 assumes postponement and marks where those commits would go.
 
-### 5.3 Adapter contract for v0.2
+### 5.3 Adapter contract (built in v0.1, D-024)
 
 ```python
 class PaceBrainPredictor:
