@@ -24,7 +24,7 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 - [x] B9 Merged into B8 (WBGT, heat index and risk were built in the same phase). lwbgt oracle not added
 
 ## Day 7
-- [ ] B10 Prediction: baseline predictors (Riegel, manual), runner level, heat adjustment with interval and flags (40 to 60)
+- [x] B10 Heat-adjusted prediction: Riegel, manual and PaceBrain baselines with Riegel fallback; heat adjustment with range, flags and main driver; race-window WBGT; back-test script with a synthetic CSV
 
 ## Day 8
 - [ ] B11 Brief and CLI: facts model, shared templates, renderer, grounding check, optional LLM interface; analyze, forecast, predict and brief commands; wheel build (65 to 85)
