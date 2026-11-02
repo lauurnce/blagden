@@ -45,3 +45,14 @@ convention = "numpy"
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["D"]
 "scripts/**" = ["D103"]
+
+[tool.mypy]
+python_version = "3.12"
+mypy_path = "src"
+packages = ["blagden"]
+warn_unused_ignores = true
+warn_redundant_casts = true
+
+[[tool.mypy.overrides]]
+module = ["blagden.constants", "blagden.physio.*", "blagden.weather.*", "blagden.predict.*"]
+strict = true
