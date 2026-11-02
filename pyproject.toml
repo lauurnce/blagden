@@ -56,3 +56,11 @@ warn_redundant_casts = true
 [[tool.mypy.overrides]]
 module = ["blagden.constants", "blagden.physio.*", "blagden.weather.*", "blagden.predict.*"]
 strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["blagden"]
+branch = true
