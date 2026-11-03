@@ -1,1 +1,1 @@
-"""Solar position from the low-precision Astronomical Almanac formulas (docs/SCIENCE.md section 4)."""
+"""Solar position from the Astronomical Almanac low-precision formulas (SCIENCE.md section 4)."""
