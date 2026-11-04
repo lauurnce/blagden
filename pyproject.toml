@@ -67,3 +67,7 @@ addopts = "-ra"
 [tool.coverage.run]
 source = ["blagden"]
 branch = true
+
+[[tool.mypy.overrides]]
+module = ["fitdecode", "fitdecode.*", "defusedxml", "defusedxml.*"]
+ignore_missing_imports = true
