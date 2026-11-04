@@ -71,13 +71,16 @@ class CleaningReport:
     """What cleaning removed or changed, and why.
 
     ``rows_dropped`` counts whole rows removed, by reason. ``values_removed`` counts single values
-    set to missing while the row was kept, by reason. Nothing is ever filled in.
+    set to missing while the row was kept, by reason. ``hr_missing_rows`` counts rows left
+    without heart rate after cleaning, whether absent in the file or removed. Nothing is ever
+    filled in.
     """
 
     rows_in: int
     rows_out: int
     rows_dropped: dict[str, int] = field(default_factory=dict)
     values_removed: dict[str, int] = field(default_factory=dict)
+    hr_missing_rows: int = 0
     reordered: bool = False
     gaps: tuple[Gap, ...] = ()
     notes: tuple[str, ...] = ()
