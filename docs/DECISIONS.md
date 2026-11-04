@@ -161,3 +161,11 @@ Decision: `scripts/make_synthetic_runs.py` writes seeded synthetic .gpx and .tcx
 Reason: The Garmin FIT SDK is the only encoder considered, and its licence forbids making it available to third parties (D-013). The MIT decoders cannot write FIT. Coordinates at 0 N, 0 E describe no real place, which keeps the privacy rule exact.
 
 Alternatives considered: Encode a fixture with the FIT SDK (rejected: licence). Write a FIT encoder in Blagden (deferred: not needed for scaffold; revisit if FIT parsing needs committed fixtures in the ingest phase). Commit a real run (rejected: privacy rule).
+
+## D-021 · 2026-11-08 · Ingest rules: 30 to 230 bpm, no interpolated heart rate, XML via defusedxml
+
+Decision: Heart rates outside 30 to 230 bpm are removed and counted. Minutes without a valid heart-rate sample stay empty and flagged; the ECTemp filter predicts through them without a measurement update. The 2013 paper's linear interpolation of sparse data is not applied. GPX and TCX are parsed with defusedxml and element local names, so every namespace prefix and the common heart-rate extension variants are read; gpxpy is not used. The activity table holds timezone-aware UTC times plus elapsed seconds, heart rate, position, altitude, speed and distance, with units in the column names.
+
+Reason: Lawrence set the heart-rate range and the rule that heart rate is never invented. Interpolating would put observations into the filter that the runner's sensor never made; skipping the update lets the filter's variance show the missing data instead. defusedxml protects against hostile XML in user files, and local-name matching covers Garmin TrackPointExtension v1 and v2, Cluetrust and plain heartrate elements without a separate library.
+
+Alternatives considered: 25 to 250 bpm (superseded by Lawrence's range). Interpolate gaps up to 5 minutes as in the B3 draft (rejected: invents data). gpxpy (rejected: no heart-rate accessor, so namespace lookups were needed anyway).
