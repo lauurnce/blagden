@@ -731,12 +731,23 @@ Run cadence and speed sit in the ActivityExtension v2 namespace `http://www.garm
 
 ### One-minute series for section 1
 
-The ECTemp rule (section 1): "Where data had sampling rates more frequent than the one minute intervals the mean of all values occurring in that minute was used" and "Where the sampling rate was greater than one minute, values were linearly interpolated." Blagden applies it as follows. These are Blagden's choices, not source values:
+The ECTemp rule (section 1): "Where data had sampling rates more frequent than the one minute intervals the mean of all values occurring in that minute was used" and "Where the sampling rate was greater than one minute, values were linearly interpolated." Blagden applies the first half and deliberately not the second (D-021). These are Blagden's choices, not source values:
 
-- Minute bins start at the first valid sample and are aligned to the device clock in UTC.
-- A sample counts only when heart rate is present and valid (not 0xFF, not absent, within 25 to 250 bpm).
-- Within a recording segment, a minute with no valid sample is filled by linear interpolation when the gap is 5 minutes or shorter; longer gaps and timer pauses get no observation, so the filter runs its time update only, and the minutes are flagged.
-- Each minute records how many samples it averaged; a minute with fewer than 3 samples is flagged as low support.
+- Minute bins start at the first row of the cleaned activity, in UTC. Minute $i$ covers elapsed seconds $[60i, 60(i+1))$; the number of minutes is the duration rounded up, at least one, and a final sample exactly on the end boundary joins the last minute.
+- A sample counts only when heart rate is present and within 30 to 230 bpm. Values outside that range are removed during cleaning and counted in the cleaning report; the row is kept.
+- Each minute holds the mean of its valid samples and the number of samples averaged.
+- A minute with no valid sample has no heart rate and is flagged. Heart rate is never interpolated or otherwise invented: the filter runs its time update for that minute and skips the measurement update, so its variance grows by $\gamma^2$ and the estimate holds.
+- Rows sharing a timestamp are merged (first present value of each field); rows without a time are dropped; out-of-order rows are sorted; gaps longer than 60 s between rows are reported and never filled.
+
+### Distance from positions
+
+GPX has no distance field. When no row carries a device distance, Blagden computes cumulative distance from consecutive valid positions with the haversine formula on a sphere of radius $R_1$, adding a step only between two valid positions and never interpolating missing ones.
+
+| Symbol | Value | Unit | Meaning | Read from | Status |
+|---|---|---|---|---|---|
+| $R_1$ | 6371008.7714 | m | GRS80 mean radius $(2a + b)/3$ | Moritz H. Geodetic Reference System 1980. Journal of Geodesy 2000;74:128-133; IAG Geodesist's Handbook copy at https://iag.dgfi.tum.de/media/archives/HB2000/part4/grs80_corr.htm | VERIFIED |
+
+A spherical model differs from the ellipsoid by a fraction of a percent, which is below GPS position noise over a run. On the synthetic 400 m loop the computed distance is 0.4 percent shorter than the device distance because straight chords between samples cut the curve.
 
 ### Libraries
 
@@ -761,14 +772,14 @@ The Python and JavaScript SDKs ship an identical LICENSE.txt, the "Flexible and 
 
 ### Valid input ranges
 
-- Heart rate 1 to 254 bpm by schema; Blagden accepts 25 to 250 bpm and flags the rest.
+- Heart rate 1 to 254 bpm by schema; Blagden accepts 30 to 230 bpm and removes the rest (D-021).
 - Latitude -90 to 90, longitude -180 to below 180, decimal degrees, WGS84.
 - Timestamps must be non-decreasing; duplicates are dropped.
 - Files without any heart rate are rejected with a clear message, since section 1 cannot run.
 
 ### Limitations
 
-- Smart Recording leaves few samples per minute during steady running; the minute mean is then noisy. The low-support flag carries this forward.
+- Smart Recording leaves few samples per minute during steady running; the minute mean is then noisy. The per-minute sample count carries this forward.
 - No format marks optical versus chest-strap heart rate or sensor dropouts. Quality flags are Blagden's own (section 1 limitations).
 - FIT files may lack `local_timestamp`; GPX times are UTC; TCX zone depends on the designator. Blagden stores UTC and derives local time from the venue or a zone lookup.
 - The semicircle conversion is verified from a Garmin forum reply, not a documentation article.
