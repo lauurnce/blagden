@@ -27,7 +27,7 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 - [x] B10 Heat-adjusted prediction: Riegel, manual and PaceBrain baselines with Riegel fallback; heat adjustment with range, flags and main driver; race-window WBGT; back-test script with a synthetic CSV
 
 ## Day 8
-- [ ] B11 Brief and CLI: facts model, shared templates, renderer, grounding check, optional LLM interface; analyze, forecast, predict and brief commands; wheel build (65 to 85)
+- [x] B11 Race-morning brief: Facts, English and Taglish templates, grounding check, optional LLM provider with template fallback, `brief` command, COPY_REVIEW.md; templates shipped in the wheel. Pending: Lawrence's copy approval
 
 ## Day 9
 - [ ] B12 Web scaffold and core port: TypeScript port of the pure-math modules, parity tests against the golden fixtures (60 to 85)
