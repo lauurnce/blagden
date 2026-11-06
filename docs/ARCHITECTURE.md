@@ -346,49 +346,41 @@ def predict_for_window(baseline, hourly, start, *, wbgt_base_c=None, level=None)
 
 ### 2.6 blagden.brief (facts and rendering ported; LLM path Python only)
 
+As built in B11 (D-025).
+
 ```python
+# blagden.brief.facts
 @dataclass(frozen=True)
-class Brief:
-    """Every number the text may contain, already formatted as strings in the units shown."""
-    venue_name: str
-    window_local: str                   # "04:00 to 09:00 PHT"
-    wbgt_by_hour: tuple[tuple[str, str, str], ...]    # (local_time, wbgt_c_text, flag)
-    heat_index_peak: tuple[str, str]    # (hi_c_text, pagasa_category)
-    pace_cap_min_per_km: str | None
-    finish_point: str | None            # "4:12:30"
-    finish_range: tuple[str, str] | None
-    back_off_time_local: str | None     # first hour whose flag is red or worse
-    core_temp_peak_c: str | None        # from a run file, when given
-    psi_peak: str | None
-    caveats: tuple[str, ...]            # fixed sentences from SCIENCE.md 2 and 6
-    attribution: str
-    allowed_numbers: frozenset[str]     # every numeric token above, for grounding
+class Facts:                            # every value a brief may state, formatted as shown
+    start_time: str; start_wbgt: str; start_flag: str; start_level: str
+    rise_time: str | None; rise_level: str | None
+    cool_threshold: str | None; cool_until: str | None
+    drink_km: str | None; drink_from_start: bool
+    pace_cap: str | None; finish: str | None; finish_low: str | None; finish_high: str | None
+    hi_peak: str | None; hi_category: str | None
+    extrapolated: bool; distance_km: str
+    wbgt_by_hour: tuple[tuple[str, str, str], ...]
+    allowed_numbers: frozenset[str]     # computed from every string above
 
-def build_brief(*, venue: Venue, window_utc_s: tuple[float, float], wbgt: tuple[WbgtPoint, ...],
-                heat_index: tuple[tuple[float, float], ...], prediction: HeatAdjustedPrediction | None,
-                core: CoreTempSeries | None, psi_series: PsiSeries | None) -> Brief: ...
+def build_facts(rm: RaceMorning, start: datetime, distance_km: float,
+                prediction: HeatAdjustedPrediction | None = None) -> Facts: ...
 
-def render_brief(brief: Brief, *, templates_path: Path | None = None) -> str:
-    """Fills shared/brief_templates.json. Placeholders are {name}; no logic in templates."""
+# blagden.brief.template                # wording in shared/brief_templates.json
+def render_brief(facts: Facts, lang: Literal["en", "tl"] = "en") -> str: ...   # under 120 words
 
-@dataclass(frozen=True)
-class GroundingResult:
-    ok: bool
-    unknown_numbers: tuple[str, ...]
-    forbidden_words: tuple[str, ...]
+# blagden.brief.grounding
+def ground_check(text: str, allowed: frozenset[str], *, forbidden=FORBIDDEN_WORDS) -> GroundingResult: ...
 
-def ground_check(text: str, brief: Brief, *, forbidden: tuple[str, ...] = ("diagnose", "safe", "guaranteed", "cure")) -> GroundingResult:
-    """Extracts every numeric token (including 6:05/km and 2:15:40 forms) and checks it against brief.allowed_numbers."""
-
+# blagden.brief.llm                     # env: BLAGDEN_LLM_PROVIDER, BLAGDEN_LLM_MODEL, BLAGDEN_LLM_API_KEY
 class LLMProvider(Protocol):
-    name: str
-    def rewrite(self, template_text: str, brief: Brief) -> str: ...
-
-def rewrite_with_llm(brief: Brief, template_text: str, provider: LLMProvider) -> str:
-    """Returns provider text only when ground_check passes; otherwise returns template_text and logs the rejection."""
+    @property
+    def name(self) -> str: ...
+    def generate(self, prompt: str) -> str: ...
+def write_brief(facts: Facts, lang="en", provider: LLMProvider | None = None, *, use_env=True) -> BriefText:
+    """LLM text only when it passes the grounding check; otherwise the template, with the reason logged."""
 ```
 
-Providers are selected by a `provider` setting (for example openai or anthropic). The core package declares no provider SDK; a provider module imports its SDK lazily and is installed through an extra. The feature is off by default (D-007).
+CLI: `blagden brief --lat --lon --date --start --distance --known-distance --known-time [--lang en|tl] [--rural]`. The provider SDK is an optional extra (`llm-anthropic`) imported only when selected. Copy for approval: docs/COPY_REVIEW.md.
 
 ### 2.7 blagden.cli
 
