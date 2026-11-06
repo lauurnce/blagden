@@ -1,0 +1,29 @@
+{
+ "_note": "Brief wording. Placeholders are {name} and are filled only from Facts. Status: draft, awaiting Lawrence's approval in docs/COPY_REVIEW.md.",
+ "en": {
+  "start_hot_rise": "Start is {start_time} at WBGT {start_wbgt}, already in the {start_band} band, and in the {rise_band} band by {rise_time}.",
+  "start_hot_flat": "Start is {start_time} at WBGT {start_wbgt}, in the {start_band} band for your whole race.",
+  "start_cool_until": "Cooler start: WBGT stays under {cool_threshold} until {cool_until}.",
+  "start_cool_all": "Cooler morning: WBGT stays under {cool_threshold} for your whole race.",
+  "pace": "Cap your pace at {pace_cap} per km. That is the heat-adjusted {finish}, likely between {finish_low} and {finish_high}.",
+  "drink_from_km": "Drink at every station after km {drink_km}.",
+  "drink_from_start": "Drink at every station from the start.",
+  "heat_index": "Heat index peaks at {hi_peak} C, PAGASA {hi_category}.",
+  "extrapolated": "This morning is hotter than the races the estimate was built on, so treat the range as rough.",
+  "closing": "Training insight, not medical advice.",
+  "bands": {"below moderate": "lower-risk", "moderate": "moderate-risk", "high": "high-risk", "excessive": "excessive-risk"}
+ },
+ "tl": {
+  "start_hot_rise": "{start_time} ang start, WBGT {start_wbgt} na, nasa {start_band} band na agad, at {rise_band} na pagdating ng {rise_time}.",
+  "start_hot_flat": "{start_time} ang start, WBGT {start_wbgt}, nasa {start_band} band buong takbo mo.",
+  "start_cool_until": "Mas presko sa umpisa: WBGT below {cool_threshold} hanggang {cool_until}.",
+  "start_cool_all": "Presko ngayong umaga: WBGT below {cool_threshold} buong takbo mo.",
+  "pace": "Huwag bibilis sa {pace_cap} per km. Yan ang heat-adjusted na {finish}, malamang nasa {finish_low} hanggang {finish_high}.",
+  "drink_from_km": "Uminom sa bawat water station pagkalampas ng km {drink_km}.",
+  "drink_from_start": "Uminom sa bawat water station mula sa simula.",
+  "heat_index": "Aabot sa {hi_peak} C ang heat index, PAGASA {hi_category}.",
+  "extrapolated": "Mas mainit ito kaysa sa mga karerang pinagbatayan ng estimate, kaya tantiya lang ang range.",
+  "closing": "Training insight ito, hindi medical advice.",
+  "bands": {"below moderate": "lower-risk", "moderate": "moderate-risk", "high": "high-risk", "excessive": "excessive-risk"}
+ }
+}
