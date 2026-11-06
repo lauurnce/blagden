@@ -153,3 +153,11 @@ Proposal: v0.1 ships the `BaselinePredictor` seam with Riegel and a manual basel
 Reason: PaceBrain's own model card states "Do not use these models to plan a real race"; its six inputs come from neither a run file nor a forecast; its dependencies (torch, pandas, scikit-learn, matplotlib, streamlit) are heavy for a 2,561-parameter network; no weights ship; and on its synthetic data the repository's log-linear baseline is twice as accurate. Cost of including it anyway: about 8 commits in B9 with an "experimental" label.
 
 Status: awaiting Lawrence's answer at the B4 gate. Until then D-002 stands.
+
+## D-020 · 2026-11-06 · Synthetic fixtures for GPX and TCX only; FIT tests use local files
+
+Decision: `scripts/make_synthetic_runs.py` writes seeded synthetic .gpx and .tcx runs into `tests/fixtures/` on a made-up loop centred on 0 N, 0 E in open ocean. No synthetic .fit file is committed. Tests that need a .fit file read the developer's own files from `data/raw/`, which is excluded from git, and skip when none is present. CI regenerates the fixtures and fails if they change.
+
+Reason: The Garmin FIT SDK is the only encoder considered, and its licence forbids making it available to third parties (D-013). The MIT decoders cannot write FIT. Coordinates at 0 N, 0 E describe no real place, which keeps the privacy rule exact.
+
+Alternatives considered: Encode a fixture with the FIT SDK (rejected: licence). Write a FIT encoder in Blagden (deferred: not needed for scaffold; revisit if FIT parsing needs committed fixtures in the ingest phase). Commit a real run (rejected: privacy rule).
