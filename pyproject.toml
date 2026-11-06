@@ -35,6 +35,9 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/blagden"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"shared/brief_templates.json" = "blagden/brief/brief_templates.json"
+
 [tool.ruff]
 line-length = 100
 target-version = "py312"
