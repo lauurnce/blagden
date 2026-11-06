@@ -2,15 +2,19 @@
 
 import dataclasses
 import json
-from datetime import date
+from datetime import date, datetime, time
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import typer
 
 from blagden import __version__
+from blagden.brief import build_facts, write_brief
 from blagden.ingest import IngestError, read_activity, resample_minutes
 from blagden.ingest.summary import format_duration, summarize
 from blagden.physio import LIMITATION_NOTE, summarize_strain
+from blagden.predict import choose_baseline, predict_for_window
+from blagden.predict.baseline import parse_time_s
 from blagden.weather import WeatherError, format_race_morning, race_morning
 
 app = typer.Typer(
@@ -140,3 +144,37 @@ def race_morning_cmd(
         typer.echo(json.dumps(dataclasses.asdict(rm), indent=2, default=str))
     else:
         typer.echo(format_race_morning(rm))
+
+
+@app.command()
+def brief(
+    lat: float = typer.Option(..., help="Venue latitude, decimal degrees north."),
+    lon: float = typer.Option(..., help="Venue longitude, decimal degrees east."),
+    day: str = typer.Option(..., "--date", help="Race date, YYYY-MM-DD (Manila)."),
+    start: str = typer.Option("05:00", help="Gun time, HH:MM Manila."),
+    distance: float = typer.Option(..., help="Race distance, km."),
+    known_distance: float = typer.Option(..., help="A recent race distance, km."),
+    known_time: str = typer.Option(..., help="That race's time, h:mm:ss."),
+    lang: str = typer.Option("en", help="en or tl (Taglish)."),
+    rural: bool = typer.Option(False, "--rural", help="Use rural wind exponents."),
+) -> None:
+    """Race-morning brief built only from computed numbers. Training insight, not medical advice."""
+    if lang not in ("en", "tl"):
+        typer.echo("error: --lang must be en or tl", err=True)
+        raise typer.Exit(code=1)
+    try:
+        race_day = date.fromisoformat(day)
+        gun = datetime.combine(race_day, time.fromisoformat(start), ZoneInfo("Asia/Manila"))
+        rm = race_morning(lat, lon, race_day, 0, 23, urban=not rural)
+        base = choose_baseline(
+            distance, known_distance_km=known_distance, known_time_s=parse_time_s(known_time)
+        )
+        pred = predict_for_window(base, [(h.time_local, h.wbgt_c) for h in rm.hours], gun)
+        facts = build_facts(rm, gun, distance, pred)
+    except (WeatherError, ValueError) as exc:
+        typer.echo(f"error: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+    out = write_brief(facts, lang)  # type: ignore[arg-type]
+    typer.echo(out.text)
+    if out.rejected_reason:
+        typer.echo(f"(LLM wording rejected: {out.rejected_reason}; template used)", err=True)
