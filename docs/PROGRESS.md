@@ -9,10 +9,10 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 - [x] B4 Architecture and build plan: docs/ARCHITECTURE.md with modules, interfaces, data contracts, parity testing, PaceBrain assessment, testing, tooling, deployment, risks, build plan
 
 ## Day 2
-- [ ] B5 Scaffold and ingest: uv project, ruff, mypy, pytest, hypothesis, pre-commit, CI; constants registry; .fit, .gpx and .tcx readers; 1-minute resampling and quality flags; synthetic run files (60 to 85 commits)
+- [x] B5 Scaffold: uv project, ruff, mypy, pytest, pre-commit, Makefile, CI; empty package modules; Typer CLI with version; Next.js app with strict TypeScript, Tailwind, eslint, prettier, vitest; synthetic GPX and TCX fixtures
 
 ## Day 3
-- [ ] B6 Physiology: ECTemp filter, PSI, confidence and caveats; golden fixtures and their generator (50 to 70)
+- [ ] B6 Ingest and physiology: constants registry; .fit, .gpx and .tcx readers; 1-minute resampling and quality flags; ECTemp filter, PSI, confidence and caveats; golden fixtures and their generator (70 to 90)
 
 ## Day 4
 - [ ] B7 Weather client, cache, venues and solar position; recorded Open-Meteo responses (45 to 65)
