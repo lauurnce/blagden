@@ -1,0 +1,32 @@
+{
+ "start_time": "6:00 AM",
+ "start_wbgt": "28.6",
+ "start_flag": "black",
+ "start_level": "excessive",
+ "rise_time": null,
+ "rise_level": null,
+ "cool_threshold": null,
+ "cool_until": null,
+ "drink_km": null,
+ "drink_from_start": false,
+ "pace_cap": null,
+ "finish": null,
+ "finish_low": null,
+ "finish_high": null,
+ "hi_peak": "35",
+ "hi_category": "Extreme Caution",
+ "extrapolated": false,
+ "distance_km": "42.2",
+ "wbgt_by_hour": [
+  [
+   "6:00 AM",
+   "28.6",
+   "black"
+  ],
+  [
+   "7:00 AM",
+   "30.1",
+   "black"
+  ]
+ ]
+}

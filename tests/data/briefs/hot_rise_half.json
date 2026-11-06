@@ -1,0 +1,37 @@
+{
+ "start_time": "5:00 AM",
+ "start_wbgt": "24.7",
+ "start_flag": "red",
+ "start_level": "moderate",
+ "rise_time": "6:30 AM",
+ "rise_level": "high",
+ "cool_threshold": null,
+ "cool_until": null,
+ "drink_km": "14",
+ "drink_from_start": false,
+ "pace_cap": "6:00",
+ "finish": "2:06:42",
+ "finish_low": "2:03:05",
+ "finish_high": "2:10:54",
+ "hi_peak": "31",
+ "hi_category": "Caution",
+ "extrapolated": true,
+ "distance_km": "21.1",
+ "wbgt_by_hour": [
+  [
+   "5:00 AM",
+   "24.7",
+   "red"
+  ],
+  [
+   "6:00 AM",
+   "25.0",
+   "red"
+  ],
+  [
+   "7:00 AM",
+   "27.4",
+   "red"
+  ]
+ ]
+}
