@@ -73,7 +73,7 @@ blagden/
   tests/                    pytest suites, mirrors src layout
   scripts/make_fixtures.py  writes fixtures/golden from the Python reference
   fixtures/golden/          JSON fixtures shared with the TypeScript tests
-  fixtures/synthetic/       synthetic .fit, .gpx, .tcx run files
+  tests/fixtures/           synthetic .gpx and .tcx run files
   shared/                   brief_templates.json, venues.json
   web/                      Next.js app (pnpm), lib/core and lib/ingest
   docs/                     SCIENCE, ARCHITECTURE, DECISIONS, PROGRESS, PROJECT_BRIEF
@@ -510,7 +510,7 @@ Confidence rule: `high` when observed and no flags; `medium` when `low_support` 
 
 ### 3.9 Synthetic run files
 
-`fixtures/synthetic/` holds small .fit, .gpx and .tcx files written by `scripts/make_synthetic_runs.py` from a documented heart-rate model (warm-up ramp, steady state, surges, a pause, a dropout, a cadence-lock stretch). Each file has a sidecar JSON with the intended minute means so the ingest tests assert against known truth. No real track is ever committed (PROJECT_BRIEF privacy rule).
+`tests/fixtures/` holds small .gpx and .tcx files written by `scripts/make_synthetic_runs.py` from a documented heart-rate model on a made-up loop centred on 0 N, 0 E in open ocean. The generator is seeded, and `make golden` and CI regenerate the files and fail if they change. The ingest phase extends the model with a pause, a dropout and a cadence-lock stretch, plus a sidecar JSON of intended minute means. There is no synthetic .fit file: the Garmin FIT SDK licence forbids making the SDK available to third parties (D-013), so .fit tests read the developer's own files from the excluded `data/raw/` folder and skip when none is present. No real track is ever committed (PROJECT_BRIEF privacy rule).
 
 ## 4. Two implementations, one truth
 
@@ -684,7 +684,7 @@ GitHub Actions, `.github/workflows/ci.yml`, on every push and pull request, with
 1. `python` (matrix 3.12 and 3.13): `uv sync --all-extras --dev`, `ruff check`, `ruff format --check`, `mypy`, `pytest` with coverage, `scripts/make_fixtures.py --check`, `scripts/make_fixtures.py --constants --check`.
 2. `web`: `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`.
 3. `e2e` (needs `web`): install Playwright Chromium, run the one end-to-end test against the built app.
-4. `package`: `uv build`, then install the wheel into a fresh virtual environment and run `blagden version` and `blagden analyze fixtures/synthetic/steady_60min.fit --json`.
+4. `package`: `uv build`, then install the wheel into a fresh virtual environment and run `blagden version` and `blagden analyze tests/fixtures/synthetic_loop.gpx --json`.
 
 Oracle tests (thermofeel, lwbgt, pvlib) run in the `python` job as development dependencies; they never enter the package's runtime dependencies.
 
@@ -730,8 +730,8 @@ Day 1 held B1 to B4 (understanding, repository, science specification, architect
 
 | Day | Prompt | Deliverables | Tests that prove it | Commits |
 |---|---|---|---|---|
-| 2 | B5 Scaffold and ingest | `pyproject.toml` with uv, ruff, mypy, pytest, hypothesis, pre-commit, CI workflow; `blagden.constants` with the SCIENCE.md tables for sections 1, 3, 5, 6 and 8; `ingest` readers for .fit, .gpx, .tcx; `resample_minutes`; `detect_cadence_lock`; `scripts/make_synthetic_runs.py` and `fixtures/synthetic/` | unit tests per reader against sidecar truth; property tests on resampling (minute means equal the sidecar within 1e-9, flags set where the generator planted gaps, pauses and cadence lock); constants test; CI green on 3.12 and 3.13 | 60 to 85 |
-| 3 | B6 Physiology | `ectemp_step`, `ectemp`, `psi`, confidence and caveats; `fixtures/golden/ectemp.json` and `psi.json`; `scripts/make_fixtures.py` | the hand example from B3 to 1e-9; steady-state convergence; hypothesis invariants from section 6; golden fixtures asserted by pytest | 50 to 70 |
+| 2 | B5 Scaffold | `pyproject.toml` with uv, ruff, mypy, pytest, hypothesis, pre-commit, Makefile, CI workflow; empty `blagden` modules; Typer CLI with `version`; Next.js app with strict TypeScript, Tailwind, eslint, prettier, vitest; `scripts/make_synthetic_runs.py` and `tests/fixtures/` | smoke tests in pytest and vitest; fixture checks; reproducible fixtures; every make target passes; CI green on 3.12 and 3.13 | 50 to 65 |
+| 3 | B6 Ingest and physiology | `blagden.constants` with the SCIENCE.md tables; `ingest` readers for .fit, .gpx, .tcx; `resample_minutes`; `detect_cadence_lock`; ECTemp, PSI, golden fixtures | reader tests against sidecar truth; resampling properties; the B3 hand example to 1e-9; ECTemp invariants; constants test | 70 to 90 |
 | 4 | B7 Weather client, cache, venues, solar | `OpenMeteoClient` with D-010 request shape and archive; on-disk JSON cache with TTL; `shared/venues.json` and `load_venues`; `cos_zenith`; recorded responses under `tests/data/open_meteo/` | client tests on recorded responses, including a rate-limit and a timeout; cache hit and expiry tests; solar against pvlib within 1e-4; `fixtures/golden/solar.json` | 45 to 65 |
 | 5 | B8 WBGT, heat index, risk | Liljegren port with constants from SCIENCE.md 4; `heat_index_c` and `pagasa_category`; `risk_label`; golden fixtures for all three | oracle tests against thermofeel and lwbgt within 0.1 C on a Manila grid; night-time and sun-down properties; NWS worked values for the heat index; every PAGASA and flag boundary tested on both sides | 60 to 85 |
 | 6 | B9 Prediction | `BaselinePredictor`, `RiegelPredictor`, `ManualBaseline`, `runner_level`, `heat_adjust` with D-015 slopes and flags; `fixtures/golden/predict.json` | Riegel on published endurance-range cases; interval contains the point; extrapolation flag boundaries; level rule at 2:30:00; golden fixtures. PaceBrain adapter adds about 8 commits here if approved (section 5) | 40 to 60 |
