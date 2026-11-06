@@ -35,7 +35,7 @@ from datetime import date, datetime, time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-from blagden.predict.baseline import ManualBaseline
+from blagden.predict.baseline import ManualBaseline, parse_time_s
 from blagden.predict.heat import format_hms, predict_for_window
 from blagden.weather.openmeteo import ATTRIBUTION, OpenMeteoClient
 from blagden.weather.race_morning import race_morning
@@ -60,17 +60,6 @@ class RaceResult:
     level: str
     extrapolated: bool
     in_range: bool
-
-
-def parse_time_s(text: str) -> float:
-    """Parse h:mm:ss, mm:ss or plain seconds."""
-    parts = [float(p) for p in text.strip().split(":")]
-    seconds = 0.0
-    for p in parts:
-        seconds = seconds * 60.0 + p
-    if seconds <= 0:
-        raise ValueError(f"time must be positive: {text!r}")
-    return seconds
 
 
 def coordinates(row: dict[str, str]) -> tuple[float, float]:

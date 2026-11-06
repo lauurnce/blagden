@@ -67,6 +67,16 @@ class BaselinePredictor(Protocol):
         ...
 
 
+def parse_time_s(text: str) -> float:
+    """Parse h:mm:ss, mm:ss or plain seconds into seconds."""
+    seconds = 0.0
+    for part in text.strip().split(":"):
+        seconds = seconds * 60.0 + float(part)
+    if seconds <= 0:
+        raise ValueError(f"time must be positive: {text!r}")
+    return seconds
+
+
 def riegel_time_s(
     known_distance_km: float,
     known_time_s: float,
