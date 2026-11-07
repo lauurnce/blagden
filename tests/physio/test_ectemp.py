@@ -11,6 +11,8 @@ from blagden.physio.ectemp import (
     DEFAULT_TC0_C,
     DEFAULT_V0_C2,
     ECTEMP_2013,
+    ectemp_step,
+    estimate_core_temp,
 )
 
 SCIENCE_MD = Path(__file__).resolve().parents[2] / "docs" / "SCIENCE.md"
@@ -49,3 +51,22 @@ def test_parameters_match_science_table() -> None:
     tc0, v0 = (float(x) for x in re.split(r",\s*", start[0]))
     assert (tc0, v0) == (DEFAULT_TC0_C, DEFAULT_V0_C2)
     assert start[-1].startswith("VERIFIED")
+
+
+def test_hand_worked_step_from_b3() -> None:
+    # B3 teach-back: start 37.1 C with variance 0, one minute at 150 bpm.
+    # Predict: v = 0 + 0.022^2 = 0.000484. Slope c = -9.1428 * 37.1 + 384.4286 = 45.23072.
+    # Gain k = 0.000484 * 45.23072 / (45.23072^2 * 0.000484 + 356.4544) = 0.0000612449.
+    # Expected HR at 37.1 C is 83.0866 bpm, so the residual is 66.9134 bpm.
+    tc, v, k = ectemp_step(37.1, 0.0, 150.0)
+    assert round(tc, 4) == 37.1041
+    assert round(v, 7) == 0.0004827
+    assert round(k, 7) == 0.0000612
+    assert tc == pytest.approx(37.1040984872, abs=1e-9)
+    assert v == pytest.approx(0.0004826592, abs=1e-9)
+    assert k == pytest.approx(0.0000612449, abs=1e-9)
+
+
+def test_series_first_minute_equals_step() -> None:
+    est = estimate_core_temp([150.0], tc0=37.1, v0=0.0)
+    assert (est.tc_c[0], est.var_c2[0], est.gain[0]) == ectemp_step(37.1, 0.0, 150.0)
