@@ -186,6 +186,8 @@ Quoted finding: "a low to very-low sensitivity (50-0%) for Tc-est thresholds >39
 
 Wherever a core temperature estimate is displayed, Blagden states: the estimate is from heart rate alone; in 101 elite athletes exercising in heat the method agreed with measured core temperature within about +/- 0.45 C on average, but detected fewer than half of the observations above 39.0 C; it is an indication of thermal strain, not a measurement, and not a basis for a safety decision. The citation is this paper.
 
+The per-run summary also counts the minutes with an estimate above 38.5 C. That figure is a display threshold chosen for the summary (D-022), not a safety limit. It lies inside the 37.75 to 38.75 C range where this paper found the estimate a representative indication of thermal strain.
+
 ### Valid input ranges and limitations
 
 - The validation covers an incremental cycling test of about 44 minutes in a laboratory at 31.6 C and 74 percent humidity, in elite athletes. Recreational runners, longer durations, outdoor sun and wind, and dehydration over a marathon are outside the validated setting.
