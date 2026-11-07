@@ -242,89 +242,59 @@ The CLI exposes this as `blagden strain FILE... [--start-temp C] [--resting-hr B
 
 ### 2.4 blagden.weather
 
-A package. I/O in `client` and `cache`; pure math in `solar`, `wbgt`, `heatindex`, `risk` (all ported); data in `venues`.
+As built in B8 (D-023). I/O in `openmeteo` and `cache`; pure math in `solar`, `wbgt`, `heat_index`, `risk` (all to be ported); `race_morning` composes them. `venues` is still a stub; the race-morning call takes coordinates and an `urban` switch.
 
 ```python
-# blagden.weather.venues
-@dataclass(frozen=True)
-class Venue:
-    id: str                 # "moa", "bgc", "up_diliman", "filinvest", "clark"
-    name: str
-    lat_deg: float
-    lon_deg: float
-    tz: str                 # IANA, "Asia/Manila"
-    surface: Literal["urban", "rural"]   # selects the wind-profile exponent set (SCIENCE.md 4)
+# blagden.weather.openmeteo
+HOURLY_VARIABLES = ("temperature_2m", "relative_humidity_2m", "dew_point_2m", "wind_speed_10m",
+                    "surface_pressure", "shortwave_radiation_instant", "direct_radiation_instant",
+                    "diffuse_radiation_instant", "cloud_cover", "precipitation")
 
-def load_venues(path: Path | None = None) -> tuple[Venue, ...]:   # reads shared/venues.json
-
-# blagden.weather.client
 @dataclass(frozen=True)
-class HourlyWeather:
-    time_utc_s: float
-    t_air_c: float
-    rh_pct: float
-    dewpoint_c: float
-    wind10_mps: float
-    pressure_hpa: float
-    cloud_pct: float
-    ghi_wm2: float          # shortwave_radiation_instant
-    direct_wm2: float       # direct_radiation_instant, horizontal plane
-    diffuse_wm2: float      # diffuse_radiation_instant
-    model: str              # Open-Meteo model name reported
-    fetched_utc_s: float
+class HourlyWeather:                    # arrays, NaN where missing; times aware, Asia/Manila
+    time_local: tuple[datetime, ...]
+    temperature_c, rh_pct, dew_point_c, wind10_mps, pressure_hpa: np.ndarray
+    ghi_wm2, direct_wm2, diffuse_wm2, cloud_pct, precipitation_mm: np.ndarray
+    latitude: float; longitude: float; elevation_m: float
+    source: Literal["forecast", "archive"]
+    wind_height_m: float = 10.0
 
 class OpenMeteoClient:
-    def __init__(self, *, cache_dir: Path | None = None, ttl_s: int = 3600,
-                 base_url: str = "https://api.open-meteo.com/v1/forecast",
-                 archive_url: str = "https://archive-api.open-meteo.com/v1/archive",
-                 timeout_s: float = 10.0) -> None: ...
-    def forecast(self, venue: Venue, start_utc_s: float, end_utc_s: float) -> tuple[HourlyWeather, ...]: ...
-    def archive(self, venue: Venue, start_utc_s: float, end_utc_s: float) -> tuple[HourlyWeather, ...]: ...
-    attribution: str = "Weather data by Open-Meteo.com (CC BY 4.0)"
+    def __init__(self, cache: DiskCache | None = None, *, fetch=urllib_fetch, attempts=4,
+                 backoff_s=1.0, timeout_s=20.0, sleep=time.sleep, today=None): ...
+    def hourly(self, lat_deg, lon_deg, start: date, end: date) -> HourlyWeather: ...
 
-# blagden.weather.solar  (ported)
-def cos_zenith(time_utc_s: float, lat_deg: float, lon_deg: float) -> float:
-    """Astronomical Almanac low-precision formulas as in the Liljegren code; clipped at 0."""
+# blagden.weather.cache
+class DiskCache:                        # one JSON file per request, named by SHA-256 of the URL
+    def get(self, url: str, ttl_s: float | None) -> bytes | None: ...
+    def put(self, url: str, body: bytes) -> None: ...
 
-# blagden.weather.wbgt  (ported)
-@dataclass(frozen=True)
-class WbgtPoint:
-    time_utc_s: float
-    wbgt_c: float
-    tnwb_c: float
-    tg_c: float
-    t_air_c: float
-    wind2_mps: float
-    cos_zenith: float
-    fdir: float
-    model_error_c: float            # 1.0, from the validation statements in SCIENCE.md 4
-    flags: frozenset[str]           # "sun_down", "out_of_range", "no_convergence"
+# blagden.weather.solar
+def sun_position(when: datetime, lat_deg: float, lon_deg: float) -> SunPosition: ...
+                                        # elevation (refraction included), zenith, cos_zenith, azimuth, distance
 
-def wbgt(t_air_c: float, rh_pct: float, pressure_hpa: float, wind10_mps: float,
-         ghi_wm2: float, direct_wm2: float, diffuse_wm2: float, cos_zenith: float,
-         *, surface: Literal["urban", "rural"] = "urban") -> WbgtPoint: ...
+# blagden.weather.wbgt
+def outdoor_wbgt(*, t_air_c, rh_pct, pressure_hpa, wind_mps, wind_height_m, ghi_wm2, direct_wm2,
+                 diffuse_wm2, cos_zenith, distance_au, urban: bool, dt_c=0.0) -> WbgtResult: ...
+                                        # wbgt_c, tg_c, tnwb_c, tpsy_c (None if not converged), wind2_mps,
+                                        # stability_class, fdir, solar_wm2, flags
 
-def wbgt_series(hours: tuple[HourlyWeather, ...], venue: Venue) -> tuple[WbgtPoint, ...]: ...
+# blagden.weather.heat_index
+def heat_index_c(t_c: float, rh_pct: float) -> float: ...
+def pagasa_category(hi_c: float) -> PagasaCategory: ...   # name, band, colour, effect
 
-# blagden.weather.heatindex  (ported)
-def heat_index_c(t_air_c: float, rh_pct: float) -> float:
-    """NWS Rothfusz procedure including the simple-formula gate and both adjustments (SCIENCE.md 5)."""
-
-def pagasa_category(hi_c: float) -> Literal["not_hazardous", "caution", "extreme_caution", "danger", "extreme_danger"]:
-    """Rounds to the nearest whole degree before classifying (D-017)."""
-
-# blagden.weather.risk  (ported)
-@dataclass(frozen=True)
-class RiskLabel:
-    flag: Literal["white", "green", "yellow", "red", "black"]
-    racinais_level: Literal["below_moderate", "moderate", "high", "excessive"]
-    acsm2007_text: str
-    wa2020_band: Literal["almost_safe", "caution", "warning", "severe_warning", "danger"]
-
+# blagden.weather.risk
 def risk_label(wbgt_c: float, rh_pct: float) -> RiskLabel: ...
+                                        # flag, flag_meaning, wa2020_band, acsm2007_text,
+                                        # racinais_level and thresholds, model_error_c = 1.0
+
+# blagden.weather.race_morning
+def race_morning(lat, lon, day: date, start_hour: int, end_hour: int, *, urban=True,
+                 client=None) -> RaceMorning: ...
+def format_race_morning(rm: RaceMorning) -> str: ...
 ```
 
-Change from the proposal: `risk` and `venues` are added; solar, WBGT, heat index and risk are split from the client so the pure-math files map one to one onto `web/lib/core`.
+CLI: `blagden race-morning --lat LAT --lon LON --date YYYY-MM-DD [--start 4] [--end 9] [--rural] [--json]`. Tests use recorded responses in `tests/data/open_meteo/` and never call the network.
 
 ### 2.5 blagden.predict (ported except the PaceBrain adapter)
 
