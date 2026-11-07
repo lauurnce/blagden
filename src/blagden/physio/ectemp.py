@@ -57,3 +57,31 @@ DEFAULT_TC0_C = 37.0
 
 DEFAULT_V0_C2 = 0.01
 """Starting variance without a measurement, C squared. Hunt 2019; D-012."""
+
+
+def ectemp_step(
+    tc_prev_c: float,
+    v_prev_c2: float,
+    hr_bpm: float | None,
+    params: EctempParams = ECTEMP_2013,
+) -> tuple[float, float, float]:
+    """Run one minute of the filter.
+
+    The time update always runs. The measurement update runs only when
+    ``hr_bpm`` is given (not None and not NaN), so a minute without heart rate
+    keeps the estimate and grows the variance by gamma squared.
+
+    Returns
+    -------
+    tuple of float
+        ``(tc_c, var_c2, gain)``. The gain is 0 for a minute without heart rate.
+    """
+    tc_pred = tc_prev_c
+    v_pred = v_prev_c2 + params.gamma * params.gamma
+    if hr_bpm is None or hr_bpm != hr_bpm:  # None or NaN: time update only
+        return tc_pred, v_pred, 0.0
+    c = 2.0 * params.b2 * tc_pred + params.b1
+    gain = v_pred * c / (c * c * v_pred + params.sigma * params.sigma)
+    tc = tc_pred + gain * (hr_bpm - params.expected_hr(tc_pred))
+    v = (1.0 - gain * c) * v_pred
+    return tc, v, gain
