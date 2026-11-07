@@ -25,7 +25,8 @@ test:
 
 golden:
 	$(PY) python scripts/make_synthetic_runs.py
-	git diff --exit-code -- tests/fixtures
+	$(PY) python scripts/make_golden.py
+	git diff --exit-code -- tests/fixtures web/tests/golden
 
 web-dev:
 	$(WEB) dev
