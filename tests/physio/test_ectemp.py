@@ -8,6 +8,8 @@ from pathlib import Path
 
 import numpy as np
 import pytest
+from hypothesis import given, settings
+from hypothesis import strategies as st
 
 from blagden.physio.ectemp import (
     DEFAULT_TC0_C,
@@ -108,3 +110,22 @@ def test_baseline_hr_holds_the_estimate() -> None:
     hr = ECTEMP_2013.expected_hr(DEFAULT_TC0_C)
     tc = estimate_core_temp(np.full(120, hr)).tc_c
     assert np.allclose(tc, DEFAULT_TC0_C, atol=1e-9)
+
+
+hr_value = st.floats(min_value=30.0, max_value=230.0, allow_nan=False)
+
+
+@settings(max_examples=200, deadline=None)
+@given(
+    data=st.lists(
+        st.tuples(hr_value, st.floats(min_value=0.0, max_value=100.0), st.booleans()),
+        min_size=1,
+        max_size=240,
+    )
+)
+def test_higher_hr_never_lowers_estimate(data: list[tuple[float, float, bool]]) -> None:
+    low = np.array([hr if present else np.nan for hr, _, present in data])
+    high = np.array([min(hr + bump, 230.0) if present else np.nan for hr, bump, present in data])
+    tc_low = estimate_core_temp(low).tc_c
+    tc_high = estimate_core_temp(high).tc_c
+    assert np.all(tc_high >= tc_low - 1e-12)
