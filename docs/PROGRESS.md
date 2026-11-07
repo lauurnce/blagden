@@ -15,7 +15,7 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 - [x] B6 Ingest: FIT, GPX and TCX readers; one cleaned table with timezone-aware UTC times; cleaning report; one-minute resampling without filled heart rate; summary command
 
 ## Day 4
-- [ ] B7 Physiology: constants registry; ECTemp filter, PSI, confidence and caveats; golden fixtures and their generator (50 to 70)
+- [x] B7 Core temperature and strain: ECTemp filter with sourced parameters, PSI, per-run strain summary with the limitation note, `strain` command, golden fixtures and their generator. Deferred: constants registry, per-minute confidence labels
 
 ## Day 5
 - [ ] B8 Weather client, cache, venues and solar position; recorded Open-Meteo responses (45 to 65)
