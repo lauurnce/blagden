@@ -23,7 +23,7 @@ flowchart LR
   end
 
   subgraph SH["Shared (language neutral)"]
-    FX[("fixtures/golden/*.json")]
+    FX[("web/tests/golden/*.json")]
     TPL[("shared/brief_templates.json, shared/venues.json")]
   end
 
@@ -48,7 +48,7 @@ flowchart LR
   OM --> WCO
   TPL --> BRF
   TPL --> WCO
-  PHY -. "scripts/make_fixtures.py writes" .-> FX
+  PHY -. "scripts/make_golden.py writes" .-> FX
   WX -. writes .-> FX
   PRD -. writes .-> FX
   FX -. "vitest asserts" .-> WCO
@@ -71,8 +71,8 @@ blagden/
   pyproject.toml            uv project, package name blagden, Python >= 3.12
   src/blagden/              the Python package
   tests/                    pytest suites, mirrors src layout
-  scripts/make_fixtures.py  writes fixtures/golden from the Python reference
-  fixtures/golden/          JSON fixtures shared with the TypeScript tests
+  scripts/make_golden.py    writes web/tests/golden from the Python reference
+  web/tests/golden/         JSON fixtures shared with the TypeScript tests
   tests/fixtures/           synthetic .gpx and .tcx run files
   shared/                   brief_templates.json, venues.json
   web/                      Next.js app (pnpm), lib/core and lib/ingest
@@ -476,7 +476,7 @@ This is the hand-built example in `tests/ingest/test_resample.py`. A `null` minu
 
 ```json
 {
-  "ct_c": [37.004, 37.021, 37.021, 37.047],
+  "tc_c": [37.004, 37.021, 37.021, 37.047],
   "var_c2": [0.0098, 0.0097, 0.0102, 0.0100],
   "gain": [0.00128, 0.00124, 0.0, 0.00121],
   "observed": [true, true, false, true],
@@ -564,23 +564,24 @@ Python is the reference. The TypeScript core in `web/lib/core` is a port. The co
 
 ### 4.1 Fixture format
 
-One JSON file per module under `fixtures/golden/`, for example `ectemp.json`:
+One JSON file per module under `web/tests/golden/`, for example `ectemp.json`:
 
 ```json
 {
   "module": "ectemp",
-  "generator": "scripts/make_fixtures.py",
-  "generated_utc": "2026-11-12T03:00:00Z",
-  "git_sha": "abc1234",
-  "constants_hash": "sha256 of blagden.constants values",
-  "tolerance": {"ct_c": 1e-6, "var_c2": 1e-9, "gain": 1e-9},
+  "generator": "scripts/make_golden.py",
+  "science": "docs/SCIENCE.md section 1",
+  "params": {"gamma": 0.022, "b0": -7887.1, "b1": 384.4286, "b2": -4.5714, "sigma": 18.88},
+  "tolerance": {"tc_c": 1e-6, "var_c2": 1e-9, "gain": 1e-9},
   "cases": [
     {"name": "hand_example_37.1_v0_hr150",
-     "inputs": {"ct_prev_c": 37.1, "var_prev_c2": 0.0, "hr_bpm": 150.0},
-     "expected": {"ct_c": 37.1040984872, "var_c2": 0.0004826592, "gain": 0.0000612449}},
+     "kind": "step",
+     "inputs": {"tc_prev_c": 37.1, "v_prev_c2": 0.0, "hr_bpm": 150.0},
+     "expected": {"tc_c": 37.1040984872, "var_c2": 0.0004826592, "gain": 0.0000612449}},
     {"name": "steady_160_from_default_start_30min",
-     "inputs": {"hr_bpm": [160.0, 160.0, "..."], "ct0_c": 37.0, "var0_c2": 0.01},
-     "expected": {"ct_c": ["..."], "var_c2": ["..."]}}
+     "kind": "series",
+     "inputs": {"hr_bpm": [160.0, 160.0, "..."], "tc0_c": 37.0, "v0_c2": 0.01},
+     "expected": {"tc_c": ["..."], "var_c2": ["..."], "gain": ["..."], "observed": [true, "..."]}}
   ]
 }
 ```
@@ -591,7 +592,7 @@ Cases include the hand-worked example from the B3 teach-back, steady-state runs,
 
 | Module | Fields | Tolerance | Why |
 |---|---|---|---|
-| ectemp | ct_c | 1e-6 C | identical arithmetic in IEEE double; differences only from operation order |
+| ectemp | tc_c | 1e-6 C | identical arithmetic in IEEE double; differences only from operation order |
 | ectemp | var_c2, gain | 1e-9 | same |
 | psi | psi | 1e-9 | pure arithmetic |
 | riegel, adjust | time_s | 1e-6 s | one `pow` call; libm and V8 agree to well below this |
@@ -603,15 +604,15 @@ Cases include the hand-worked example from the B3 teach-back, steady-state runs,
 
 ### 4.3 Generation and checking
 
-- `uv run python scripts/make_fixtures.py` rewrites `fixtures/golden/*.json` from the Python reference. Fixtures are committed.
-- `uv run python scripts/make_fixtures.py --check` regenerates into a temporary directory and fails if any committed fixture differs beyond its own tolerance. CI runs this, so a Python change that alters results must come with regenerated fixtures in the same commit.
-- `pnpm test` in `web/` loads `../fixtures/golden/*.json` and asserts every case with the tolerance stored in the file. CI runs this on every push.
+- `uv run python scripts/make_golden.py` rewrites `web/tests/golden/*.json` from the Python reference. Fixtures are committed.
+- `uv run python scripts/make_golden.py --check` regenerates in memory and fails if any committed fixture differs. Output has no timestamps or random numbers, so the comparison is exact. CI runs this, so a Python change that alters results must come with regenerated fixtures in the same commit.
+- `pnpm test` in `web/` loads `tests/golden/*.json` and asserts every case with the tolerance stored in the file. CI runs this on every push.
 - Python's own tests also load the fixtures, so a fixture is never asserted by only one side.
 - When the two disagree, the Python result is presumed right and the TypeScript port is fixed, unless the Python result contradicts docs/SCIENCE.md, in which case both are wrong and the spec wins.
 
 ### 4.4 Shared inputs
 
-`shared/brief_templates.json` and `shared/venues.json` are read by both languages, and `constants.ts` is generated from `blagden.constants` by `scripts/make_fixtures.py --constants` so a parameter can only be changed in one place. A test fails if `constants.ts` is stale.
+`shared/brief_templates.json` and `shared/venues.json` are read by both languages, and `constants.ts` is generated from `blagden.constants` by `scripts/make_golden.py --constants` so a parameter can only be changed in one place. A test fails if `constants.ts` is stale.
 
 ## 5. PaceBrain
 
@@ -671,7 +672,7 @@ $$T_2 = T_1 \left(\frac{D_2}{D_1}\right)^{1.06}$$
 | Layer | Tool | What it proves | Where |
 |---|---|---|---|
 | Unit | pytest | each function on hand-checked values from docs/SCIENCE.md, including the B3 hand example | tests/ mirrors src/blagden |
-| Golden | pytest and vitest | both languages reproduce the committed fixtures within tolerance (section 4) | fixtures/golden |
+| Golden | pytest and vitest | both languages reproduce the committed fixtures within tolerance (section 4) | web/tests/golden |
 | Property | hypothesis | numerical stability and invariants over wide random inputs | tests/property |
 | Parity | vitest | the TypeScript port matches Python | web/tests/parity |
 | Oracle | pytest, dev dependencies only | the WBGT port agrees with thermofeel and lwbgt within 0.1 C on a Manila grid (D-016); solar agrees with pvlib within 1e-4 in cos zenith | tests/oracle |
@@ -710,7 +711,7 @@ Python (root of the repository):
 | ruff | lint and format | `ruff check` with the default rules plus `I` (imports), `B` (bugbear), `UP` (pyupgrade), `N` (naming), `D` (docstrings, numpy convention) on `src/`; `ruff format` everywhere; line length 100 |
 | mypy | static types | `strict = true` for `blagden.constants`, `blagden.physio`, `blagden.weather` and `blagden.predict`; default strictness elsewhere; `warn_unused_ignores` on |
 | pytest | tests | `pytest-cov` with branch coverage and `fail_under` per section 6; `hypothesis` with the `ci` profile (more examples) in CI |
-| pre-commit | local gate | hooks: ruff check with fix, ruff format, mypy, check-json (fixtures and shared), end-of-file-fixer, trailing-whitespace, a local hook that runs `scripts/make_fixtures.py --check` when anything under `src/blagden` changed |
+| pre-commit | local gate | hooks: ruff check with fix, ruff format, mypy, check-json (fixtures and shared), end-of-file-fixer, trailing-whitespace, a local hook that runs `scripts/make_golden.py --check` when anything under `src/blagden` changed |
 
 Change from the proposal: mypy strict covers `predict` and `constants` as well as `physio` and `weather`, because they are pure math that is ported and a type slip there is a parity bug.
 
@@ -722,12 +723,12 @@ Web (`web/`):
 | TypeScript | `strict: true`, `noUncheckedIndexedAccess: true` | `tsc --noEmit` in CI |
 | eslint | lint | `eslint-config-next` plus `typescript-eslint` strict; no `any` in `lib/core` |
 | prettier | format | default settings, checked in CI |
-| vitest | unit and parity tests | coverage thresholds per section 6; parity tests read `../fixtures/golden` |
+| vitest | unit and parity tests | coverage thresholds per section 6; parity tests read `tests/golden` |
 | Playwright | one end-to-end test | Chromium only, runs against `next start` of the production build |
 
 GitHub Actions, `.github/workflows/ci.yml`, on every push and pull request, with `concurrency` set to cancel superseded runs:
 
-1. `python` (matrix 3.12 and 3.13): `uv sync --all-extras --dev`, `ruff check`, `ruff format --check`, `mypy`, `pytest` with coverage, `scripts/make_fixtures.py --check`, `scripts/make_fixtures.py --constants --check`.
+1. `python` (matrix 3.12 and 3.13): `uv sync --all-extras --dev`, `ruff check`, `ruff format --check`, `mypy`, `pytest` with coverage, `scripts/make_golden.py --check`, `scripts/make_golden.py --constants --check`.
 2. `web`: `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`.
 3. `e2e` (needs `web`): install Playwright Chromium, run the one end-to-end test against the built app.
 4. `package`: `uv build`, then install the wheel into a fresh virtual environment and run `blagden version` and `blagden analyze tests/fixtures/synthetic_loop.gpx --json`.
@@ -778,10 +779,10 @@ Day 1 held B1 to B4 (understanding, repository, science specification, architect
 |---|---|---|---|---|
 | 2 | B5 Scaffold | `pyproject.toml` with uv, ruff, mypy, pytest, hypothesis, pre-commit, Makefile, CI workflow; empty `blagden` modules; Typer CLI with `version`; Next.js app with strict TypeScript, Tailwind, eslint, prettier, vitest; `scripts/make_synthetic_runs.py` and `tests/fixtures/` | smoke tests in pytest and vitest; fixture checks; reproducible fixtures; every make target passes; CI green on 3.12 and 3.13 | 50 to 65 |
 | 3 | B6 Ingest and physiology | `blagden.constants` with the SCIENCE.md tables; `ingest` readers for .fit, .gpx, .tcx; `resample_minutes`; `detect_cadence_lock`; ECTemp, PSI, golden fixtures | reader tests against sidecar truth; resampling properties; the B3 hand example to 1e-9; ECTemp invariants; constants test | 70 to 90 |
-| 4 | B7 Weather client, cache, venues, solar | `OpenMeteoClient` with D-010 request shape and archive; on-disk JSON cache with TTL; `shared/venues.json` and `load_venues`; `cos_zenith`; recorded responses under `tests/data/open_meteo/` | client tests on recorded responses, including a rate-limit and a timeout; cache hit and expiry tests; solar against pvlib within 1e-4; `fixtures/golden/solar.json` | 45 to 65 |
+| 4 | B7 Weather client, cache, venues, solar | `OpenMeteoClient` with D-010 request shape and archive; on-disk JSON cache with TTL; `shared/venues.json` and `load_venues`; `cos_zenith`; recorded responses under `tests/data/open_meteo/` | client tests on recorded responses, including a rate-limit and a timeout; cache hit and expiry tests; solar against pvlib within 1e-4; `web/tests/golden/solar.json` | 45 to 65 |
 | 5 | B8 WBGT, heat index, risk | Liljegren port with constants from SCIENCE.md 4; `heat_index_c` and `pagasa_category`; `risk_label`; golden fixtures for all three | oracle tests against thermofeel and lwbgt within 0.1 C on a Manila grid; night-time and sun-down properties; NWS worked values for the heat index; every PAGASA and flag boundary tested on both sides | 60 to 85 |
-| 6 | B9 Prediction | `BaselinePredictor`, `RiegelPredictor`, `ManualBaseline`, `runner_level`, `heat_adjust` with D-015 slopes and flags; `fixtures/golden/predict.json` | Riegel on published endurance-range cases; interval contains the point; extrapolation flag boundaries; level rule at 2:30:00; golden fixtures. PaceBrain adapter adds about 8 commits here if approved (section 5) | 40 to 60 |
-| 7 | B10 Brief | `Brief`, `build_brief`, `shared/brief_templates.json`, `render_brief`, `ground_check`, `LLMProvider` and `rewrite_with_llm` with a fake provider; `fixtures/golden/brief.json` | rendered text is exact against fixtures; grounding rejects planted unknown numbers and forbidden words and accepts every formatting variant of allowed ones; fallback to template is exercised | 35 to 45 |
+| 6 | B9 Prediction | `BaselinePredictor`, `RiegelPredictor`, `ManualBaseline`, `runner_level`, `heat_adjust` with D-015 slopes and flags; `web/tests/golden/predict.json` | Riegel on published endurance-range cases; interval contains the point; extrapolation flag boundaries; level rule at 2:30:00; golden fixtures. PaceBrain adapter adds about 8 commits here if approved (section 5) | 40 to 60 |
+| 7 | B10 Brief | `Brief`, `build_brief`, `shared/brief_templates.json`, `render_brief`, `ground_check`, `LLMProvider` and `rewrite_with_llm` with a fake provider; `web/tests/golden/brief.json` | rendered text is exact against fixtures; grounding rejects planted unknown numbers and forbidden words and accepts every formatting variant of allowed ones; fallback to template is exercised | 35 to 45 |
 | 7 | B11 CLI and packaging | Typer app with `analyze`, `forecast`, `predict`, `brief`, `venues`, `version`; `--json` everywhere; `uv build` wheel; `package` CI job | smoke tests for every command on synthetic files; JSON output validated against section 3 shapes; wheel installs and runs in a clean environment | 30 to 40 |
 | 8 | B12 Web scaffold and core port | Next.js app with pnpm, TypeScript strict, eslint, prettier, vitest; `lib/core` port of constants (generated), ectemp, psi, solar, wbgt, heatindex, risk, riegel, adjust, brief; parity tests | every golden fixture passes in vitest within tolerance; `constants.ts` staleness check; `pnpm build` in CI | 60 to 85 |
 | 9 | B13 Web demo | `lib/ingest` for FIT, GPX, TCX in the browser; `/demo` page with core temperature chart, PSI, flags and caveats; `/forecast` page with venue picker, hourly WBGT flags, heat index on the PAGASA scale, brief view; CSP; Vercel project and first production deploy | ingest parity against the Python minute series on the synthetic files; Playwright end-to-end test with the network allow-list; Lighthouse accessibility pass on both pages | 55 to 80 |
