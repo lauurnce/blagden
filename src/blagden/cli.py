@@ -2,6 +2,7 @@
 
 import dataclasses
 import json
+from datetime import date
 from pathlib import Path
 
 import typer
@@ -10,6 +11,7 @@ from blagden import __version__
 from blagden.ingest import IngestError, read_activity, resample_minutes
 from blagden.ingest.summary import format_duration, summarize
 from blagden.physio import LIMITATION_NOTE, summarize_strain
+from blagden.weather import WeatherError, format_race_morning, race_morning
 
 app = typer.Typer(
     name="blagden",
@@ -116,3 +118,25 @@ def strain(
         typer.echo(f"\nNote: {LIMITATION_NOTE}")
     if failed:
         raise typer.Exit(code=1)
+
+
+@app.command("race-morning")
+def race_morning_cmd(
+    lat: float = typer.Option(..., help="Venue latitude, decimal degrees north."),
+    lon: float = typer.Option(..., help="Venue longitude, decimal degrees east."),
+    day: str = typer.Option(..., "--date", help="Race date, YYYY-MM-DD (Manila)."),
+    start: int = typer.Option(4, help="First hour, Manila time."),
+    end: int = typer.Option(9, help="Last hour, Manila time (inclusive)."),
+    rural: bool = typer.Option(False, "--rural", help="Use rural wind exponents (e.g. Clark)."),
+    as_json: bool = typer.Option(False, "--json", help="Print JSON instead of text."),
+) -> None:
+    """Hourly heat index and WBGT for a race window. Training insight, not a go or no-go call."""
+    try:
+        rm = race_morning(lat, lon, date.fromisoformat(day), start, end, urban=not rural)
+    except (WeatherError, ValueError) as exc:
+        typer.echo(f"error: {exc}", err=True)
+        raise typer.Exit(code=1) from exc
+    if as_json:
+        typer.echo(json.dumps(dataclasses.asdict(rm), indent=2, default=str))
+    else:
+        typer.echo(format_race_morning(rm))
