@@ -320,7 +320,7 @@ Wind conversion. The code "estimate[s] 2-m wind speed for all stability conditio
 
 Direct-beam fraction. Liljegren's code derives it from the ratio of measured to clear-sky irradiance. Blagden has the forecast direct and diffuse components (section 7), so the fraction is $f_{dir} = I_{direct} / (I_{direct} + I_{diffuse})$ on the horizontal plane, clamped to 0 to 0.9 and set to 0 when the sun is below 89.5 degrees zenith, as in thermofeel. Blagden choice, consistent with the code's definition of the fraction.
 
-Solar zenith. Liljegren's code uses "the low precision formulas for the Sun's coordinates given in the Astronomical Almanac of 1990", cross-checked against Michalsky's (1988) program. Blagden implements the same formulas and tests them against the NREL Solar Position Algorithm via pvlib in the development test suite.
+Solar zenith. Liljegren's code uses "the low precision formulas for the Sun's coordinates given in the Astronomical Almanac of 1990", cross-checked against Michalsky's (1988) program. Blagden implements the same formulas and tests them against the published example of the NREL Solar Position Algorithm (Reda and Andreas, NREL/TP-560-34302, 2008, as reproduced in pvlib's `tests/test_spa.py`): 2003-10-17 12:30:30 at UTC-7, latitude 39.742476, longitude -105.1786, topocentric elevation without refraction 39.872046 deg, topocentric zenith 50.11162 deg (refraction at 820 hPa and 11 C), azimuth 194.340241 deg. The port agrees within 0.0035 deg; the stated tolerance is the Almanac's 0.01 deg. Status: example values VERIFIED (secondary, pvlib test suite).
 
 ### Model internals read from the code
 
@@ -384,7 +384,7 @@ For a Manila race morning the sun goes from below the horizon to strong within t
 
 ### Blagden's approach
 
-Blagden ports the Liljegren method itself, in Python as the reference and in TypeScript for the browser (D-001), following the structure and constants of the Argonne code as read above. Reasons: no JavaScript port exists, the Python port keeps the core dependency-light, and both ports are checked against two independent oracles in the development test suite: thermofeel's `calculate_wbgt_liljegren` and lwbgt, which reproduces the Argonne code bit for bit. Agreement within 0.1 C across a grid of Manila-like conditions is the acceptance test. The Argonne acknowledgment is reproduced in the documentation because the port follows that code.
+Blagden ports the Liljegren method itself, in Python as the reference and in TypeScript for the browser (D-001), following the structure and constants of the Argonne code as read above. Reasons: no JavaScript port exists, the Python port keeps the core dependency-light, and both ports are checked against two independent oracles in the development test suite: thermofeel's `calculate_wbgt_liljegren` and lwbgt, which reproduces the Argonne code bit for bit. Agreement within 0.1 C across a grid of Manila-like conditions is the acceptance test. As built (B8), the port is checked against thermofeel 2.3.0 at the globe, wet-bulb, wind-conversion and full-WBGT levels with a stated tolerance of 1e-6 C, and agrees to about 1e-14 C. lwbgt was not added; running the original C code directly was not done in this environment. The Argonne acknowledgment is reproduced in the documentation because the port follows that code.
 
 ### Valid input ranges
 
@@ -502,6 +502,10 @@ $$HI = -42.379 + 2.04901523\,T + 10.14333127\,RH - 0.22475541\,T\,RH - 0.0068378
 Adjustments: if $RH < 13$ and $80 \le T \le 112$, subtract $\frac{13 - RH}{4}\sqrt{\frac{17 - |T - 95|}{17}}$; if $RH > 85$ and $80 \le T \le 87$, add $\frac{RH - 85}{10}\cdot\frac{87 - T}{5}$. Procedure: first compute $HI_{simple} = 0.5\,(T + 61.0 + 1.2\,(T - 68.0) + 0.094\,RH)$ and average it with $T$; if that is 80 F or higher, apply the full regression with any adjustment, otherwise keep the simple result. "The Rothfusz regression is not valid for extreme temperature and relative humidity conditions beyond the range of data considered by Steadman." Status: equation and procedure VERIFIED (NWS page); the +/- 1.3 F error VERIFIED from Rothfusz's 1990 technical attachment, which also states the assumptions of a 5 knot wind, shade, and long trousers with a short-sleeved shirt.
 
 What PAGASA publishes: a daily highest heat index for 77 stations, computed from station observations for the past five days and forecast for two days from ECMWF model output, stamped at 5:00 pm, with hourly forecasts on iHeatMAP. The product footnote states it "was designed for the general warm, dry season of the country" and is "most reliable in the absence of rainfall events." Blagden computes the heat index from the hourly forecast temperature and humidity at the venue with the equation above and labels it "heat index on the PAGASA scale", since it is not PAGASA's own published value. Status: VERIFIED for the published products; the exact observation hour behind the daily value is UNVERIFIED.
+
+### Band boundaries as implemented
+
+The sources print ranges such as "18 to 23" without saying which end belongs to which band. Blagden conventions (D-023): a boundary value goes to the higher band, except where the source says "above" for the top band, which then starts just above the value. So the flags are white below 10, green from 10, yellow from 18, red from 23 up to and including 28, black above 28; World Athletics 2020 is Almost Safe below 21, Caution from 21, Warning from 25, Severe Warning from 28 up to and including 30, Danger above 30. The ACSM 2007 rows are printed to 0.1 C, so WBGT is rounded to 0.1 C before the row is chosen, and above 30.0 C no row text is given because those cells are UNVERIFIED. The Racinais thresholds are interpolated linearly in relative humidity between the 50, 75 and 100 percent columns; below 50 percent the 50 percent column is used and the result is marked as clamped; a WBGT below the moderate threshold is labelled "below moderate", since the table names no lower level. The heat index is rounded half up to a whole degree before the PAGASA category is chosen.
 
 ### Why the two scales disagree on a race morning
 
@@ -688,6 +692,10 @@ Free tier, quoted from the terms: "Less than 10'000 API calls per day, 5'000 per
 - Data licence: CC BY 4.0. Required: "You must include a link next to any location Open-Meteo data are displayed", with the example `Weather data by Open-Meteo.com` linking to https://open-meteo.com/.
 - No API key for non-commercial use. No warranty: "The accuracy and completeness of the data products and their uninterrupted provision are not guaranteed by Open-Meteo".
 - CORS: the project README states "CORS supported". A live response on 2026-11-09 carried `access-control-allow-origin: *` (observed, not documented).
+
+### Requests as built
+
+Blagden requests the ten hourly variables `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `wind_speed_10m`, `surface_pressure`, `shortwave_radiation_instant`, `direct_radiation_instant`, `diffuse_radiation_instant`, `cloud_cover` and `precipitation`, with `timezone=Asia/Manila`, `wind_speed_unit=ms` and `timeformat=unixtime`. Ten variables keeps a one-day request at one call under the weighting above. A live request to both the forecast and the archive endpoint on 2026-11-09 returned all ten, including the three instantaneous radiation variables (observed, not documented for the archive). Dates more than 7 days old use the archive, because ERA5 lags by about 5 days; other dates use the forecast endpoint with `start_date` and `end_date`. Forecast responses are cached for one hour and archive responses indefinitely (Blagden choices).
 
 ### Valid input ranges
 
