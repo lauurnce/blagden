@@ -187,39 +187,58 @@ Changes from the B4 draft, made in B6: the table has the columns Lawrence specif
 
 ### 2.3 blagden.physio (ported)
 
+As built in B7 (D-022). Pure functions over one value per minute; NaN marks a minute without heart rate.
+
 ```python
 @dataclass(frozen=True)
-class EctempParams:
-    ct0_c: float = 37.0                 # D-012 default
-    var0_c2: float = 0.01               # D-012 default
-    model: Literal["quadratic_2013"] = "quadratic_2013"
+class EctempParams:                     # 2013 quadratic model, SCIENCE.md 1; sources in docstrings
+    gamma: float = 0.022
+    b0: float = -7887.1
+    b1: float = 384.4286
+    b2: float = -4.5714
+    sigma: float = 18.88
+
+DEFAULT_TC0_C = 37.0                    # D-012
+DEFAULT_V0_C2 = 0.01                    # D-012
 
 @dataclass(frozen=True)
-class CoreTempSeries:
-    ct_c: np.ndarray                    # float64 per minute
-    var_c2: np.ndarray                  # filter variance per minute
-    gain: np.ndarray                    # Kalman gain used per minute (0 where no observation)
+class CoreTempEstimate:
+    tc_c: np.ndarray                    # estimate after each minute, C
+    var_c2: np.ndarray                  # filter variance after each minute, C squared
+    gain: np.ndarray                    # Kalman gain used (0 where no heart rate)
     observed: np.ndarray                # bool, False where the minute had no heart rate
-    loa_c: float                        # 0.63, published 95 percent limits of agreement (SCIENCE.md 1)
-    confidence: tuple[Literal["high", "medium", "low"], ...]   # from ingest flags and observed
-    caveats: tuple[str, ...]            # always includes the above-39.0 C sensitivity statement (SCIENCE.md 2)
+    tc0_c: float
+    v0_c2: float
     params: EctempParams
 
-def ectemp_step(ct_prev_c: float, var_prev_c2: float, hr_bpm: float | None) -> tuple[float, float, float]:
-    """One time update plus, when hr_bpm is given, one measurement update. Returns (ct_c, var_c2, gain)."""
+def ectemp_step(tc_prev_c: float, v_prev_c2: float, hr_bpm: float | None,
+                params: EctempParams = ECTEMP_2013) -> tuple[float, float, float]: ...
+def estimate_core_temp(hr_bpm_per_min: ArrayLike, tc0: float = 37.0, v0: float = 0.01,
+                       params: EctempParams = ECTEMP_2013) -> CoreTempEstimate: ...
 
-def ectemp(minutes: MinuteSeries, params: EctempParams = EctempParams()) -> CoreTempSeries: ...
+def psi(tc: ArrayLike, hr: ArrayLike, tc0: float, hr0: float) -> np.ndarray:
+    """Negative totals clip to 0; values above 10 are kept (SCIENCE.md 3). NaN where hr is NaN."""
 
 @dataclass(frozen=True)
-class PsiSeries:
-    psi: np.ndarray                     # float64, NaN where ct or hr missing
-    above_scale: np.ndarray             # bool, psi > 10
-    ct0_c: float
+class StrainSummary:                    # per run; never holds positions
+    minutes: int
+    start_tc_c: float
+    start_measured: bool
+    peak_tc_c: float
+    peak_minute: int
+    minutes_above_threshold: int        # estimate above 38.5 C (D-022)
+    threshold_c: float
+    peak_psi: float | None
+    psi_above_scale: bool
     hr0_bpm: float
     hr0_defaulted: bool                 # True when the 70 bpm default was used (D-014)
+    note: str                           # LIMITATION_NOTE, SCIENCE.md 2
 
-def psi(core: CoreTempSeries, minutes: MinuteSeries, *, hr0_bpm: float | None = None) -> PsiSeries: ...
+def summarize_strain(hr_bpm_per_min: ArrayLike, *, tc0: float | None = None,
+                     hr0: float | None = None) -> StrainSummary: ...
 ```
+
+The CLI exposes this as `blagden strain FILE... [--start-temp C] [--resting-hr BPM] [--json]`. The per-minute confidence labels of the B4 draft are not built; the limitation note is carried by the summary instead.
 
 ### 2.4 blagden.weather
 
@@ -471,7 +490,7 @@ This is the hand-built example in `tests/ingest/test_resample.py`. A `null` minu
 }
 ```
 
-Confidence rule: `high` when observed and no flags; `medium` when `low_support` or `interpolated`; `low` when `cadence_lock`, `pause`, `gap`, or when `ct_c` is above 39.0.
+B4 draft. As built (section 2.3) the series has `tc_c`, `var_c2`, `gain` and `observed`; `confidence` and `caveats` are not built, because the ingest flags they relied on were dropped in B6. The limitation note travels with the per-run summary.
 
 ### 3.3 PSI series
 
