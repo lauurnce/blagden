@@ -18,10 +18,10 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 - [x] B7 Core temperature and strain: ECTemp filter with sourced parameters, PSI, per-run strain summary with the limitation note, `strain` command, golden fixtures and their generator. Deferred: constants registry, per-minute confidence labels
 
 ## Day 5
-- [ ] B8 Weather client, cache, venues and solar position; recorded Open-Meteo responses (45 to 65)
+- [x] B8 Heat stress forecast: Open-Meteo client with retries and disk cache, solar position, Liljegren WBGT, heat index on the PAGASA scale, risk labels, `race_morning` and its command; recorded responses; oracle tests against thermofeel. Deferred: venue presets
 
 ## Day 6
-- [ ] B9 WBGT (Liljegren port), heat index on the PAGASA scale, risk labels; oracle tests against thermofeel and lwbgt (60 to 85)
+- [x] B9 Merged into B8 (WBGT, heat index and risk were built in the same phase). lwbgt oracle not added
 
 ## Day 7
 - [ ] B10 Prediction: baseline predictors (Riegel, manual), runner level, heat adjustment with interval and flags (40 to 60)
