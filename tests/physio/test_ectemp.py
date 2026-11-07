@@ -129,3 +129,21 @@ def test_higher_hr_never_lowers_estimate(data: list[tuple[float, float, bool]]) 
     tc_low = estimate_core_temp(low).tc_c
     tc_high = estimate_core_temp(high).tc_c
     assert np.all(tc_high >= tc_low - 1e-12)
+
+
+def test_missing_minutes_grow_variance_and_hold_estimate() -> None:
+    hr = np.array([140.0] * 10 + [np.nan] * 5 + [140.0] * 3)
+    est = estimate_core_temp(hr)
+    gap = slice(10, 15)
+    assert not est.observed[gap].any()
+    assert np.all(est.gain[gap] == 0.0)
+    assert np.all(est.tc_c[gap] == est.tc_c[9])
+    steps = np.diff(est.var_c2[9:15])
+    assert np.allclose(steps, ECTEMP_2013.gamma**2, rtol=0, atol=1e-15)
+    assert est.observed[15] and est.var_c2[15] < est.var_c2[14]
+
+
+def test_all_missing_runs_time_update_only() -> None:
+    est = estimate_core_temp([np.nan] * 4, tc0=37.0, v0=0.01)
+    assert np.all(est.tc_c == 37.0)
+    assert est.var_c2 == pytest.approx([0.01 + (i + 1) * ECTEMP_2013.gamma**2 for i in range(4)])
