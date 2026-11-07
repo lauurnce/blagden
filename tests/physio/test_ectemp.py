@@ -147,3 +147,40 @@ def test_all_missing_runs_time_update_only() -> None:
     est = estimate_core_temp([np.nan] * 4, tc0=37.0, v0=0.01)
     assert np.all(est.tc_c == 37.0)
     assert est.var_c2 == pytest.approx([0.01 + (i + 1) * ECTEMP_2013.gamma**2 for i in range(4)])
+
+
+@settings(max_examples=100, deadline=None)
+@given(
+    data=st.lists(st.one_of(hr_value, st.just(math.nan)), min_size=360, max_size=360),
+    tc0=st.floats(min_value=36.0, max_value=39.0),
+)
+def test_six_hours_of_any_valid_hr_stays_finite(data: list[float], tc0: float) -> None:
+    with np.errstate(all="raise"):
+        est = estimate_core_temp(data, tc0=tc0)
+    assert np.all(np.isfinite(est.tc_c))
+    assert np.all(np.isfinite(est.var_c2))
+    assert np.all(est.var_c2 > 0.0)
+    # Bounded by the steady states of 30 bpm and of the model peak (42.05 C).
+    assert np.all(est.tc_c >= min(tc0, steady_state_tc(30.0)) - 1e-9)
+    assert np.all(est.tc_c <= 42.05)
+
+
+@pytest.mark.parametrize("hr", [30.0, 230.0])
+def test_six_hours_at_range_ends(hr: float) -> None:
+    with np.errstate(all="raise"):
+        est = estimate_core_temp(np.full(360, hr))
+    assert np.all(np.isfinite(est.tc_c)) and np.all(np.isfinite(est.var_c2))
+
+
+@pytest.mark.parametrize(
+    ("hr", "kwargs"),
+    [
+        ([[150.0]], {}),
+        ([150.0, math.inf], {}),
+        ([150.0], {"tc0": math.nan}),
+        ([150.0], {"v0": -0.1}),
+    ],
+)
+def test_rejects_bad_input(hr: object, kwargs: dict[str, float]) -> None:
+    with pytest.raises(ValueError):
+        estimate_core_temp(hr, **kwargs)  # type: ignore[arg-type]
