@@ -2,20 +2,30 @@
 
 from __future__ import annotations
 
+import math
 import re
 from pathlib import Path
 
+import numpy as np
 import pytest
 
 from blagden.physio.ectemp import (
     DEFAULT_TC0_C,
     DEFAULT_V0_C2,
     ECTEMP_2013,
+    EctempParams,
     ectemp_step,
     estimate_core_temp,
 )
 
 SCIENCE_MD = Path(__file__).resolve().parents[2] / "docs" / "SCIENCE.md"
+
+
+def steady_state_tc(hr_bpm: float, p: EctempParams = ECTEMP_2013) -> float:
+    """Solve b2 CT^2 + b1 CT + b0 = HR on the rising branch."""
+    a, b, c = p.b2, p.b1, p.b0 - hr_bpm
+    roots = [(-b + s * math.sqrt(b * b - 4 * a * c)) / (2 * a) for s in (1, -1)]
+    return min(roots)
 
 
 def science_table(section: str, next_section: str) -> dict[str, list[str]]:
@@ -70,3 +80,31 @@ def test_hand_worked_step_from_b3() -> None:
 def test_series_first_minute_equals_step() -> None:
     est = estimate_core_temp([150.0], tc0=37.1, v0=0.0)
     assert (est.tc_c[0], est.var_c2[0], est.gain[0]) == ectemp_step(37.1, 0.0, 150.0)
+
+
+@pytest.mark.parametrize(("hr", "spec_tc"), [(120.0, 38.0), (152.0, 39.0), (160.0, 39.3)])
+def test_constant_hr_converges_to_observation_model(hr: float, spec_tc: float) -> None:
+    target = steady_state_tc(hr)
+    assert target == pytest.approx(spec_tc, abs=0.05)  # derived values in SCIENCE.md 1
+    tc = estimate_core_temp(np.full(360, hr)).tc_c
+    assert tc[-1] == pytest.approx(target, abs=0.01)
+    # Above the baseline heart rate the estimate rises toward the target, never past it.
+    assert np.all(np.diff(tc) >= 0.0)
+    assert np.all(tc <= target + 1e-9)
+
+
+def test_constant_low_hr_falls_toward_observation_model() -> None:
+    baseline_hr = ECTEMP_2013.expected_hr(DEFAULT_TC0_C)  # about 78.5 bpm at 37.0 C
+    hr = 60.0
+    assert hr < baseline_hr
+    target = steady_state_tc(hr)
+    tc = estimate_core_temp(np.full(360, hr)).tc_c
+    assert tc[-1] == pytest.approx(target, abs=0.01)
+    assert np.all(np.diff(tc) <= 0.0)
+    assert np.all(tc >= target - 1e-9)
+
+
+def test_baseline_hr_holds_the_estimate() -> None:
+    hr = ECTEMP_2013.expected_hr(DEFAULT_TC0_C)
+    tc = estimate_core_temp(np.full(120, hr)).tc_c
+    assert np.allclose(tc, DEFAULT_TC0_C, atol=1e-9)
