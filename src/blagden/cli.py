@@ -9,6 +9,7 @@ import typer
 from blagden import __version__
 from blagden.ingest import IngestError, read_activity, resample_minutes
 from blagden.ingest.summary import format_duration, summarize
+from blagden.physio import LIMITATION_NOTE, summarize_strain
 
 app = typer.Typer(
     name="blagden",
@@ -64,5 +65,54 @@ def summary(
         )
     if as_json:
         typer.echo(json.dumps(results, indent=2))
+    if failed:
+        raise typer.Exit(code=1)
+
+
+@app.command()
+def strain(
+    files: list[Path] = typer.Argument(..., exists=True, dir_okay=False, help="Run files."),  # noqa: B008
+    start_temp: float | None = typer.Option(
+        None, "--start-temp", help="Measured starting core temperature, C (default 37.0, assumed)."
+    ),
+    resting_hr: float | None = typer.Option(
+        None, "--resting-hr", help="Resting heart rate in bpm for PSI (default: 70)."
+    ),
+    as_json: bool = typer.Option(False, "--json", help="Print JSON instead of text."),
+) -> None:
+    """Estimate core temperature and strain per run. Training insight, not medical advice."""
+    failed = 0
+    results = []
+    for path in files:
+        try:
+            table, _ = read_activity(path)
+        except IngestError as exc:
+            failed += 1
+            typer.echo(f"{path.name}: error: {exc}", err=True)
+            continue
+        s = summarize_strain(resample_minutes(table).hr_bpm, tc0=start_temp, hr0=resting_hr)
+        if as_json:
+            results.append({"file": path.name, **dataclasses.asdict(s)})
+            continue
+        start = "measured" if s.start_measured else "assumed, no measurement given"
+        if s.peak_psi is None:
+            psi_text = "n/a"
+        else:
+            above = " (above the 0 to 10 scale)" if s.psi_above_scale else ""
+            psi_text = f"{s.peak_psi:.1f}{above}"
+        rest = "default" if s.hr0_defaulted else "given"
+        peak_at = format_duration(60.0 * (s.peak_minute + 1))
+        typer.echo(
+            f"{path.name}  [{table.source_format}]\n"
+            f"  minutes            {s.minutes}\n"
+            f"  core temp start    {s.start_tc_c:.2f} C ({start})\n"
+            f"  core temp peak     {s.peak_tc_c:.2f} C at {peak_at}\n"
+            f"  minutes > {s.threshold_c:.1f} C   {s.minutes_above_threshold}\n"
+            f"  peak PSI           {psi_text} (resting HR {s.hr0_bpm:.0f} bpm, {rest})"
+        )
+    if as_json:
+        typer.echo(json.dumps(results, indent=2))
+    elif failed < len(files):
+        typer.echo(f"\nNote: {LIMITATION_NOTE}")
     if failed:
         raise typer.Exit(code=1)
