@@ -322,6 +322,37 @@ Direct-beam fraction. Liljegren's code derives it from the ratio of measured to 
 
 Solar zenith. Liljegren's code uses "the low precision formulas for the Sun's coordinates given in the Astronomical Almanac of 1990", cross-checked against Michalsky's (1988) program. Blagden implements the same formulas and tests them against the NREL Solar Position Algorithm via pvlib in the development test suite.
 
+### Model internals read from the code
+
+These are the remaining formulas and constants of the Liljegren C code (wbgt.c and wbgt.h, WBGT Version 1.1) that the port needs. Each was read from that code and is reproduced identically by thermofeel 2.3.0 (`thermofeel.liljegren`), which the port is tested against. Status for every row: VERIFIED (code).
+
+| Item | Value or formula | Code reference |
+|---|---|---|
+| Physical constants | SOLAR_CONST 1367 W/m2; GRAVITY 9.807; Cp 1003.5 J/(kg K); M_AIR 28.97; M_H2O 18.015; R_GAS 8314.34 J/(kmol K); R_AIR = R_GAS/M_AIR; RATIO = Cp M_AIR/M_H2O; Pr = Cp/(Cp + 1.25 R_AIR) | wbgt.h |
+| Saturation vapour pressure over water, hPa | $e_s = 1.004 \times 6.1121\,\exp(17.502\,(T-273.15)/(T-32.18))$, T in K; Buck (1981) eqn 3 with the code's moist-air factor 1.004 for pressure above 800 mb | `esat` |
+| Dew point, K | $T_d = 273.15 + 240.97\,z/(17.502 - z)$, $z = \ln(e/(6.1121 \times 1.004))$ | `dew_point` |
+| Viscosity of air, kg/(m s) | $2.6693\times10^{-6}\sqrt{M_{air} T}/(\sigma^2\,\Omega)$, $\sigma$ = 3.617, $\Omega = (T/97 - 2.9)/0.4 \times (-0.034) + 1.048$; Bird, Stewart and Lightfoot p. 23 | `viscosity` |
+| Thermal conductivity, W/(m K) | $(C_p + 1.25 R_{air})\,\mu$; BSL p. 257 | `thermal_cond` |
+| Diffusivity of water vapour, m2/s | $3.640\times10^{-4}\,(T/\sqrt{132 \times 647.3})^{2.334}\,(36.4 \times 218)^{1/3}\,(132 \times 647.3)^{5/12}\,\sqrt{1/M_{air} + 1/M_{H2O}}\,/\,(P/1013.25) \times 10^{-4}$; BSL p. 505 | `diffusivity` |
+| Heat of evaporation, J/kg (283 to 313 K) | $(313.15 - T)/30 \times (-71100) + 2.4073\times10^{6}$; Van Wylen and Sonntag Table A.1.1 | `evap` |
+| Atmospheric emissivity | $0.575\,e^{0.143}$ with $e$ the vapour pressure in hPa; Oke (2nd edition) p. 373 | `emis_atm` |
+| Cylinder convection (wick) | $Nu = 0.281\,Re^{0.6}\,Pr^{0.44}$ (a = 0.56, b = 0.281, c = 0.4); Bedingfield and Drew eqn 32 | `h_cylinder_in_air` |
+| Sphere convection (globe) | $Nu = 2 + 0.6\,Re^{1/2}\,Pr^{0.3333}$; BSL p. 409 | `h_sphere_in_air` |
+| Wet-bulb mass transfer exponent | $(Pr/Sc)^{0.56}$, Bedingfield and Drew | `Twb` |
+| Iteration | first guess dew point (wet bulb) or air temperature (globe); properties at the mean of guess and air; relaxation 0.9 old + 0.1 new; stop when the change is below 0.02 K, at most 500 steps | `Twb`, `Tglobe` |
+| Stability class (solar radiation and delta-T method) | day: solar columns at 925, 675 and 175 W/m2, wind rows at 2, 3, 5 and 6 m/s; night: column by $\Delta T \ge 0$ (stable) or below 0, rows at 2.0 and 2.5 m/s; table {1,1,2,4 / 1,2,3,4 / 2,2,3,4 / 3,3,4,4 / 3,4,4,4} by day, {5,6 / 5,6 / 4,4} at night; "daytime" means cosine of zenith above 0 | `stab_srdt` |
+| Irradiance cap | top-of-atmosphere irradiance $1367\,\max(0,\cos z)/d^2$, zero when $\cos z$ < CZA_MIN; measured irradiance capped at NORMSOLAR_MAX times that | `calc_solar_parameters` |
+
+### Blagden's conventions for forecast input
+
+These are Blagden choices, recorded so they are not mistaken for parts of the model:
+
+- Irradiance is taken from the forecast's instantaneous variables (`shortwave_radiation_instant`, `direct_radiation_instant`, `diffuse_radiation_instant`, section 7) and the solar position is computed for the same hour mark, so time and sun agree without the code's centring on an averaging period.
+- The irradiance cap above is applied as in the code; the direct-beam fraction is taken from the forecast components as stated under "Direct-beam fraction".
+- Forecasts have no vertical temperature difference. Night-time stability uses $\Delta T$ = 0, which the code classes as stable. For urban venues both night columns give the same exponent (0.30 for classes 5 and 6), so the choice changes nothing there; for rural venues it is a stated assumption.
+- thermofeel's KNMI floor of 0.62 m/s on the 10 m wind is not applied; the code's 0.13 m/s floor after conversion is.
+- A result whose iteration does not converge is reported as no value.
+
 ### Validation accuracy
 
 | Source | Result | Status |
