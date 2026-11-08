@@ -31,10 +31,10 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 - [x] B11b CLI, charts and reports: analyze, forecast, predict and brief with Rich tables and --json; core temperature and WBGT charts as PNG and SVG; --report Markdown bundles; exit codes 1, 2, 3
 
 ## Day 9
-- [ ] B12 Web scaffold and core port: TypeScript port of the pure-math modules, parity tests against the golden fixtures (60 to 85)
+- [x] B12 Core port: TypeScript ECTemp, PSI, solar, WBGT, heat index, risk, strain and race-morning table; browser ingest for GPX, TCX and FIT; golden parity for every module
 
 ## Day 10
-- [ ] B13 Web demo: in-browser file analysis, forecast panel, brief view, CSP, Playwright end-to-end test, first Vercel deploy (55 to 80)
+- [x] B13 Browser demo: /demo with on-device analysis and privacy test, /forecast with cited venue presets, keyboard and axe AA checks, Playwright end-to-end tests. Deferred: brief view, CSP header, first Vercel deploy
 
 ## Day 11
 - [ ] B14 Landing page, README, SCIENCE.md review, validation plan, release 0.1.0 (40 to 60)
