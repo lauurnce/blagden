@@ -404,18 +404,20 @@ blagden version [--json]
 
 ### 2.8 web
 
+As built in B12 and B13 (D-027).
+
 ```
 web/
-  app/                 Next.js App Router: / (landing), /demo (run file analysis), /forecast (venue WBGT)
-  lib/core/            TypeScript port: constants.ts, ectemp.ts, psi.ts, solar.ts, wbgt.ts, heatindex.ts, risk.ts, riegel.ts, adjust.ts, brief.ts
-  lib/ingest/          fit.ts (fit-file-parser), gpx.ts and tcx.ts (DOMParser, namespace aware), resample.ts
-  lib/weather/         openMeteo.ts (browser fetch, D-010 request shape)
-  tests/               vitest unit and parity tests; e2e/ Playwright
+  app/                 / (home), /demo (run file analysis on the device), /forecast (venue WBGT); components/
+  lib/                 ectemp.ts, psi.ts, strain.ts, solar.ts, wbgt.ts, heatIndex.ts, risk.ts, raceMorning.ts,
+                       openMeteo.ts (browser fetch, same request as Python), venues.ts (cited presets)
+  lib/ingest/          gpx.ts and tcx.ts (DOMParser, local names), fit.ts (fit-file-parser), clean.ts,
+                       resample.ts, geo.ts, index.ts (format detection and readActivity)
+  tests/               vitest parity tests against tests/golden/*.json; jsdom for the XML readers
+  e2e/                 Playwright: demo privacy and chart, forecast with a recorded response, keyboard, axe
 ```
 
-Function names and field names in `lib/core` are the camelCase spelling of the Python names (`ectempStep`, `heatIndexC`), and JSON keys are identical snake_case in both languages so fixtures need no mapping.
-
-Change from the proposal: WBGT, solar, heat index, risk and the brief renderer are ported, not only the filter, because the forecast panel runs in the browser (D-003) and the brief is shown there. The LLM path is not ported.
+Function names are camelCase spellings of the Python names; result field names stay snake_case where a fixture compares them directly. Run `pnpm test` for vitest and `pnpm e2e` to build and run Playwright. The LLM path is not ported.
 
 ## 3. Data contracts
 
