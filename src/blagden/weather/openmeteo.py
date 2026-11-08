@@ -93,7 +93,7 @@ def choose_source(start: date, end: date, today: date) -> Source:
     if end < start:
         raise ValueError("end date is before start date")
     if end > today + timedelta(days=FORECAST_MAX_DAYS - 1):
-        raise WeatherError(f"forecasts reach at most {FORECAST_MAX_DAYS} days ahead")
+        raise ValueError(f"forecasts reach at most {FORECAST_MAX_DAYS} days ahead")
     if end < today - timedelta(days=ARCHIVE_LAG_DAYS):
         return "archive"
     return "forecast"

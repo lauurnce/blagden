@@ -93,7 +93,7 @@ def test_choose_source() -> None:
     assert choose_source(date(2026, 11, 15), date(2026, 11, 15), TODAY) == "forecast"
     assert choose_source(date(2026, 11, 5), date(2026, 11, 5), TODAY) == "forecast"
     assert choose_source(date(2026, 10, 18), date(2026, 10, 18), TODAY) == "archive"
-    with pytest.raises(WeatherError):
+    with pytest.raises(ValueError, match="16 days"):  # a request problem, not an outage
         choose_source(date(2026, 12, 1), date(2026, 12, 1), TODAY)
     with pytest.raises(ValueError):
         choose_source(date(2026, 11, 2), date(2026, 11, 1), TODAY)
