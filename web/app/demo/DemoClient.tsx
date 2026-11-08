@@ -139,7 +139,7 @@ export default function DemoClient() {
         {status}
       </p>
       {error && (
-        <p role="alert" className="rounded border border-[#b91c1c] px-3 py-2">
+        <p role="alert" data-testid="error" className="rounded border border-[#b91c1c] px-3 py-2">
           {error}
         </p>
       )}
@@ -220,13 +220,13 @@ export default function DemoClient() {
             </caption>
             <thead>
               <tr className="border-b border-border">
-                <th scope="col" className="py-1">
+                <th scope="col" className="py-1 pr-4">
                   Zone
                 </th>
-                <th scope="col" className="py-1">
+                <th scope="col" className="py-1 pr-4">
                   Minutes
                 </th>
-                <th scope="col" className="py-1">
+                <th scope="col" className="py-1 pr-4">
                   Meaning
                 </th>
               </tr>
@@ -234,10 +234,10 @@ export default function DemoClient() {
             <tbody>
               {zoneMinutes(result.strain.estimate.tcC).map((z) => (
                 <tr key={z.label} className="border-b border-border">
-                  <th scope="row" className="py-1 font-normal">
+                  <th scope="row" className="py-1 pr-4 font-normal">
                     {z.label}
                   </th>
-                  <td className="py-1">{z.minutes}</td>
+                  <td className="py-1 pr-4">{z.minutes}</td>
                   <td className="py-1 text-sm">{z.description}</td>
                 </tr>
               ))}
