@@ -38,3 +38,6 @@ dist/
 
 # Raw data (real run files never enter the repo)
 data/raw/
+
+# Default output folder of blagden --report
+blagden-report/
