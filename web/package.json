@@ -13,17 +13,20 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "fit-file-parser": "6.2.7",
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
+    "@types/jsdom": "21.1.7",
     "@types/node": "^24.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
+    "jsdom": "26.1.0",
     "prettier": "^3.9.10",
     "tailwindcss": "^4",
     "typescript": "^5",
