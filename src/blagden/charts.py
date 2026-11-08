@@ -28,6 +28,7 @@ from blagden.weather.race_morning import RaceMorning  # noqa: E402
 from blagden.weather.risk import WBGT_MODEL_ERROR_C  # noqa: E402
 
 plt.rcParams["svg.hashsalt"] = "blagden"
+plt.rcParams["svg.fonttype"] = "none"  # keep text as text, so it can be read and searched
 
 FLAG_BANDS = (
     (-50.0, 10.0, "white", "#f4f4f4"),
