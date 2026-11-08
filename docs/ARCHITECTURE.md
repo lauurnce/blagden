@@ -110,51 +110,80 @@ An UNVERIFIED status does not exist in this enum on purpose: a value that is UNV
 
 ### 2.2 blagden.ingest
 
-Reads the three formats into one sample table and produces the one-minute series that `physio` consumes.
+Reads the three formats into one cleaned table and produces the one-minute series that `physio` consumes. Built in B6; rules in docs/SCIENCE.md section 8 and D-021.
 
 ```python
-from pathlib import Path
-from typing import BinaryIO, Literal
-import numpy as np
+# blagden.ingest.table
+class IngestError(ValueError): ...
+class UnsupportedFormatError(IngestError): ...
+class EmptyActivityError(IngestError): ...
+class NoHeartRateError(IngestError): ...
+
+class RawRecord(NamedTuple):          # one parsed record, before cleaning
+    time_utc: datetime | None         # timezone-aware UTC
+    hr_bpm: float | None = None
+    lat_deg: float | None = None
+    lon_deg: float | None = None
+    alt_m: float | None = None
+    speed_mps: float | None = None
+    distance_m: float | None = None
 
 @dataclass(frozen=True)
-class Samples:
-    """Raw samples as parsed, one row per record. Arrays share length n."""
-    time_utc_s: np.ndarray      # float64, Unix seconds, UTC, non-decreasing
-    hr_bpm: np.ndarray          # float64, NaN where absent or invalid
-    lat_deg: np.ndarray         # float64, NaN where absent
-    lon_deg: np.ndarray
-    alt_m: np.ndarray
-    speed_mps: np.ndarray
-    dist_m: np.ndarray          # cumulative, NaN where absent
-    cadence_rpm: np.ndarray     # as stored by the device (one foot), NaN where absent
-    segment_id: np.ndarray      # int32, increments at each recording pause or GPX trkseg
+class RawActivity:
+    records: tuple[RawRecord, ...]
     source_format: Literal["fit", "gpx", "tcx"]
-    sport: str | None           # "running", "trail", ... when the file says so
-    local_utc_offset_s: int | None  # from FIT local_timestamp or TCX designator; None if unknown
+    local_utc_offset_s: int | None = None   # FIT activity.local_timestamp, or the offset written in GPX or TCX times
+    notes: tuple[str, ...] = ()
+
+@dataclass(frozen=True)
+class ActivityTable:                  # sorted by time, unique timestamps, NaN for missing numbers
+    time_utc: tuple[datetime, ...]    # timezone-aware UTC
+    elapsed_s: FloatArray             # seconds since the first row
+    hr_bpm: FloatArray
+    lat_deg: FloatArray
+    lon_deg: FloatArray
+    alt_m: FloatArray
+    speed_mps: FloatArray             # as recorded by the device
+    distance_m: FloatArray            # cumulative; device or computed from positions
+    source_format: Literal["fit", "gpx", "tcx"]
+    distance_source: Literal["device", "computed", "none"]
+    local_utc_offset_s: int | None = None
+
+@dataclass(frozen=True)
+class CleaningReport:
+    rows_in: int
+    rows_out: int
+    rows_dropped: dict[str, int]      # "missing_time", "duplicate_time"
+    values_removed: dict[str, int]    # "hr_out_of_range", "position_out_of_range", "speed_negative"
+    hr_missing_rows: int
+    reordered: bool
+    gaps: tuple[Gap, ...]             # Gap(start_elapsed_s, duration_s) for gaps over 60 s
+    notes: tuple[str, ...]
+
+# one reader per format, each returning RawActivity
+def read_fit(path: str | Path) -> RawActivity: ...   # fitdecode, strict CRC and parse errors
+def read_gpx(path: str | Path) -> RawActivity: ...   # defusedxml; hr, heartrate, heart_rate in extensions
+def read_tcx(path: str | Path) -> RawActivity: ...   # defusedxml; TPX Speed
+
+def clean(raw: RawActivity, *, hr_range_bpm=(30.0, 230.0), gap_threshold_s=60.0) -> tuple[ActivityTable, CleaningReport]: ...
+def sniff_format(path) -> Literal["fit", "gpx", "tcx"] | None: ...
+def read_activity(path, *, require_hr: bool = True) -> tuple[ActivityTable, CleaningReport]:
+    """Content decides the format; the extension is a fallback. Raises NoHeartRateError with a plain reason."""
 
 @dataclass(frozen=True)
 class MinuteSeries:
-    """One-minute means aligned to the first valid heart-rate sample."""
-    start_utc_s: float
-    hr_bpm: np.ndarray          # float64, NaN where no observation this minute
-    n_samples: np.ndarray       # int32, samples averaged into the minute
-    segment_id: np.ndarray      # int32
-    flags: tuple[frozenset[str], ...]   # per minute: "gap", "interpolated", "low_support", "cadence_lock", "out_of_range", "pause"
-    cadence_rpm: np.ndarray     # mean cadence, for flag audit only
+    start_utc: datetime
+    hr_bpm: FloatArray                # mean of valid samples, NaN when none
+    n_samples: IntArray
+    has_hr: BoolArray                 # False: the filter predicts without an update
 
-def read_activity(src: str | Path | BinaryIO, *, fmt: Literal["fit", "gpx", "tcx"] | None = None) -> Samples:
-    """Detect the format from the extension or magic bytes unless fmt is given."""
+def resample_minutes(table: ActivityTable) -> MinuteSeries: ...
 
-def resample_minutes(samples: Samples, *, max_interp_gap_min: int = 5, min_support: int = 3,
-                     hr_valid_range_bpm: tuple[float, float] = (25.0, 250.0)) -> MinuteSeries:
-    """Apply the ECTemp one-minute rule and Blagden's gap, support and range flags (SCIENCE.md section 8)."""
-
-def detect_cadence_lock(minutes: MinuteSeries, *, tolerance_bpm: float = 3.0, min_run_min: int = 3) -> MinuteSeries:
-    """Flag minutes where heart rate tracks cadence (one foot or two feet) for min_run_min consecutive minutes."""
+# blagden.ingest.summary
+def summarize(table, report, minutes) -> ActivitySummary: ...   # never contains coordinates
 ```
 
-Change from the proposal: `cadence_rpm` and `dist_m` are added to the table (cadence is needed for the cadence-lock flag, distance for pace display), `segment_id` carries recording pauses so gaps are not interpolated across a stop, and quality flags live on the minute series rather than in `physio`, because they are facts about the recording, not about physiology.
+Changes from the B4 draft, made in B6: the table has the columns Lawrence specified (adding `elapsed_s`, dropping cadence and segment ids); times are timezone-aware datetimes rather than Unix seconds; the cleaning report replaces per-minute quality flags; minutes without heart rate are never interpolated (D-021). Cadence-lock detection moves to a later phase, if at all.
 
 ### 2.3 blagden.physio (ported)
 
@@ -415,16 +444,14 @@ Rules that apply to every shape below:
 
 ```json
 {
-  "start_utc_s": 1773187200.0,
-  "hr_bpm": [142.3, 145.0, null, 151.2],
-  "n_samples": [58, 60, 0, 31],
-  "segment_id": [0, 0, 0, 0],
-  "flags": [[], [], ["gap", "interpolated"], ["low_support"]],
-  "cadence_rpm": [86.0, 87.1, null, 86.4]
+  "start_utc": "2026-01-04T21:00:00+00:00",
+  "hr_bpm": [110.0, null, 135.0],
+  "n_samples": [3, 0, 2],
+  "has_hr": [true, false, true]
 }
 ```
 
-Flag vocabulary: `gap` (no sample in the minute), `interpolated` (value filled across a gap of 5 minutes or less), `pause` (inside a recording pause, never interpolated), `low_support` (fewer than 3 samples), `cadence_lock` (heart rate tracked cadence for 3 or more minutes), `out_of_range` (sample outside 25 to 250 bpm, excluded).
+This is the hand-built example in `tests/ingest/test_resample.py`. A `null` minute carries no observation; it is never filled.
 
 ### 3.2 Core temperature series (physio output)
 
