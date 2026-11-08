@@ -701,7 +701,16 @@ Blagden requests the ten hourly variables `temperature_2m`, `relative_humidity_2
 
 ### Valid input ranges
 
-Latitude and longitude in decimal degrees. Venue presets in Blagden are fixed coordinates in Metro Manila and Clark. Forecast horizon up to 16 days; race-morning briefs use the final 1 to 3 days before the race when forecasts are most skilful (skill statement is general meteorological practice, not an Open-Meteo claim).
+Latitude and longitude in decimal degrees. Venue presets in Blagden are fixed coordinates in Metro Manila and Clark, each taken from the coordinates template of the place's English Wikipedia article on 2026-11-09 (area coordinates, not start lines):
+
+| Venue | Latitude | Longitude | Wind exponents | Source |
+|---|---|---|---|---|
+| Quezon Memorial Circle | 14.651417 | 121.04917 | urban | https://en.wikipedia.org/wiki/Quezon_Memorial_Circle |
+| SM Mall of Asia | 14.53500 | 120.98194 | urban | https://en.wikipedia.org/wiki/SM_Mall_of_Asia |
+| Bonifacio Global City | 14.550806 | 121.050972 | urban | https://en.wikipedia.org/wiki/Bonifacio_Global_City |
+| University of the Philippines Diliman | 14.6549250 | 121.0648500 | urban | https://en.wikipedia.org/wiki/University_of_the_Philippines_Diliman |
+| Filinvest City | 14.417472 | 121.04194 | urban | https://en.wikipedia.org/wiki/Filinvest_City |
+| Clark Freeport and Special Economic Zone | 15.18493 | 120.5394 | rural | https://en.wikipedia.org/wiki/Clark_Freeport_and_Special_Economic_Zone | Forecast horizon up to 16 days; race-morning briefs use the final 1 to 3 days before the race when forecasts are most skilful (skill statement is general meteorological practice, not an Open-Meteo claim).
 
 ### Limitations
 
