@@ -201,3 +201,11 @@ Decision: `blagden.brief.facts.build_facts` collects every number a brief may us
 Reason: Lawrence's B11 prompt. Keeping sentence choice in code and wording in data lets the web app share the same strings and lets the copy be approved without touching logic. Rounding warning times down and drink kilometres down errs early. Heart-rate thresholds and hydration volumes have no source in SCIENCE.md, so the brief states neither; the reminder says only when to use every aid station.
 
 Alternatives considered: A heart-rate back-off line as in the voice example (rejected: no sourced threshold, and the grounding check would reject an unsourced number). An OpenAI provider in this phase (deferred; the interface is provider-neutral and adding one is a new class). Raw HTTP instead of the provider SDK (rejected: the SDK is optional and imported only when selected, which meets the no-hard-dependency rule).
+
+## D-026 · 2026-11-08 · CLI, charts and reports as built
+
+Decision: The CLI has `analyze`, `forecast`, `predict` and `brief` (plus `summary` and `version`), each with Rich tables, `--json`, `--out` for charts and `--report` for a Markdown report. `analyze` replaces `strain` and `forecast` replaces `race-morning`. Command logic is in `blagden.app` so the CLI only renders. Charts use matplotlib with the Agg backend, are saved as PNG and SVG with fixed metadata and SVG ids so the same input gives the same files, and keep SVG text as text. Exit codes are 1 for bad input, 2 for usage, 3 for an unavailable weather service; a date beyond the 16-day horizon is bad input. `rich` and `matplotlib` become runtime dependencies; `jsonschema` is a dev dependency for the JSON checks.
+
+Reason: Lawrence's prompt for this phase. A separate application layer keeps one code path for tables, JSON and reports and keeps the CLI testable offline. Deterministic chart files let a report be compared across runs. Distinct exit codes let scripts tell a bad request from an outage.
+
+Alternatives considered: matplotlib as an optional extra (rejected: charts are part of the CLI output the prompt asks for). Keeping `strain` and `race-morning` as aliases (rejected: two names for one thing). Plotly or Vega charts (rejected: need a browser or more dependencies for static files).
