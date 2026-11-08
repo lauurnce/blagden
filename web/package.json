@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "e2e": "next build && playwright test"
   },
   "dependencies": {
     "fit-file-parser": "6.2.7",
@@ -19,6 +20,8 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.11.0",
+    "@playwright/test": "1.56.1",
     "@tailwindcss/turbopack": "^4",
     "@types/jsdom": "21.1.7",
     "@types/node": "^24.19.2",
