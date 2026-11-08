@@ -154,8 +154,10 @@ describe("zones and venues", () => {
     expect(VENUES.map((v) => v.id)).toContain("qmc");
     for (const v of VENUES) {
       expect(v.source.startsWith("https://en.wikipedia.org/wiki/")).toBe(true);
-      expect(v.lat).toBeGreaterThan(14) && expect(v.lat).toBeLessThan(16);
-      expect(v.lon).toBeGreaterThan(120) && expect(v.lon).toBeLessThan(122);
+      expect(v.lat).toBeGreaterThan(14);
+      expect(v.lat).toBeLessThan(16);
+      expect(v.lon).toBeGreaterThan(120);
+      expect(v.lon).toBeLessThan(122);
     }
     expect(VENUES.find((v) => v.id === "clark")!.urban).toBe(false);
   });
