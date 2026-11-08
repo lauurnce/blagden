@@ -32,7 +32,10 @@ from blagden.physio.psi import (
     PSI_WEIGHT,
     psi,
 )
+from blagden.physio.summary import summarize_strain
 from blagden.weather.heat_index import heat_index_c, pagasa_category
+from blagden.weather.openmeteo import parse_hourly
+from blagden.weather.race_morning import hour_row
 from blagden.weather.risk import risk_label
 from blagden.weather.solar import sun_position
 from blagden.weather.wbgt import outdoor_wbgt
@@ -359,6 +362,71 @@ def ingest_fixture() -> dict[str, Any]:
     }
 
 
+def strain_fixture() -> dict[str, Any]:
+    """Build the per-run strain summary fixture for each shared run file."""
+    cases = []
+    for name in INGEST_FILES:
+        table, _ = read_activity(ROOT / "tests" / "fixtures" / name)
+        hr = resample_minutes(table).hr_bpm
+        for label, kwargs in (
+            ("default", {}),
+            ("measured_37.3_rest_55", {"tc0": 37.3, "hr0": 55.0}),
+        ):
+            s = summarize_strain(hr, **kwargs)  # type: ignore[arg-type]
+            cases.append(
+                {
+                    "name": f"{name}_{label}",
+                    "inputs": {"hr_bpm": to_json(hr), **kwargs},
+                    "expected": dataclasses.asdict(s),
+                }
+            )
+    return {
+        "module": "strain",
+        "generator": GENERATOR,
+        "science": "docs/SCIENCE.md sections 1 to 3",
+        "tolerance": {"start_tc_c": 1e-9, "peak_tc_c": 1e-6, "peak_psi": 1e-6, "hr0_bpm": 0.0},
+        "cases": cases,
+    }
+
+
+def race_morning_fixture() -> dict[str, Any]:
+    """Build the race-morning table from the recorded Open-Meteo forecast, urban and rural."""
+    rec = json.loads(
+        (ROOT / "tests" / "data" / "open_meteo" / "forecast_qmc_2026-11-15.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    weather = parse_hourly(json.dumps(rec["response"]).encode(), "forecast")
+    lat, lon = 14.6517, 121.0493
+    cases = []
+    for urban in (True, False):
+        rows = [hour_row(weather, i, lat, lon, urban=urban) for i in range(len(weather))]
+        cases.append(
+            {
+                "name": "qmc_2026-11-15_" + ("urban" if urban else "rural"),
+                "inputs": {"response": rec["response"], "lat": lat, "lon": lon, "urban": urban},
+                "expected": {
+                    "hours": [
+                        to_json({**dataclasses.asdict(r), "time_local": r.time_local.isoformat()})
+                        for r in rows
+                    ]
+                },
+            }
+        )
+    return {
+        "module": "race_morning",
+        "generator": GENERATOR,
+        "science": "docs/SCIENCE.md sections 4, 5, 7",
+        "tolerance": {
+            "wbgt_c": 0.01,
+            "heat_index_c": 1e-6,
+            "wind2_mps": 1e-9,
+            "sun_elevation_deg": 1e-4,
+        },
+        "cases": cases,
+    }
+
+
 FIXTURES = {
     "ectemp.json": ectemp_fixture,
     "psi.json": psi_fixture,
@@ -367,6 +435,8 @@ FIXTURES = {
     "heat_index.json": heat_index_fixture,
     "risk.json": risk_fixture,
     "ingest.json": ingest_fixture,
+    "strain.json": strain_fixture,
+    "race_morning.json": race_morning_fixture,
 }
 
 
