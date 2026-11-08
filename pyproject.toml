@@ -10,7 +10,9 @@ requires-python = ">=3.12"
 dependencies = [
     "defusedxml>=0.7",
     "fitdecode>=0.11",
+    "matplotlib>=3.9",
     "numpy>=2.1",
+    "rich>=13",
     "typer>=0.15",
 ]
 
@@ -29,6 +31,7 @@ dev = [
     "mypy>=1.14",
     "pre-commit>=4.0",
     "thermofeel==2.3.0",
+    "jsonschema>=4.23",
 ]
 
 [build-system]
