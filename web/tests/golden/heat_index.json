@@ -1,0 +1,736 @@
+{
+ "module": "heat_index",
+ "generator": "scripts/make_golden.py",
+ "science": "docs/SCIENCE.md section 5",
+ "tolerance": {
+  "hi_c": 1e-06
+ },
+ "cases": [
+  {
+   "name": "t20.0_rh8.0",
+   "inputs": {
+    "t_c": 20.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 18.264444444444447,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t20.0_rh30.0",
+   "inputs": {
+    "t_c": 20.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 18.83888888888889,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t20.0_rh55.0",
+   "inputs": {
+    "t_c": 20.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 19.49166666666666,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t20.0_rh70.0",
+   "inputs": {
+    "t_c": 20.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 19.88333333333334,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t20.0_rh86.0",
+   "inputs": {
+    "t_c": 20.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 20.301111111111112,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t20.0_rh95.0",
+   "inputs": {
+    "t_c": 20.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 20.53611111111111,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t24.0_rh8.0",
+   "inputs": {
+    "t_c": 24.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 22.664444444444445,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t24.0_rh30.0",
+   "inputs": {
+    "t_c": 24.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 23.238888888888887,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t24.0_rh55.0",
+   "inputs": {
+    "t_c": 24.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 23.891666666666666,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t24.0_rh70.0",
+   "inputs": {
+    "t_c": 24.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 24.28333333333334,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t24.0_rh86.0",
+   "inputs": {
+    "t_c": 24.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 24.70111111111111,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t24.0_rh95.0",
+   "inputs": {
+    "t_c": 24.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 24.936111111111114,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t26.5_rh8.0",
+   "inputs": {
+    "t_c": 26.5,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 25.41444444444444,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t26.5_rh30.0",
+   "inputs": {
+    "t_c": 26.5,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 25.98888888888888,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t26.5_rh55.0",
+   "inputs": {
+    "t_c": 26.5,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 26.64166666666666,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t26.5_rh70.0",
+   "inputs": {
+    "t_c": 26.5,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 28.0438252490555,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t26.5_rh86.0",
+   "inputs": {
+    "t_c": 26.5,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 29.06829141794441,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t26.5_rh95.0",
+   "inputs": {
+    "t_c": 26.5,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 29.708544250444405,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t27.0_rh8.0",
+   "inputs": {
+    "t_c": 27.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 25.964444444444446,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t27.0_rh30.0",
+   "inputs": {
+    "t_c": 27.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 26.419571995111113,
+    "category": "Not hazardous"
+   }
+  },
+  {
+   "name": "t27.0_rh55.0",
+   "inputs": {
+    "t_c": 27.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 27.735317639555635,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t27.0_rh70.0",
+   "inputs": {
+    "t_c": 27.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 28.855553559555556,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t27.0_rh86.0",
+   "inputs": {
+    "t_c": 27.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 30.395034839555517,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t27.0_rh95.0",
+   "inputs": {
+    "t_c": 27.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 31.985038759555543,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t29.0_rh8.0",
+   "inputs": {
+    "t_c": 29.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 26.96771346557809,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t29.0_rh30.0",
+   "inputs": {
+    "t_c": 29.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 27.873072607111144,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t29.0_rh55.0",
+   "inputs": {
+    "t_c": 29.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 30.30655435155552,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t29.0_rh70.0",
+   "inputs": {
+    "t_c": 29.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 32.72727353155561,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t29.0_rh86.0",
+   "inputs": {
+    "t_c": 29.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 36.134606011555604,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t29.0_rh95.0",
+   "inputs": {
+    "t_c": 29.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 38.67396683155542,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t31.0_rh8.0",
+   "inputs": {
+    "t_c": 31.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 28.456405052357468,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t31.0_rh30.0",
+   "inputs": {
+    "t_c": 31.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 29.733133747111108,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t31.0_rh55.0",
+   "inputs": {
+    "t_c": 31.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 33.665803991555485,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t31.0_rh70.0",
+   "inputs": {
+    "t_c": 31.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 37.59868427155554,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t31.0_rh86.0",
+   "inputs": {
+    "t_c": 31.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 43.094333160444485,
+    "category": "Danger"
+   }
+  },
+  {
+   "name": "t31.0_rh95.0",
+   "inputs": {
+    "t_c": 31.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 46.77561496044433,
+    "category": "Danger"
+   }
+  },
+  {
+   "name": "t33.0_rh8.0",
+   "inputs": {
+    "t_c": 33.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 30.004944727871717,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t33.0_rh30.0",
+   "inputs": {
+    "t_c": 33.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 31.99975541511118,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t33.0_rh55.0",
+   "inputs": {
+    "t_c": 33.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 37.8130665595557,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t33.0_rh70.0",
+   "inputs": {
+    "t_c": 33.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 43.46978577955576,
+    "category": "Danger"
+   }
+  },
+  {
+   "name": "t33.0_rh86.0",
+   "inputs": {
+    "t_c": 33.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 51.296438508444595,
+    "category": "Danger"
+   }
+  },
+  {
+   "name": "t33.0_rh95.0",
+   "inputs": {
+    "t_c": 33.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 56.51220536844479,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t35.0_rh8.0",
+   "inputs": {
+    "t_c": 35.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 31.606122433333358,
+    "category": "Caution"
+   }
+  },
+  {
+   "name": "t35.0_rh30.0",
+   "inputs": {
+    "t_c": 35.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 34.672937611111166,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t35.0_rh55.0",
+   "inputs": {
+    "t_c": 35.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 42.7483420555556,
+    "category": "Danger"
+   }
+  },
+  {
+   "name": "t35.0_rh70.0",
+   "inputs": {
+    "t_c": 35.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 50.34057805555565,
+    "category": "Danger"
+   }
+  },
+  {
+   "name": "t35.0_rh86.0",
+   "inputs": {
+    "t_c": 35.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 60.70981094444465,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t35.0_rh95.0",
+   "inputs": {
+    "t_c": 35.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 67.5726269444446,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t38.0_rh8.0",
+   "inputs": {
+    "t_c": 38.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 34.32288544013262,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t38.0_rh30.0",
+   "inputs": {
+    "t_c": 38.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 39.44501189511107,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t38.0_rh55.0",
+   "inputs": {
+    "t_c": 38.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 51.6287795395555,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t38.0_rh70.0",
+   "inputs": {
+    "t_c": 38.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 62.52118665955556,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t38.0_rh86.0",
+   "inputs": {
+    "t_c": 38.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 77.10099538844456,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t38.0_rh95.0",
+   "inputs": {
+    "t_c": 38.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 86.64544274844454,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t41.0_rh8.0",
+   "inputs": {
+    "t_c": 41.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 37.165927025578114,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t41.0_rh30.0",
+   "inputs": {
+    "t_c": 41.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 45.1318473671112,
+    "category": "Danger"
+   }
+  },
+  {
+   "name": "t41.0_rh55.0",
+   "inputs": {
+    "t_c": 41.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 62.28224611155562,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t41.0_rh70.0",
+   "inputs": {
+    "t_c": 41.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 76.9510994915557,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t41.0_rh86.0",
+   "inputs": {
+    "t_c": 41.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 96.21753078044462,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t41.0_rh95.0",
+   "inputs": {
+    "t_c": 41.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 108.69687868044461,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t44.0_rh8.0",
+   "inputs": {
+    "t_c": 44.0,
+    "rh_pct": 8.0
+   },
+   "expected": {
+    "hi_c": 40.21625853051486,
+    "category": "Extreme Caution"
+   }
+  },
+  {
+   "name": "t44.0_rh30.0",
+   "inputs": {
+    "t_c": 44.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "hi_c": 51.73344402711117,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t44.0_rh55.0",
+   "inputs": {
+    "t_c": 44.0,
+    "rh_pct": 55.0
+   },
+   "expected": {
+    "hi_c": 74.70874177155562,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t44.0_rh70.0",
+   "inputs": {
+    "t_c": 44.0,
+    "rh_pct": 70.0
+   },
+   "expected": {
+    "hi_c": 93.63031655155554,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t44.0_rh86.0",
+   "inputs": {
+    "t_c": 44.0,
+    "rh_pct": 86.0
+   },
+   "expected": {
+    "hi_c": 118.05941712044458,
+    "category": "Extreme Danger"
+   }
+  },
+  {
+   "name": "t44.0_rh95.0",
+   "inputs": {
+    "t_c": 44.0,
+    "rh_pct": 95.0
+   },
+   "expected": {
+    "hi_c": 133.72693474044468,
+    "category": "Extreme Danger"
+   }
+  }
+ ]
+}

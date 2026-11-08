@@ -1,0 +1,4336 @@
+{
+ "module": "wbgt",
+ "generator": "scripts/make_golden.py",
+ "science": "docs/SCIENCE.md section 4",
+ "tolerance": {
+  "wbgt_c": 0.01,
+  "tg_c": 0.01,
+  "tnwb_c": 0.01,
+  "tpsy_c": 0.01,
+  "wind2_mps": 1e-09,
+  "fdir": 1e-12,
+  "solar_wm2": 1e-09
+ },
+ "cases": [
+  {
+   "name": "grid_0",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 19.734853329079566,
+    "tg_c": 21.82047060453334,
+    "tnwb_c": 18.52965601167557,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.1650541654144636,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_1",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.669427922877937,
+    "tg_c": 32.51442192003583,
+    "tnwb_c": 21.095062198386813,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_2",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.775506335472727,
+    "tg_c": 43.62994496655409,
+    "tnwb_c": 23.785024774517012,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_3",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.61634724624996,
+    "tg_c": 52.140431328634975,
+    "tnwb_c": 25.411801400747095,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_4",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 19.900857292996776,
+    "tg_c": 22.813346031789195,
+    "tnwb_c": 18.483125838055628,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_5",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 21.797959186926555,
+    "tg_c": 28.86536550324047,
+    "tnwb_c": 19.464122980397804,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_6",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 24.231733622953094,
+    "tg_c": 36.22441066429684,
+    "tnwb_c": 20.838359271562467,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_7",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.680584870256034,
+    "tg_c": 41.21320780269639,
+    "tnwb_c": 21.482776156738225,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_8",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 19.969160034897584,
+    "tg_c": 23.183285893055597,
+    "tnwb_c": 18.475004080409235,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_9",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 21.308385394584832,
+    "tg_c": 27.64689691809224,
+    "tnwb_c": 19.112865729951977,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_10",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 22.746019165118433,
+    "tg_c": 32.36015470922115,
+    "tnwb_c": 19.819983176106007,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_11",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.96208910075702,
+    "tg_c": 36.54513749027245,
+    "tnwb_c": 20.36151657528933,
+    "tpsy_c": 18.464773103644518,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_12",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 21.817562114720168,
+    "tg_c": 22.574133261576492,
+    "tnwb_c": 21.289622089149816,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_13",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.55206877834727,
+    "tg_c": 33.02543556794541,
+    "tnwb_c": 23.638545235368838,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_14",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.48762348039822,
+    "tg_c": 44.098772876926944,
+    "tnwb_c": 26.096955578589757,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_15",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.775269804592348,
+    "tg_c": 51.66973252578316,
+    "tnwb_c": 27.201890427765306,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.3573815195068969,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_16",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 21.96727884910431,
+    "tg_c": 23.13697847359805,
+    "tnwb_c": 21.34269022054957,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_17",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.912371844727023,
+    "tg_c": 29.47096605387992,
+    "tnwb_c": 22.311683762787197,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_18",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.1330762978923,
+    "tg_c": 36.52387159033685,
+    "tnwb_c": 23.469002828321322,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_19",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.537918857785318,
+    "tg_c": 41.5009146722424,
+    "tnwb_c": 24.05390846190977,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_20",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 22.04163251757157,
+    "tg_c": 23.441311836632963,
+    "tnwb_c": 21.361957357492827,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_21",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.32248527282367,
+    "tg_c": 27.85890522840475,
+    "tnwb_c": 21.929577467346746,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_22",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 24.90600788860481,
+    "tg_c": 33.136977753392046,
+    "tnwb_c": 22.683731911323434,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_23",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.890420415920303,
+    "tg_c": 36.75691142857056,
+    "tnwb_c": 23.05576875743742,
+    "tpsy_c": 21.382001175994162,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_24",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.21719355394147,
+    "tg_c": 22.908564719926687,
+    "tnwb_c": 23.193543728508757,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_25",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.64465809455963,
+    "tg_c": 32.94831912095469,
+    "tnwb_c": 25.221420386240993,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_26",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.665761405670438,
+    "tg_c": 44.38495964244248,
+    "tnwb_c": 27.698242110259912,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_27",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 33.347299225351755,
+    "tg_c": 52.872868728708966,
+    "tnwb_c": 29.103893542299943,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_28",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.380814725128438,
+    "tg_c": 23.34081163699051,
+    "tnwb_c": 23.303789139614764,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_29",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.278420164226674,
+    "tg_c": 29.664311836387412,
+    "tnwb_c": 24.207939709927416,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_30",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.1809092423884,
+    "tg_c": 35.99123294877597,
+    "tnwb_c": 25.118089503761723,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.7026798450415692,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_31",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.816332796007686,
+    "tg_c": 41.67842775002208,
+    "tnwb_c": 25.829496065718956,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_32",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.44763781108861,
+    "tg_c": 23.548546972577185,
+    "tnwb_c": 23.339897737961678,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_33",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 24.704969110041553,
+    "tg_c": 27.995757171461946,
+    "tnwb_c": 23.865453822498807,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_34",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.24849909023866,
+    "tg_c": 33.27284021212648,
+    "tnwb_c": 24.562758639733374,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_35",
+   "inputs": {
+    "t_air_c": 24.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.958615936597646,
+    "tg_c": 36.079832545521015,
+    "tnwb_c": 24.775213467847777,
+    "tpsy_c": 23.378289494197077,
+    "t_air_c": 24.0,
+    "wind2_mps": 4.256699612603923,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_36",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 22.618027935094364,
+    "tg_c": 25.318699218918255,
+    "tnwb_c": 21.220411559015304,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_37",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.32225222031253,
+    "tg_c": 35.665190732798465,
+    "tnwb_c": 23.5560201053612,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_38",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.229730162958194,
+    "tg_c": 46.63992656085952,
+    "tnwb_c": 26.002492643980418,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_39",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.95123693028879,
+    "tg_c": 55.05036980258109,
+    "tnwb_c": 27.487375671103678,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_40",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 22.662163478738098,
+    "tg_c": 25.828989598821693,
+    "tnwb_c": 21.137665084248226,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.8252708270723179,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_41",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 24.620016289268694,
+    "tg_c": 32.278929135601516,
+    "tnwb_c": 22.09175780306913,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_42",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.83329335307591,
+    "tg_c": 39.29456059537483,
+    "tnwb_c": 23.249116048572773,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_43",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.232510302539765,
+    "tg_c": 44.24815748085905,
+    "tnwb_c": 23.83268400909708,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_44",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 22.723807823164172,
+    "tg_c": 26.294549745763504,
+    "tnwb_c": 21.09271124858782,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_45",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 23.929942488015314,
+    "tg_c": 30.499948023470154,
+    "tnwb_c": 21.61421840474469,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_46",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.594522557414066,
+    "tg_c": 35.97988394518228,
+    "tnwb_c": 22.426493954825162,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_47",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.578321167455396,
+    "tg_c": 39.59884045593731,
+    "tnwb_c": 22.79793296609705,
+    "tpsy_c": 21.056887058650773,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_48",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 24.82224006074481,
+    "tg_c": 25.89249242275264,
+    "tnwb_c": 24.205345108848974,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_49",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.355342591478806,
+    "tg_c": 36.204097729669456,
+    "tnwb_c": 26.306461493635595,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_50",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.76435556735275,
+    "tg_c": 46.47038960524327,
+    "tnwb_c": 28.24325378043443,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.3573815195068969,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_51",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.71801687237598,
+    "tg_c": 55.528511203457015,
+    "tnwb_c": 29.874735188120837,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_52",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 24.90884672462703,
+    "tg_c": 26.324929615583017,
+    "tnwb_c": 24.20551543072918,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_53",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.77008684531675,
+    "tg_c": 32.61141078025116,
+    "tnwb_c": 25.068292413237884,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_54",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.894375768796856,
+    "tg_c": 39.60613452929704,
+    "tnwb_c": 26.104498375624928,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_55",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.97619875215535,
+    "tg_c": 43.76504397868365,
+    "tnwb_c": 26.46169993774089,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.7869075975344844,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_56",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 24.95110615570556,
+    "tg_c": 26.535635826358146,
+    "tnwb_c": 24.205684272048472,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_57",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.19228606858665,
+    "tg_c": 30.96831953057631,
+    "tnwb_c": 24.712317374959127,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_58",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.713769352046867,
+    "tg_c": 36.21354799132541,
+    "tnwb_c": 25.387228219688268,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_59",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.66863456255873,
+    "tg_c": 39.82407857272915,
+    "tnwb_c": 25.719741211447,
+    "tpsy_c": 24.199552666492878,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_60",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.285348014622706,
+    "tg_c": 26.164971872433284,
+    "tnwb_c": 26.217648057337215,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.1650541654144636,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_61",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.74332356518634,
+    "tg_c": 36.53341636371533,
+    "tnwb_c": 28.195200417776107,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_62",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 33.37184897472561,
+    "tg_c": 47.439387919686055,
+    "tnwb_c": 30.262816272554858,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_63",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 35.9308252547099,
+    "tg_c": 55.823204456353665,
+    "tnwb_c": 31.523120519198812,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_64",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.418536569748692,
+    "tg_c": 26.536542911345805,
+    "tnwb_c": 26.301754267827903,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_65",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.11829952724212,
+    "tg_c": 32.490203004600346,
+    "tnwb_c": 27.028941323317213,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_66",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.295319180063906,
+    "tg_c": 39.801957179339865,
+    "tnwb_c": 28.04989677742276,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_67",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.622609085927774,
+    "tg_c": 44.735710001288965,
+    "tnwb_c": 28.536381550957117,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_68",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.454349284807698,
+    "tg_c": 26.67486708420381,
+    "tnwb_c": 26.313394097095625,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_69",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.669849748607298,
+    "tg_c": 31.113932389191575,
+    "tnwb_c": 26.781518958241406,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_70",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.97311706923021,
+    "tg_c": 35.776044133013386,
+    "tnwb_c": 27.311297489467904,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_71",
+   "inputs": {
+    "t_air_c": 27.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.08753966967648,
+    "tg_c": 39.96308650519825,
+    "tnwb_c": 27.707031955195475,
+    "tpsy_c": 26.336474276368108,
+    "t_air_c": 27.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_72",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.470562683851405,
+    "tg_c": 28.6266129779803,
+    "tnwb_c": 23.92177155465049,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_73",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.986754958744093,
+    "tg_c": 38.83212356840107,
+    "tnwb_c": 26.02904320723411,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_74",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.7004787285373,
+    "tg_c": 49.670373028721826,
+    "tnwb_c": 28.237720175418474,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_75",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.88008007360756,
+    "tg_c": 57.09708814855867,
+    "tnwb_c": 29.229517776994044,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.3573815195068969,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_76",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.464558299812868,
+    "tg_c": 29.155769275137175,
+    "tnwb_c": 23.76200634969348,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_77",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.32592226262294,
+    "tg_c": 35.40713986908355,
+    "tnwb_c": 24.63499184115176,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_78",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.44934766548076,
+    "tg_c": 42.36989539708611,
+    "tnwb_c": 25.679097980090773,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_79",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.80164487968416,
+    "tg_c": 47.28773135829573,
+    "tnwb_c": 26.205855154321455,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_80",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 25.489599298407615,
+    "tg_c": 29.45861997185483,
+    "tnwb_c": 23.71125043433807,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_81",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 26.73226886736115,
+    "tg_c": 33.837793852449465,
+    "tnwb_c": 24.235300138387515,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_82",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.25527236902689,
+    "tg_c": 39.06029709026018,
+    "tnwb_c": 24.918875644249795,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_83",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.207867365659816,
+    "tg_c": 42.65283043443253,
+    "tnwb_c": 25.253287541104726,
+    "tpsy_c": 23.65247224932631,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_84",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.830132212273302,
+    "tg_c": 29.229492611824583,
+    "tnwb_c": 27.120333842726268,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_85",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.985363269267992,
+    "tg_c": 39.01505380685586,
+    "tnwb_c": 28.831932154138315,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_86",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.72240881219481,
+    "tg_c": 50.19173100595856,
+    "tnwb_c": 30.97723230143299,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_87",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 37.23563416866959,
+    "tg_c": 58.484339247150615,
+    "tnwb_c": 32.19823759891352,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_88",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.848166848855715,
+    "tg_c": 29.522763886966118,
+    "tnwb_c": 27.062305816374987,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_89",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.636827944588177,
+    "tg_c": 35.75897609626543,
+    "tnwb_c": 27.83576103619299,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_90",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.421505396053476,
+    "tg_c": 41.99965342371513,
+    "tnwb_c": 28.602249587586357,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.7026798450415692,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_91",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.97597461939763,
+    "tg_c": 47.61093676468306,
+    "tnwb_c": 29.21969609494431,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_92",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 27.867959675019094,
+    "tg_c": 29.673940608061628,
+    "tnwb_c": 27.047387933438245,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_93",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.07088256427086,
+    "tg_c": 34.08858871852465,
+    "tnwb_c": 27.504521172237048,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_94",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.530529714675822,
+    "tg_c": 39.30852545229129,
+    "tnwb_c": 28.098320891739377,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_95",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.211671724857126,
+    "tg_c": 42.10157007216168,
+    "tnwb_c": 28.2733681577497,
+    "tpsy_c": 27.02857765735854,
+    "t_air_c": 30.0,
+    "wind2_mps": 4.256699612603923,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_96",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.417421071422392,
+    "tg_c": 29.599054562320077,
+    "tnwb_c": 29.282300227083397,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_97",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.655391684362684,
+    "tg_c": 39.74919859190294,
+    "tnwb_c": 31.007931379974423,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_98",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 36.096949569417475,
+    "tg_c": 50.51040394626273,
+    "tnwb_c": 32.84981254309275,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_99",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 38.555470842036016,
+    "tg_c": 58.79497251047866,
+    "tnwb_c": 33.9949661999147,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_100",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.44339774948302,
+    "tg_c": 29.71818059333583,
+    "tnwb_c": 29.285373758308367,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 0.8252708270723179,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_101",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.189068114593947,
+    "tg_c": 35.97603735733122,
+    "tnwb_c": 29.991229490182434,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_102",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 33.172271052258935,
+    "tg_c": 42.913693989611886,
+    "tnwb_c": 30.84218893476651,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_103",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.453971455329004,
+    "tg_c": 47.81033515603258,
+    "tnwb_c": 31.274149177317838,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_104",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.469421462869292,
+    "tg_c": 29.827006855887078,
+    "tnwb_c": 29.291457273845538,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_105",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.566771379227394,
+    "tg_c": 33.9816865882961,
+    "tnwb_c": 29.67204865938311,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_106",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.07021332552368,
+    "tg_c": 39.46171765432558,
+    "tnwb_c": 30.254099706655097,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_107",
+   "inputs": {
+    "t_air_c": 30.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.97653885120664,
+    "tg_c": 43.03921566076639,
+    "tnwb_c": 30.526708170076233,
+    "tpsy_c": 29.296323710805382,
+    "t_air_c": 30.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_108",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.318310259283145,
+    "tg_c": 31.95214641744724,
+    "tnwb_c": 26.61125853684814,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_109",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.65844117914054,
+    "tg_c": 42.02065382117382,
+    "tnwb_c": 28.506157735579677,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_110",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.87751244777567,
+    "tg_c": 52.08124298901498,
+    "tnwb_c": 30.230376928532394,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.3573815195068969,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_111",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 37.71009192247198,
+    "tg_c": 60.9282422007347,
+    "tnwb_c": 31.749204974750057,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_112",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.251426833199247,
+    "tg_c": 32.352617986361224,
+    "tnwb_c": 26.401290337038574,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_113",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.039136488099814,
+    "tg_c": 38.55398270320717,
+    "tnwb_c": 27.1833427820834,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_114",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.07836632273057,
+    "tg_c": 45.46344146869819,
+    "tnwb_c": 28.122397184272756,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_115",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 33.12016642439809,
+    "tg_c": 49.57684953381107,
+    "tnwb_c": 28.435423596622684,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.7869075975344844,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_116",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 28.2485261113261,
+    "tg_c": 32.55029226052375,
+    "tnwb_c": 26.34066808460193,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_117",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 29.455039073843572,
+    "tg_c": 36.953806737025275,
+    "tnwb_c": 26.806111037769313,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_118",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.924648654407726,
+    "tg_c": 42.15065698631537,
+    "tnwb_c": 27.420738938778072,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_119",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 60.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.84913703998614,
+    "tg_c": 45.722869565490214,
+    "tnwb_c": 27.720804466982997,
+    "tpsy_c": 26.263967845088416,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_120",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.849967148548636,
+    "tg_c": 32.54435734105789,
+    "tnwb_c": 30.058708114767228,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.1650541654144636,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_121",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.003484247114855,
+    "tg_c": 42.617687390212325,
+    "tnwb_c": 31.68563824153199,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_122",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 37.37435474187592,
+    "tg_c": 53.2651410992587,
+    "tnwb_c": 33.45903788860596,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_123",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 39.791056491261244,
+    "tg_c": 61.45659601366265,
+    "tnwb_c": 34.57105326932674,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_124",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.791633133992725,
+    "tg_c": 32.739220001694946,
+    "tnwb_c": 29.919698762362486,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_125",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.39651478593435,
+    "tg_c": 38.59870813429785,
+    "tnwb_c": 30.53824737010683,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_126",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.46240435701968,
+    "tg_c": 45.81942202892259,
+    "tnwb_c": 31.42645707319309,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_127",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 35.727593153840516,
+    "tg_c": 50.68666126843948,
+    "tnwb_c": 31.843229857360882,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_128",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 30.788049140035675,
+    "tg_c": 32.81786090758362,
+    "tnwb_c": 29.892109940741364,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_129",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 31.94992387763461,
+    "tg_c": 37.21040042664322,
+    "tnwb_c": 30.296919703294236,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_130",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 33.189142693361575,
+    "tg_c": 41.83602012125385,
+    "tnwb_c": 30.745626670158288,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_131",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 80.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.26173253731845,
+    "tg_c": 45.976415866215746,
+    "tnwb_c": 31.09492766296472,
+    "tpsy_c": 29.857345283004634,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_132",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.508763201876924,
+    "tg_c": 32.976337876479704,
+    "tnwb_c": 32.304993752258554,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.2468135450880039,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_133",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 35.586392867927344,
+    "tg_c": 42.98283415166395,
+    "tnwb_c": 33.842608625135085,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.2674961219905688,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_134",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 38.85593588239011,
+    "tg_c": 53.60331797855207,
+    "tnwb_c": 35.478960409542424,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.31420601209270577,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_135",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 0.4,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 40.83351828878291,
+    "tg_c": 60.89216862237538,
+    "tnwb_c": 36.22154937758262,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 0.3573815195068969,
+    "stability_class": 1,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_136",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.489359394511226,
+    "tg_c": 32.97775980580502,
+    "tnwb_c": 32.276867761928884,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.2340677254400194,
+    "stability_class": 6,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_137",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.162334707961826,
+    "tg_c": 39.156187715543865,
+    "tnwb_c": 32.901567378361506,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.337480609952844,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_138",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 36.056943831074825,
+    "tg_c": 46.03351237761848,
+    "tnwb_c": 33.64320193650161,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.449559327355391,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_139",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 2.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 37.29693166663309,
+    "tg_c": 50.89772629675514,
+    "tnwb_c": 34.024837724688666,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 1.5710300604635288,
+    "stability_class": 2,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_140",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 0.0,
+    "direct_wm2": 0.0,
+    "diffuse_wm2": 0.0,
+    "cos_zenith": -0.3,
+    "distance_au": 0.9888,
+    "urban": false,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 32.48419625395129,
+    "tg_c": 32.98444634816644,
+    "tnwb_c": 32.267581406168574,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.927575151158822,
+    "stability_class": 4,
+    "fdir": 0.0,
+    "cos_zenith": -0.3,
+    "solar_wm2": 0.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_141",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 150.0,
+    "direct_wm2": 105.0,
+    "diffuse_wm2": 45.0,
+    "cos_zenith": 0.25,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 33.61898208068204,
+    "tg_c": 37.37426248854058,
+    "tnwb_c": 32.634470832819886,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.25,
+    "solar_wm2": 150.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_142",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 550.0,
+    "direct_wm2": 385.0,
+    "diffuse_wm2": 165.0,
+    "cos_zenith": 0.65,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 34.994943019812126,
+    "tg_c": 42.57668631953618,
+    "tnwb_c": 33.11372250843556,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.34370152488211,
+    "stability_class": 4,
+    "fdir": 0.7,
+    "cos_zenith": 0.65,
+    "solar_wm2": 550.0,
+    "flags": []
+   }
+  },
+  {
+   "name": "grid_143",
+   "inputs": {
+    "t_air_c": 33.0,
+    "rh_pct": 95.0,
+    "pressure_hpa": 1007.0,
+    "wind_mps": 5.0,
+    "wind_height_m": 10.0,
+    "ghi_wm2": 900.0,
+    "direct_wm2": 630.0,
+    "diffuse_wm2": 270.0,
+    "cos_zenith": 0.95,
+    "distance_au": 0.9888,
+    "urban": true,
+    "dt_c": 0.0
+   },
+   "expected": {
+    "wbgt_c": 35.8741500548568,
+    "tg_c": 46.13288508521538,
+    "tnwb_c": 33.35367576830532,
+    "tpsy_c": 32.25799142807068,
+    "t_air_c": 33.0,
+    "wind2_mps": 3.623898318388478,
+    "stability_class": 3,
+    "fdir": 0.7,
+    "cos_zenith": 0.95,
+    "solar_wm2": 900.0,
+    "flags": []
+   }
+  }
+ ]
+}

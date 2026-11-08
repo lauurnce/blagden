@@ -1,0 +1,543 @@
+{
+ "module": "solar",
+ "generator": "scripts/make_golden.py",
+ "science": "docs/SCIENCE.md section 4",
+ "tolerance": {
+  "cos_zenith": 1e-06,
+  "zenith_deg": 0.0001,
+  "elevation_deg": 0.0001,
+  "refraction_deg": 1e-06,
+  "azimuth_deg": 0.0001,
+  "distance_au": 1e-09
+ },
+ "cases": [
+  {
+   "name": "qmc_2026-11-15T03:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T19:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": -42.12330836493533,
+    "refraction_deg": 0.0,
+    "zenith_deg": 132.12330836493533,
+    "cos_zenith": -0.6707284049689459,
+    "azimuth_deg": 101.69962913177466,
+    "distance_au": 0.9893103465759817
+   }
+  },
+  {
+   "name": "clark_2026-11-15T03:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T19:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": -42.711933036071514,
+    "refraction_deg": 0.0,
+    "zenith_deg": 132.7119330360715,
+    "cos_zenith": -0.6783127163868287,
+    "azimuth_deg": 101.17987468895811,
+    "distance_au": 0.9893103465759817
+   }
+  },
+  {
+   "name": "spa_2026-11-15T03:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T19:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": 31.80952557399414,
+    "refraction_deg": 0.025664076941089936,
+    "zenith_deg": 58.19047442600586,
+    "cos_zenith": 0.52709708510838,
+    "azimuth_deg": 184.13775990526855,
+    "distance_au": 0.9893103465759817
+   }
+  },
+  {
+   "name": "qmc_2026-11-15T04:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T20:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": -27.9544326403108,
+    "refraction_deg": 0.0,
+    "zenith_deg": 117.9544326403108,
+    "cos_zenith": -0.4687692057638743,
+    "azimuth_deg": 103.31193678005934,
+    "distance_au": 0.9893010434086282
+   }
+  },
+  {
+   "name": "clark_2026-11-15T04:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T20:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": -28.5553891484676,
+    "refraction_deg": 0.0,
+    "zenith_deg": 118.5553891484676,
+    "cos_zenith": -0.47800810988708187,
+    "azimuth_deg": 102.96164377903641,
+    "distance_au": 0.9893010434086282
+   }
+  },
+  {
+   "name": "spa_2026-11-15T04:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T20:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": 29.339146006862094,
+    "refraction_deg": 0.028325200156389018,
+    "zenith_deg": 60.660853993137906,
+    "cos_zenith": 0.48997815849974863,
+    "azimuth_deg": 200.4257994420647,
+    "distance_au": 0.9893010434086282
+   }
+  },
+  {
+   "name": "qmc_2026-11-15T05:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T21:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": -13.906165810447268,
+    "refraction_deg": 0.0,
+    "zenith_deg": 103.90616581044726,
+    "cos_zenith": -0.2403325034718435,
+    "azimuth_deg": 105.73820598149655,
+    "distance_au": 0.9892917457760877
+   }
+  },
+  {
+   "name": "clark_2026-11-15T05:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T21:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": -14.524245203142693,
+    "refraction_deg": 0.0,
+    "zenith_deg": 104.5242452031427,
+    "cos_zenith": -0.2507896616473196,
+    "azimuth_deg": 105.51042005303024,
+    "distance_au": 0.9892917457760877
+   }
+  },
+  {
+   "name": "spa_2026-11-15T05:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T21:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": 23.945471018055414,
+    "refraction_deg": 0.03586956661710201,
+    "zenith_deg": 66.05452898194459,
+    "cos_zenith": 0.4058670284090972,
+    "azimuth_deg": 215.16669072404602,
+    "distance_au": 0.9892917457760877
+   }
+  },
+  {
+   "name": "qmc_2026-11-15T06:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T22:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": 0.5165317956519154,
+    "refraction_deg": 0.5731289610548383,
+    "zenith_deg": 89.48346820434809,
+    "cos_zenith": 0.009015058410011852,
+    "azimuth_deg": 109.02918611363701,
+    "distance_au": 0.9892824536834413
+   }
+  },
+  {
+   "name": "clark_2026-11-15T06:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T22:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": 0.047966911285710734,
+    "refraction_deg": 0.7437865701932423,
+    "zenith_deg": 89.95203308871429,
+    "cos_zenith": 0.0008371804361552051,
+    "azimuth_deg": 108.89568703512032,
+    "distance_au": 0.9892824536834413
+   }
+  },
+  {
+   "name": "spa_2026-11-15T06:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T22:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": 16.296111908740585,
+    "refraction_deg": 0.053958913739245516,
+    "zenith_deg": 73.70388809125942,
+    "cos_zenith": 0.28060157589316015,
+    "azimuth_deg": 227.94339675125283,
+    "distance_au": 0.9892824536834413
+   }
+  },
+  {
+   "name": "qmc_2026-11-15T07:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T23:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": 13.535999514516492,
+    "refraction_deg": 0.06493923143432025,
+    "zenith_deg": 76.46400048548351,
+    "cos_zenith": 0.23405626753721465,
+    "azimuth_deg": 113.47530579109343,
+    "distance_au": 0.9892731671357682
+   }
+  },
+  {
+   "name": "clark_2026-11-15T07:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T23:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": 12.875121082993378,
+    "refraction_deg": 0.06824615840913575,
+    "zenith_deg": 77.12487891700663,
+    "cos_zenith": 0.2228268351311068,
+    "azimuth_deg": 113.41257746939657,
+    "distance_au": 0.9892731671357682
+   }
+  },
+  {
+   "name": "spa_2026-11-15T07:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-14T23:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": 7.088869566434144,
+    "refraction_deg": 0.12117955443986167,
+    "zenith_deg": 82.91113043356586,
+    "cos_zenith": 0.12340870131511919,
+    "azimuth_deg": 238.97102888814536,
+    "distance_au": 0.9892731671357682
+   }
+  },
+  {
+   "name": "qmc_2026-11-15T08:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T00:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": 26.490675242273394,
+    "refraction_deg": 0.031952898943952576,
+    "zenith_deg": 63.5093247577266,
+    "cos_zenith": 0.4460521586705402,
+    "azimuth_deg": 119.6702718152334,
+    "distance_au": 0.9892638861381459
+   }
+  },
+  {
+   "name": "clark_2026-11-15T08:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T00:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": 25.79961399306205,
+    "refraction_deg": 0.03294458094123527,
+    "zenith_deg": 64.20038600693795,
+    "cos_zenith": 0.43522503383205563,
+    "azimuth_deg": 119.64680791588327,
+    "distance_au": 0.9892638861381459
+   }
+  },
+  {
+   "name": "spa_2026-11-15T08:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T00:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": -3.387109505964089,
+    "refraction_deg": 0.0,
+    "zenith_deg": 93.38710950596409,
+    "cos_zenith": -0.05908178652003937,
+    "azimuth_deg": 248.74385495162636,
+    "distance_au": 0.9892638861381459
+   }
+  },
+  {
+   "name": "qmc_2026-11-15T09:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T01:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": 38.50604910085993,
+    "refraction_deg": 0.020002047838351078,
+    "zenith_deg": 51.49395089914007,
+    "cos_zenith": 0.6225972583756139,
+    "azimuth_deg": 128.71325666601587,
+    "distance_au": 0.9892546106956474
+   }
+  },
+  {
+   "name": "clark_2026-11-15T09:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T01:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": 37.78858529651074,
+    "refraction_deg": 0.02052486039193741,
+    "zenith_deg": 52.21141470348926,
+    "cos_zenith": 0.6127496235229549,
+    "azimuth_deg": 128.66717953647856,
+    "distance_au": 0.9892546106956474
+   }
+  },
+  {
+   "name": "spa_2026-11-15T09:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T01:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": -14.429691325106875,
+    "refraction_deg": 0.0,
+    "zenith_deg": 104.42969132510687,
+    "cos_zenith": -0.24919178456931476,
+    "azimuth_deg": 257.8359789046363,
+    "distance_au": 0.9892546106956474
+   }
+  },
+  {
+   "name": "qmc_2026-11-15T10:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T02:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": 48.71063544287088,
+    "refraction_deg": 0.01397223709254302,
+    "zenith_deg": 41.28936455712912,
+    "cos_zenith": 0.7513866323766442,
+    "azimuth_deg": 142.4699616962503,
+    "distance_au": 0.9892453408133436
+   }
+  },
+  {
+   "name": "clark_2026-11-15T10:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T02:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": 47.98771399411587,
+    "refraction_deg": 0.0143319644053899,
+    "zenith_deg": 42.01228600588413,
+    "cos_zenith": 0.7430013258778998,
+    "azimuth_deg": 142.266405523975,
+    "distance_au": 0.9892453408133436
+   }
+  },
+  {
+   "name": "spa_2026-11-15T10:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-11-15T02:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": -25.853712930124626,
+    "refraction_deg": 0.0,
+    "zenith_deg": 115.85371293012463,
+    "cos_zenith": -0.43607492756955113,
+    "azimuth_deg": 266.88470368244737,
+    "distance_au": 0.9892453408133436
+   }
+  },
+  {
+   "name": "qmc_2026-06-21T12:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-06-21T04:00:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": 81.1999570449386,
+    "refraction_deg": 0.0024625330090770644,
+    "zenith_deg": 8.8000429550614,
+    "cos_zenith": 0.9882282667516842,
+    "azimuth_deg": 356.33540533618515,
+    "distance_au": 1.0162288792062908
+   }
+  },
+  {
+   "name": "clark_2026-06-21T12:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-06-21T04:00:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": 81.75166925146205,
+    "refraction_deg": 0.0023059180826944365,
+    "zenith_deg": 8.248330748537953,
+    "cos_zenith": 0.9896555669042552,
+    "azimuth_deg": 359.354025004273,
+    "distance_au": 1.0162288792062908
+   }
+  },
+  {
+   "name": "spa_2026-06-21T12:00:00+08:00",
+   "inputs": {
+    "time_utc": "2026-06-21T04:00:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": -13.838843981781043,
+    "refraction_deg": 0.0,
+    "zenith_deg": 103.83884398178104,
+    "cos_zenith": -0.23919178841688493,
+    "azimuth_deg": 317.5201861417313,
+    "distance_au": 1.0162288792062908
+   }
+  },
+  {
+   "name": "qmc_2026-12-21T06:30:00+08:00",
+   "inputs": {
+    "time_utc": "2026-12-20T22:30:00+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": 2.561912363481359,
+    "refraction_deg": 0.27696205331740403,
+    "zenith_deg": 87.43808763651865,
+    "cos_zenith": 0.04469890781221593,
+    "azimuth_deg": 114.94693767637519,
+    "distance_au": 0.9837938847952817
+   }
+  },
+  {
+   "name": "clark_2026-12-21T06:30:00+08:00",
+   "inputs": {
+    "time_utc": "2026-12-20T22:30:00+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": 1.9439578553074912,
+    "refraction_deg": 0.33036840016463453,
+    "zenith_deg": 88.05604214469251,
+    "cos_zenith": 0.03392195606335144,
+    "azimuth_deg": 114.82511743082125,
+    "distance_au": 0.9837938847952817
+   }
+  },
+  {
+   "name": "spa_2026-12-21T06:30:00+08:00",
+   "inputs": {
+    "time_utc": "2026-12-20T22:30:00+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": 9.96714335860126,
+    "refraction_deg": 0.08772712048281155,
+    "zenith_deg": 80.03285664139874,
+    "cos_zenith": 0.17308340466591762,
+    "azimuth_deg": 227.95244089221384,
+    "distance_au": 0.9837938847952817
+   }
+  },
+  {
+   "name": "qmc_2003-10-17T12:30:30-07:00",
+   "inputs": {
+    "time_utc": "2003-10-17T19:30:30+00:00",
+    "lat_deg": 14.651417,
+    "lon_deg": 121.04917
+   },
+   "expected": {
+    "elevation_deg": -33.79921321313735,
+    "refraction_deg": 0.0,
+    "zenith_deg": 123.79921321313735,
+    "cos_zenith": -0.5562842043514524,
+    "azimuth_deg": 91.50904001159317,
+    "distance_au": 0.9965376094541812
+   }
+  },
+  {
+   "name": "clark_2003-10-17T12:30:30-07:00",
+   "inputs": {
+    "time_utc": "2003-10-17T19:30:30+00:00",
+    "lat_deg": 15.18493,
+    "lon_deg": 120.5394
+   },
+   "expected": {
+    "elevation_deg": -34.30348375966371,
+    "refraction_deg": 0.0,
+    "zenith_deg": 124.30348375966372,
+    "cos_zenith": -0.5635762772136388,
+    "azimuth_deg": 91.02469322054567,
+    "distance_au": 0.9965376094541812
+   }
+  },
+  {
+   "name": "spa_2003-10-17T12:30:30-07:00",
+   "inputs": {
+    "time_utc": "2003-10-17T19:30:30+00:00",
+    "lat_deg": 39.742476,
+    "lon_deg": -105.1786
+   },
+   "expected": {
+    "elevation_deg": 39.89187009170845,
+    "refraction_deg": 0.019037388151426696,
+    "zenith_deg": 50.10812990829155,
+    "cos_zenith": 0.6413407692350847,
+    "azimuth_deg": 194.33696645438496,
+    "distance_au": 0.9965376094541812
+   }
+  }
+ ]
+}

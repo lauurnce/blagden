@@ -1,0 +1,2254 @@
+{
+ "module": "risk",
+ "generator": "scripts/make_golden.py",
+ "science": "docs/SCIENCE.md section 5",
+ "tolerance": {
+  "racinais_thresholds_c": 1e-09
+ },
+ "cases": [
+  {
+   "name": "w9.99_rh30.0",
+   "inputs": {
+    "wbgt_c": 9.99,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 9.99,
+    "flag": "white",
+    "flag_meaning": "Generally safe; EHS can occur associated with individual factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w9.99_rh50.0",
+   "inputs": {
+    "wbgt_c": 9.99,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 9.99,
+    "flag": "white",
+    "flag_meaning": "Generally safe; EHS can occur associated with individual factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w9.99_rh62.5",
+   "inputs": {
+    "wbgt_c": 9.99,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 9.99,
+    "flag": "white",
+    "flag_meaning": "Generally safe; EHS can occur associated with individual factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w9.99_rh75.0",
+   "inputs": {
+    "wbgt_c": 9.99,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 9.99,
+    "flag": "white",
+    "flag_meaning": "Generally safe; EHS can occur associated with individual factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w9.99_rh87.5",
+   "inputs": {
+    "wbgt_c": 9.99,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 9.99,
+    "flag": "white",
+    "flag_meaning": "Generally safe; EHS can occur associated with individual factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w9.99_rh100.0",
+   "inputs": {
+    "wbgt_c": 9.99,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 9.99,
+    "flag": "white",
+    "flag_meaning": "Generally safe; EHS can occur associated with individual factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w10.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 10.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 10.0,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w10.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 10.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 10.0,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w10.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 10.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 10.0,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w10.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 10.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 10.0,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w10.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 10.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 10.0,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w10.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 10.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 10.0,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur associated with individual factors",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w17.99_rh30.0",
+   "inputs": {
+    "wbgt_c": 17.99,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 17.99,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w17.99_rh50.0",
+   "inputs": {
+    "wbgt_c": 17.99,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 17.99,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w17.99_rh62.5",
+   "inputs": {
+    "wbgt_c": 17.99,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 17.99,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w17.99_rh75.0",
+   "inputs": {
+    "wbgt_c": 17.99,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 17.99,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w17.99_rh87.5",
+   "inputs": {
+    "wbgt_c": 17.99,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 17.99,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w17.99_rh100.0",
+   "inputs": {
+    "wbgt_c": 17.99,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 17.99,
+    "flag": "green",
+    "flag_meaning": "Risk low but still exists on the basis of risk factors",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w18.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 18.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 18.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w18.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 18.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 18.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w18.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 18.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 18.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w18.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 18.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 18.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w18.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 18.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 18.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w18.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 18.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 18.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Almost Safe",
+    "acsm2007_text": "Generally safe; EHS can occur",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w21.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 21.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 21.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk of EHS and other heat illness begins to rise; high-risk individuals should be monitored or not compete",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w21.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 21.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 21.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk of EHS and other heat illness begins to rise; high-risk individuals should be monitored or not compete",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w21.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 21.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 21.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk of EHS and other heat illness begins to rise; high-risk individuals should be monitored or not compete",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w21.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 21.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 21.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk of EHS and other heat illness begins to rise; high-risk individuals should be monitored or not compete",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w21.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 21.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 21.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk of EHS and other heat illness begins to rise; high-risk individuals should be monitored or not compete",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w21.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 21.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 21.0,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk of EHS and other heat illness begins to rise; high-risk individuals should be monitored or not compete",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w22.99_rh30.0",
+   "inputs": {
+    "wbgt_c": 22.99,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 22.99,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w22.99_rh50.0",
+   "inputs": {
+    "wbgt_c": 22.99,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 22.99,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w22.99_rh62.5",
+   "inputs": {
+    "wbgt_c": 22.99,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 22.99,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w22.99_rh75.0",
+   "inputs": {
+    "wbgt_c": 22.99,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 22.99,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w22.99_rh87.5",
+   "inputs": {
+    "wbgt_c": 22.99,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 22.99,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w22.99_rh100.0",
+   "inputs": {
+    "wbgt_c": 22.99,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 22.99,
+    "flag": "yellow",
+    "flag_meaning": "Risk increases as event progresses through the day",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w23.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 23.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 23.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w23.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 23.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 23.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "below moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w23.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 23.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 23.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w23.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 23.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 23.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w23.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 23.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 23.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w23.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 23.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 23.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w24.95_rh30.0",
+   "inputs": {
+    "wbgt_c": 24.95,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 24.95,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w24.95_rh50.0",
+   "inputs": {
+    "wbgt_c": 24.95,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 24.95,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w24.95_rh62.5",
+   "inputs": {
+    "wbgt_c": 24.95,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 24.95,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w24.95_rh75.0",
+   "inputs": {
+    "wbgt_c": 24.95,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 24.95,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w24.95_rh87.5",
+   "inputs": {
+    "wbgt_c": 24.95,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 24.95,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w24.95_rh100.0",
+   "inputs": {
+    "wbgt_c": 24.95,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 24.95,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Caution",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w25.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 25.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 25.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w25.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 25.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 25.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w25.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 25.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 25.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w25.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 25.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 25.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w25.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 25.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 25.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w25.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 25.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 25.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for all competitors is increased",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.84_rh30.0",
+   "inputs": {
+    "wbgt_c": 27.84,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 27.84,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for unfit, nonacclimatized individuals is high",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.84_rh50.0",
+   "inputs": {
+    "wbgt_c": 27.84,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 27.84,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for unfit, nonacclimatized individuals is high",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.84_rh62.5",
+   "inputs": {
+    "wbgt_c": 27.84,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 27.84,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for unfit, nonacclimatized individuals is high",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.84_rh75.0",
+   "inputs": {
+    "wbgt_c": 27.84,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 27.84,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for unfit, nonacclimatized individuals is high",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.84_rh87.5",
+   "inputs": {
+    "wbgt_c": 27.84,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 27.84,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for unfit, nonacclimatized individuals is high",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.84_rh100.0",
+   "inputs": {
+    "wbgt_c": 27.84,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 27.84,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Risk for unfit, nonacclimatized individuals is high",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.86_rh30.0",
+   "inputs": {
+    "wbgt_c": 27.86,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 27.86,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.86_rh50.0",
+   "inputs": {
+    "wbgt_c": 27.86,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 27.86,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "moderate",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.86_rh62.5",
+   "inputs": {
+    "wbgt_c": 27.86,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 27.86,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.86_rh75.0",
+   "inputs": {
+    "wbgt_c": 27.86,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 27.86,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.86_rh87.5",
+   "inputs": {
+    "wbgt_c": 27.86,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 27.86,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w27.86_rh100.0",
+   "inputs": {
+    "wbgt_c": 27.86,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 27.86,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 28.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 28.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 28.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 28.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 28.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 28.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 28.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 28.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 28.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 28.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 28.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 28.0,
+    "flag": "red",
+    "flag_meaning": "Everyone should be aware of injury potential; individuals at risk should not compete",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.01_rh30.0",
+   "inputs": {
+    "wbgt_c": 28.01,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 28.01,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.01_rh50.0",
+   "inputs": {
+    "wbgt_c": 28.01,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 28.01,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.01_rh62.5",
+   "inputs": {
+    "wbgt_c": 28.01,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 28.01,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.01_rh75.0",
+   "inputs": {
+    "wbgt_c": 28.01,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 28.01,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.01_rh87.5",
+   "inputs": {
+    "wbgt_c": 28.01,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 28.01,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w28.01_rh100.0",
+   "inputs": {
+    "wbgt_c": 28.01,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 28.01,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 30.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 30.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 30.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 30.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 30.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 30.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 30.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 30.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 30.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 30.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 30.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 30.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Severe Warning",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.04_rh30.0",
+   "inputs": {
+    "wbgt_c": 30.04,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 30.04,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.04_rh50.0",
+   "inputs": {
+    "wbgt_c": 30.04,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 30.04,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.04_rh62.5",
+   "inputs": {
+    "wbgt_c": 30.04,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 30.04,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.04_rh75.0",
+   "inputs": {
+    "wbgt_c": 30.04,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 30.04,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.04_rh87.5",
+   "inputs": {
+    "wbgt_c": 30.04,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 30.04,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.04_rh100.0",
+   "inputs": {
+    "wbgt_c": 30.04,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 30.04,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": "Cancel level for EHS risk",
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.06_rh30.0",
+   "inputs": {
+    "wbgt_c": 30.06,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 30.06,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.06_rh50.0",
+   "inputs": {
+    "wbgt_c": 30.06,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 30.06,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.06_rh62.5",
+   "inputs": {
+    "wbgt_c": 30.06,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 30.06,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "high",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.06_rh75.0",
+   "inputs": {
+    "wbgt_c": 30.06,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 30.06,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.06_rh87.5",
+   "inputs": {
+    "wbgt_c": 30.06,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 30.06,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w30.06_rh100.0",
+   "inputs": {
+    "wbgt_c": 30.06,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 30.06,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w33.0_rh30.0",
+   "inputs": {
+    "wbgt_c": 33.0,
+    "rh_pct": 30.0
+   },
+   "expected": {
+    "wbgt_c": 33.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": true,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w33.0_rh50.0",
+   "inputs": {
+    "wbgt_c": 33.0,
+    "rh_pct": 50.0
+   },
+   "expected": {
+    "wbgt_c": 33.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     24.0,
+     28.0,
+     33.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w33.0_rh62.5",
+   "inputs": {
+    "wbgt_c": 33.0,
+    "rh_pct": 62.5
+   },
+   "expected": {
+    "wbgt_c": 33.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     22.0,
+     27.0,
+     31.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w33.0_rh75.0",
+   "inputs": {
+    "wbgt_c": 33.0,
+    "rh_pct": 75.0
+   },
+   "expected": {
+    "wbgt_c": 33.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     20.0,
+     26.0,
+     29.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w33.0_rh87.5",
+   "inputs": {
+    "wbgt_c": 33.0,
+    "rh_pct": 87.5
+   },
+   "expected": {
+    "wbgt_c": 33.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     19.0,
+     25.0,
+     28.5
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  },
+  {
+   "name": "w33.0_rh100.0",
+   "inputs": {
+    "wbgt_c": 33.0,
+    "rh_pct": 100.0
+   },
+   "expected": {
+    "wbgt_c": 33.0,
+    "flag": "black",
+    "flag_meaning": "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert",
+    "wa2020_band": "Danger",
+    "acsm2007_text": null,
+    "racinais_level": "excessive",
+    "racinais_thresholds_c": [
+     18.0,
+     24.0,
+     28.0
+    ],
+    "racinais_rh_clamped": false,
+    "model_error_c": 1.0
+   }
+  }
+ ]
+}
