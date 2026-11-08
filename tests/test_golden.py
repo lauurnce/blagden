@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import dataclasses
 import json
 import subprocess
 import sys
@@ -70,3 +71,69 @@ def test_fixtures_are_current() -> None:
         [sys.executable, str(script), "--check"], capture_output=True, text=True, check=False
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def _compare(got: dict[str, Any], expected: dict[str, Any], tol: dict[str, float]) -> None:
+    for key, want in expected.items():
+        have = got[key]
+        if key in tol and want is not None and not isinstance(want, bool):
+            assert_close(have, want, tol[key])
+        else:
+            assert jsonable_eq(have, want), key
+
+
+def jsonable_eq(a: Any, b: Any) -> bool:
+    if isinstance(a, tuple):
+        a = list(a)
+    if isinstance(a, list) and isinstance(b, list):
+        return len(a) == len(b) and all(jsonable_eq(x, y) for x, y in zip(a, b, strict=True))
+    return bool(a == b)
+
+
+@pytest.mark.parametrize("case", load("solar.json")["cases"], ids=lambda c: c["name"])
+def test_solar_reproduces_fixture(case: dict[str, Any]) -> None:
+    from datetime import datetime
+
+    from blagden.weather.solar import sun_position
+
+    i = case["inputs"]
+    p = sun_position(datetime.fromisoformat(i["time_utc"]), i["lat_deg"], i["lon_deg"])
+    _compare(dataclasses.asdict(p), case["expected"], load("solar.json")["tolerance"])
+
+
+@pytest.mark.parametrize("case", load("wbgt.json")["cases"], ids=lambda c: c["name"])
+def test_wbgt_reproduces_fixture(case: dict[str, Any]) -> None:
+    from blagden.weather.wbgt import outdoor_wbgt
+
+    r = outdoor_wbgt(**case["inputs"])
+    _compare(dataclasses.asdict(r), case["expected"], load("wbgt.json")["tolerance"])
+
+
+@pytest.mark.parametrize("case", load("heat_index.json")["cases"], ids=lambda c: c["name"])
+def test_heat_index_reproduces_fixture(case: dict[str, Any]) -> None:
+    from blagden.weather.heat_index import heat_index_c, pagasa_category
+
+    hi = heat_index_c(case["inputs"]["t_c"], case["inputs"]["rh_pct"])
+    _compare({"hi_c": hi, "category": pagasa_category(hi).name}, case["expected"], {"hi_c": 1e-6})
+
+
+@pytest.mark.parametrize("case", load("risk.json")["cases"], ids=lambda c: c["name"])
+def test_risk_reproduces_fixture(case: dict[str, Any]) -> None:
+    from blagden.weather.risk import risk_label
+
+    r = risk_label(case["inputs"]["wbgt_c"], case["inputs"]["rh_pct"])
+    _compare(dataclasses.asdict(r), case["expected"], load("risk.json")["tolerance"])
+
+
+@pytest.mark.parametrize("case", load("ingest.json")["cases"], ids=lambda c: c["name"])
+def test_ingest_reproduces_fixture(case: dict[str, Any]) -> None:
+    from blagden.ingest import read_activity, resample_minutes
+
+    table, report = read_activity(ROOT / case["inputs"]["path"])
+    m = resample_minutes(table)
+    exp = case["expected"]
+    assert (report.rows_in, report.rows_out) == (exp["rows_in"], exp["rows_out"])
+    assert report.rows_dropped == exp["rows_dropped"]
+    assert report.values_removed == exp["values_removed"]
+    assert m.n_samples.tolist() == exp["n_samples"] and m.has_hr.tolist() == exp["has_hr"]
+    assert_close(m.hr_bpm, exp["hr_bpm"], 1e-9)
