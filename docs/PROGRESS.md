@@ -28,6 +28,7 @@ Build steps B1 to B14. One build day per real day. Each step ends with a gate re
 
 ## Day 8
 - [x] B11 Race-morning brief: Facts, English and Taglish templates, grounding check, optional LLM provider with template fallback, `brief` command, COPY_REVIEW.md; templates shipped in the wheel. Pending: Lawrence's copy approval
+- [x] B11b CLI, charts and reports: analyze, forecast, predict and brief with Rich tables and --json; core temperature and WBGT charts as PNG and SVG; --report Markdown bundles; exit codes 1, 2, 3
 
 ## Day 9
 - [ ] B12 Web scaffold and core port: TypeScript port of the pure-math modules, parity tests against the golden fixtures (60 to 85)
