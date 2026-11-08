@@ -217,7 +217,11 @@ export default function ForecastClient() {
         {status}
       </p>
       {error && (
-        <p role="alert" data-testid="error" className="rounded border border-[#b91c1c] px-3 py-2">
+        <p
+          role="alert"
+          data-testid="error"
+          className="rounded border border-[#b91c1c] px-3 py-2"
+        >
           {error}
         </p>
       )}
