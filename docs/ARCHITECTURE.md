@@ -384,18 +384,23 @@ CLI: `blagden brief --lat --lon --date --start --distance --known-distance --kno
 
 ### 2.7 blagden.cli
 
-A Typer application installed as the `blagden` command.
+As built (D-026). A Typer application installed as the `blagden` command. Logic lives in `blagden.app`; the CLI only renders. Charts are in `blagden.charts`, reports in `blagden.report`.
 
 ```
-blagden analyze RUNFILE [--start-temp-c 37.0] [--start-var 0.01] [--resting-hr 70] [--json] [--csv OUT]
-blagden forecast VENUE_ID --date YYYY-MM-DD [--from 04:00] [--to 09:00] [--json] [--no-cache]
-blagden predict --distance-km 42.195 --known-distance-km 21.1 --known-time 1:52:30 --wbgt 27.5 [--baseline-wbgt 10] [--json]
-blagden brief VENUE_ID --date YYYY-MM-DD [--run RUNFILE] [--predict ...] [--llm PROVIDER]
-blagden venues
-blagden version
+blagden analyze RUN_FILE [--start-temp C] [--resting-hr BPM] [--json] [--out DIR] [--report]
+blagden forecast --lat LAT --lon LON --date YYYY-MM-DD [--from 04:00] [--to 09:00] [--rural] [--json] [--out DIR] [--report]
+blagden predict --distance KM --recent-time H:MM:SS --recent-distance KM --race-date YYYY-MM-DD --lat LAT --lon LON
+                [--start 05:00] [--recent-wbgt C] [--rural] [--json] [--out DIR] [--report]
+blagden brief   (the predict options) [--lang en|tl] [--json] [--out DIR] [--report]
+blagden summary FILE... [--json]
+blagden version [--json]
 ```
 
-Every command has `--json` so the web demo and the fixtures can be checked against CLI output.
+- Output: Rich tables by default; `--json` on every command prints one JSON document on stdout. Messages and errors go to stderr.
+- Charts with `--out DIR` (or the default `blagden-report/` with `--report`): `core_temperature.png/.svg` (analyze; heart rate on the second axis; the limitation note is the caption) and `wbgt.png/.svg` (forecast, predict, brief; race flag bands shaded; start and predicted finish marked).
+- `--report` writes `REPORT.md` next to the charts, bundling the tables, charts and brief.
+- Exit codes: 0 success; 1 bad input or unusable data (unreadable file, no heart rate, bad date, past the 16-day forecast horizon); 2 usage error (Typer); 3 weather service unavailable.
+- Nothing prints coordinates from a run file. The venue coordinates the user types appear only in forecast JSON.
 
 ### 2.8 web
 
