@@ -137,3 +137,19 @@ Decision: WBGT is labelled with the five-flag system (white below 10 C, green 10
 Reason: The flags are what runners see at start lines, and their thresholds are consistent across three independent reproductions. The Racinais table is the only sourced correction for the humidity Manila has. The 2007 table's hottest continuous-activity cells and the 2021 consensus statement could not be verified, so they are quoted where verified and otherwise left out. PAGASA's bands are verified from its own product pages; the formula behind them is the NWS regression, which PAGASA names.
 
 Alternatives considered: World Athletics 2020 bands as primary (rejected: colours unverified and the scheme is less known to runners). ACSM 2021 or 2023 regional categories (rejected: text not retrievable). Shifting thresholds for an acclimatised tropical population (rejected: no sourced values).
+
+## D-018 · 2026-11-09 · Architecture choices beyond the B4 proposal
+
+Decision: Add a `blagden.constants` registry as the only home for sourced numbers, with no UNVERIFIED status and a literal-scan test. Put recording quality flags (gap, interpolated, pause, low support, cadence lock, out of range) on the ingest minute series, and add cadence, distance and segment id to the sample table. Split `weather` into I/O (client, cache) and pure math (solar, wbgt, heatindex, risk) plus venue presets. Port to TypeScript every pure-math module the browser needs (physio, solar, WBGT, heat index, risk, Riegel, heat adjustment, brief rendering), not only the filter. Keep brief templates and venue presets in shared JSON read by both languages, and generate `constants.ts` from the Python registry. Apply mypy strict to `predict` and `constants` as well as `physio` and `weather`.
+
+Reason: The science-first rule needs a mechanical gate, which the registry and literal scan provide. Quality flags describe the recording, so they belong with ingest and travel with the series. The forecast panel runs in the browser (D-003), so its math must exist in TypeScript. Shared inputs and generated constants leave one place to change a number or a sentence. The strict-typing set is the set that is ported, where a type slip is a parity bug.
+
+Alternatives considered: Constants scattered in each module with docstring citations (rejected: nothing enforces it). Quality flags inside physio (rejected: they are not physiology). Port only the filter and compute WBGT on a server route (rejected: contradicts D-003). Duplicate template text in each language (rejected: drift).
+
+## D-019 · 2026-11-09 · Proposed: postpone the PaceBrain adapter to v0.2 (pending approval, would supersede D-002)
+
+Proposal: v0.1 ships the `BaselinePredictor` seam with Riegel and a manual baseline only. The PaceBrain adapter is specified in docs/ARCHITECTURE.md section 5.3 and built in v0.2 once PaceBrain is trained on real runs.
+
+Reason: PaceBrain's own model card states "Do not use these models to plan a real race"; its six inputs come from neither a run file nor a forecast; its dependencies (torch, pandas, scikit-learn, matplotlib, streamlit) are heavy for a 2,561-parameter network; no weights ship; and on its synthetic data the repository's log-linear baseline is twice as accurate. Cost of including it anyway: about 8 commits in B9 with an "experimental" label.
+
+Status: awaiting Lawrence's answer at the B4 gate. Until then D-002 stands.
