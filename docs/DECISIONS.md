@@ -121,3 +121,11 @@ Decision: Predicted time = baseline time x (1 + k x max(0, race WBGT - baseline 
 Reason: The verified evidence is Ely 2007's quartile means for elite marathoners and the restated slopes for well-trained runners, Mantzios 2022's 0.3 to 0.4 percent per C outside the optimum, and El Helou 2012's accelerating air-temperature losses. A linear model with level-dependent slopes is the most that those numbers support. Recreational runners above 25 C WBGT are outside all of it, so the model widens rather than pretends.
 
 Alternatives considered: Fit El Helou's quadratics directly (rejected: air temperature, not WBGT). Discipline-specific slopes from Mantzios (rejected: elite only and inconsistent in order). A fixed percentage per race (rejected: ignores how hot the morning is).
+
+## D-016 · 2026-11-09 · WBGT by a Liljegren port checked against two oracles
+
+Decision: Blagden implements the Liljegren et al. (2008) WBGT model itself in Python and TypeScript, following the constants and structure of the Argonne C code as recorded in section 4 of docs/SCIENCE.md. The direct-beam fraction comes from the forecast direct and diffuse components. Wind is converted from 10 m to 2 m with the code's stability-class power law. Solar position uses the Astronomical Almanac low-precision formulas the code uses, tested against pvlib's NREL algorithm. Development tests compare both ports with thermofeel's `calculate_wbgt_liljegren` and with lwbgt on a grid of Manila-like conditions, requiring agreement within 0.1 C. The Bureau of Meteorology approximation is not used at all. The Argonne acknowledgment is reproduced in the documentation.
+
+Reason: No JavaScript implementation exists, so a port is unavoidable for the browser. A matching Python port keeps the two in lockstep through golden fixtures. thermofeel and lwbgt are maintained, permissively licensed and independent of each other, which makes them good oracles. The approximation ignores sun and wind, which change most during a race morning, and its authors and two peer-reviewed comparisons say not to use it outdoors.
+
+Alternatives considered: Depend on thermofeel in the core (rejected: no browser path, and it pulls earthkit-meteo). Depend on PyWBGT (rejected: CC BY-NC-SA and unmaintained). Use the Bureau approximation as a fallback (rejected: biased by up to about 5 C in humid heat).
