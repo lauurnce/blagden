@@ -105,3 +105,11 @@ Decision: Python reads FIT with fitdecode (MIT), GPX with gpxpy (Apache-2.0) plu
 Reason: The Garmin FIT Protocol License is non-sublicensable, forbids making the SDK available to third parties, and excludes safety-related applications; a bundled browser build would redistribute it. The MIT parsers implement the same published profile. TCX is small enough that a dependency adds more risk than code.
 
 Alternatives considered: Garmin SDKs (rejected: licence). python-fitparse (rejected: maintainer points to fitdecode; last release 2020). @we-gold/gpxjs (rejected: keys extensions by prefix rather than namespace). tcx-js (rejected: licence file unavailable, no release since 2019).
+
+## D-014 · 2026-11-09 · PSI is shown as a number without strain categories
+
+Decision: Blagden computes the Physiological Strain Index from the ECTemp estimate and heart rate with the published ceilings of 39.5 C and 180 bpm, baselines of the filter's starting temperature and the user's resting heart rate (default 70 bpm, flagged), and displays the value on the 0 to 10 scale with the anchors "0 = no strain" and "10 = very high strain". No category labels are shown until the original 1998 table has been read. Values above 10 are shown as above scale. The result is labelled "estimated PSI from heart rate".
+
+Reason: The original paper could not be read by automated means and the three secondary bandings disagree. Showing a label whose cut-points cannot be sourced would violate the science-first rule. The number itself rests on a formula confirmed by three independent sources.
+
+Alternatives considered: Adopt the USARIEM slide banding attributed to its slide (possible later, once compared with the 1998 table). Skip PSI in v0.1 (rejected: the number is useful and sourced).
