@@ -653,3 +653,37 @@ Coverage targets, enforced with `fail_under` in Python and vitest thresholds in 
 | web/lib/ingest | 80 percent lines |
 
 Tests never touch the network: the Open-Meteo client is tested against recorded responses under `tests/data/open_meteo/`, and the Playwright forecast test intercepts the request.
+
+## 7. Tooling
+
+Python (root of the repository):
+
+| Tool | Role | Configuration |
+|---|---|---|
+| uv | environment, lock file, running scripts | `uv.lock` committed; `requires-python = ">=3.12"`; developed on CPython 3.13 |
+| ruff | lint and format | `ruff check` with the default rules plus `I` (imports), `B` (bugbear), `UP` (pyupgrade), `N` (naming), `D` (docstrings, numpy convention) on `src/`; `ruff format` everywhere; line length 100 |
+| mypy | static types | `strict = true` for `blagden.constants`, `blagden.physio`, `blagden.weather` and `blagden.predict`; default strictness elsewhere; `warn_unused_ignores` on |
+| pytest | tests | `pytest-cov` with branch coverage and `fail_under` per section 6; `hypothesis` with the `ci` profile (more examples) in CI |
+| pre-commit | local gate | hooks: ruff check with fix, ruff format, mypy, check-json (fixtures and shared), end-of-file-fixer, trailing-whitespace, a local hook that runs `scripts/make_fixtures.py --check` when anything under `src/blagden` changed |
+
+Change from the proposal: mypy strict covers `predict` and `constants` as well as `physio` and `weather`, because they are pure math that is ported and a type slip there is a parity bug.
+
+Web (`web/`):
+
+| Tool | Role | Configuration |
+|---|---|---|
+| pnpm | packages | `pnpm-lock.yaml` committed; Node 24 |
+| TypeScript | `strict: true`, `noUncheckedIndexedAccess: true` | `tsc --noEmit` in CI |
+| eslint | lint | `eslint-config-next` plus `typescript-eslint` strict; no `any` in `lib/core` |
+| prettier | format | default settings, checked in CI |
+| vitest | unit and parity tests | coverage thresholds per section 6; parity tests read `../fixtures/golden` |
+| Playwright | one end-to-end test | Chromium only, runs against `next start` of the production build |
+
+GitHub Actions, `.github/workflows/ci.yml`, on every push and pull request, with `concurrency` set to cancel superseded runs:
+
+1. `python` (matrix 3.12 and 3.13): `uv sync --all-extras --dev`, `ruff check`, `ruff format --check`, `mypy`, `pytest` with coverage, `scripts/make_fixtures.py --check`, `scripts/make_fixtures.py --constants --check`.
+2. `web`: `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck`, `pnpm test`, `pnpm build`.
+3. `e2e` (needs `web`): install Playwright Chromium, run the one end-to-end test against the built app.
+4. `package`: `uv build`, then install the wheel into a fresh virtual environment and run `blagden version` and `blagden analyze fixtures/synthetic/steady_60min.fit --json`.
+
+Oracle tests (thermofeel, lwbgt, pvlib) run in the `python` job as development dependencies; they never enter the package's runtime dependencies.
