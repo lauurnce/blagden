@@ -70,6 +70,6 @@ Alternatives considered: Apache-2.0 (patent clause not needed here). AGPL-3.0 (w
 
 Decision: The per-day commit count is measured against midnight Asia/Manila (UTC+8, no DST), computed explicitly rather than from the machine clock.
 
-Reason: The development machine's clock is set to PST. Counting against the machine's midnight would give the wrong day.
+Reason: The count must not depend on the machine's timezone setting. macOS abbreviates Philippine Standard Time as PST, which is easy to mistake for Pacific time, so the window is derived from UTC plus eight hours.
 
-Alternatives considered: Machine local time (rejected).
+Alternatives considered: Machine local time (works while the machine stays on Asia/Manila, but breaks silently if the timezone changes).
