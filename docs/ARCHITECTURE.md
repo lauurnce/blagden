@@ -489,7 +489,7 @@ Confidence rule: `high` when observed and no flags; `medium` when `low_support` 
 ```
 
 ```json
-{"time_s": 15955.0, "lo_s": 15437.0, "hi_s": 16992.0, "level": "nonelite", "k_per_c": 0.006,
+{"time_s": 15955.0, "lo_s": 15437.0, "hi_s": 16819.0, "level": "nonelite", "k_per_c": 0.006,
  "wbgt_race_c": 28.0, "wbgt_base_c": 10.0, "delta_wbgt_c": 18.0,
  "extrapolated": true, "baseline_wbgt_defaulted": true, "baseline": {"...": "as above"}}
 ```
@@ -500,10 +500,10 @@ Confidence rule: `high` when observed and no flags; `medium` when `low_support` 
 {"venue_name": "SM Mall of Asia grounds", "window_local": "04:00 to 09:00 PHT",
  "wbgt_by_hour": [["04:00", "25.1", "red"], ["05:00", "25.0", "red"], ["06:00", "26.2", "red"], ["07:00", "28.4", "black"]],
  "heat_index_peak": ["34", "extreme_caution"],
- "pace_cap_min_per_km": "6:20", "finish_point": "4:25:55", "finish_range": ["4:17:17", "4:43:12"],
+ "pace_cap_min_per_km": "6:20", "finish_point": "4:25:55", "finish_range": ["4:17:17", "4:40:19"],
  "back_off_time_local": "07:00", "core_temp_peak_c": null, "psi_peak": null,
  "caveats": ["..."], "attribution": "Weather data by Open-Meteo.com (CC BY 4.0)",
- "allowed_numbers": ["04:00", "09:00", "25.1", "25.0", "26.2", "28.4", "34", "6:20", "4:25:55", "4:17:17", "4:43:12", "07:00"]}
+ "allowed_numbers": ["04:00", "09:00", "25.1", "25.0", "26.2", "28.4", "34", "6:20", "4:25:55", "4:17:17", "4:40:19", "07:00"]}
 ```
 
 `allowed_numbers` is computed by `build_brief` from every other field, so the grounding check and the template renderer always agree on what may appear in the text.
