@@ -389,6 +389,115 @@ Blagden ports the Liljegren method itself, in Python as the reference and in Typ
 - OSHA outdoor WBGT calculator (Liljegren algorithm). https://www.osha.gov/heat-exposure/wbgt-calculator
 - EPA-454/5-99-005 (2000), section 6.2.5, cited by the Liljegren code for the wind profile (not read)
 
+## 5. Heat risk categories for endurance events and the PAGASA heat index
+
+### Purpose
+
+Label the forecast WBGT (section 4) with published sports-medicine risk bands for road running, and show the PAGASA heat index category next to it because Filipino runners know that scale. The two indices measure different things: WBGT includes sun and wind and is meant for exertion; the heat index is a shade value for a resting person at a fixed light wind.
+
+### WBGT guidance for road running
+
+**ACSM position stand 2007** (Armstrong LE, Casa DJ, Millard-Stafford M, Moran DS, Pyne SW, Roberts WO. Exertional heat illness during training and competition. Medicine and Science in Sports and Exercise 2007;39(3):556-572). Read from a full-text copy of the article filed as a court exhibit. Table 2, "WBGT levels for modification or cancellation of workouts or athletic competition for healthy adults", column "Continuous Activity and Competition":
+
+| WBGT (C) | WBGT (F) | Continuous activity and competition | Status |
+|---|---|---|---|
+| at or below 10.0 | at or below 50.0 | "Generally safe; EHS can occur associated with individual factors" | VERIFIED |
+| 10.1 to 18.3 | 50.1 to 65.0 | "Generally safe; EHS can occur" | VERIFIED |
+| 18.4 to 22.2 | 65.1 to 72.0 | "Risk of EHS and other heat illness begins to rise; high-risk individuals should be monitored or not compete" | VERIFIED |
+| 22.3 to 25.6 | 72.1 to 78.0 | "Risk for all competitors is increased" | VERIFIED |
+| 25.7 to 27.8 | 78.1 to 82.0 | "Risk for unfit, nonacclimatized individuals is high" | VERIFIED |
+| 27.9 to 30.0 | 82.1 to 86.0 | "Cancel level for EHS risk" | VERIFIED |
+| 30.1 to 32.2 and at or above 32.3 | 86.1 to 90.0 and at or above 90.1 | cells empty in the text extraction; the training columns read "Cancel or stop practice and competition" and "Cancel exercise" | UNVERIFIED for this column |
+
+Text of the stand: "If the WBGT index is above 28 C (82 F), consideration should be given to canceling or rescheduling continuous competitive events until less stressful conditions prevail." Footnote f: "Differences of local climate and individual heat acclimatization status may allow activity at higher levels than outlined in the table, but athletes and coaches should consult with sports medicine staff and should be cautious when exceeding these limits." The 2007 table has no flag colours. Status: VERIFIED.
+
+**Flag system (1996 ACSM distance-running stand, as used by race medicine and the IAAF).** The colour bands most race organisers use come from the 1996 stand "Heat and cold illnesses during distance running", read here through three sources that reproduce it: Roberts (2010) Table 1, Bermon and Adami (2019) Table 1 describing the IAAF Competition Medical Guidelines, and Grundstein et al. (2019) describing the International Institute for Race Medicine flags.
+
+| Flag | WBGT (C) | WBGT (F) | Meaning (Bermon and Adami 2019) | Status |
+|---|---|---|---|---|
+| White | below 10 | below 50 | "Generally safe; EHS can occur associated with individual factors" (Roberts 2010 Table 1) | VERIFIED (secondary) |
+| Green | 10 to 18 | 50 to 65 | "Risk low but still exists on the basis of risk factors" | VERIFIED (secondary) |
+| Yellow | 18 to 23 | 65 to 73 | "Risk increases as event progresses through the day" | VERIFIED (secondary) |
+| Red | 23 to 28 | 73 to 82 | "Everyone should be aware of injury potential; individuals at risk should not compete" | VERIFIED (secondary) |
+| Black | above 28 | above 82 | "Consider rescheduling or delaying the event until safer conditions prevail; if the event must take place, be on high alert" | VERIFIED (secondary) |
+
+The 1996 stand itself was not read; the bands are consistent across all three sources.
+
+**World Athletics Competition Medical Guidelines, October 2020, second edition**, section 6.1, Table 1 "WBGT Heat Index and color coding system": "Below 21 C Almost Safe", "21 C to 25 C Caution", "25 C to 28 C Warning", "28 C to 30 C Severe Warning", "Above 30 C Danger". The text adds "The risk of heat illness increases above 21 C (70 F) and 50% relative humidity" and that for road races a banner shows "the WBGT/PET measured every 20 minutes on-site". Status: bands VERIFIED (primary); the colour of each band is a cell fill, not text, and is UNVERIFIED.
+
+**Roberts WO 2010.** Determining a "do not start" temperature for a marathon on the basis of adverse outcomes. Medicine and Science in Sports and Exercise 2010;42(2):226-232. Read from a full-text copy. "The do not start WBGT for Twin Cities Marathon is 20.5 C on the basis of this model." "The risk of requiring medical attention and not finishing the race increases rapidly above 13 C (55.4 F) start WBGT." "Marathons in northern latitudes held in unexpectedly hot conditions when the participants are not acclimatized and the start WBGT is at or above 21 C often end in either race cancellation or an MCI." Status: VERIFIED. These numbers describe non-acclimatised northern populations and are recorded for contrast, not applied to Manila.
+
+**Racinais et al. 2015 consensus**, Table 3, "Corrected estimation of the risk of exertional heat illness based on the WBGT taking into account that WBGT underestimates heat stress under high humidity", adapted from Gonzalez:
+
+| Estimated risk | WBGT (C) at 50 percent RH | at 75 percent RH | at 100 percent RH | Status |
+|---|---|---|---|---|
+| Moderate | 24 | 20 | 18 | VERIFIED (primary, open access) |
+| High | 28 | 26 | 24 | VERIFIED |
+| Excessive | 33 | 29 | 28 | VERIFIED |
+
+The consensus states: "WBGT might underestimate heat stress risk when sweat evaporation is restricted (ie, high humidity and/or low air movement)." This table is the only sourced guidance that adjusts for the humidity Manila mornings have, and Blagden shows it alongside the flags.
+
+**ACSM Expert Consensus Statement on Exertional Heat Illness** (Roberts WO, Armstrong LE, Sawka MN, Yeargin SW, Heled Y, O'Connor FG. Current Sports Medicine Reports 2021;20(9):470-484, DOI 10.1249/JSR.0000000000000878; republished 2023;22(4):134-149). Full text not retrievable; a secondary summary says it adds three regional climate categories and keeps separate guidance for acclimatised and non-acclimatised participants. Status: UNVERIFIED; not used.
+
+Conflicts between sources, recorded so the UI can be honest: the red band is 23 to 28 C in the flag system, while World Athletics 2020 has no such band and warns from 21 C; the cancel or black threshold is above 28 C in the flag system, "above 28 C" in the 2007 text, 27.9 to 30.0 C in the 2007 table, and above 30 C for "Danger" in World Athletics 2020; Roberts puts a do-not-start at 20.5 C for one northern marathon.
+
+### Blagden's WBGT display (D-017)
+
+1. Flag and band from the five-flag system above, attributed to the 1996 ACSM stand as reproduced by race medicine and the IAAF, because that is what race organisers and runners see at start lines.
+2. The Racinais humidity-corrected risk (moderate, high, excessive) interpolated in relative humidity between the 50, 75 and 100 percent columns and shown as a second line, because Manila humidity is where plain WBGT under-reads.
+3. The matching 2007 ACSM continuous-activity row text and the World Athletics 2020 band name, for organisers.
+4. The WBGT value with its about 1 C model error (section 4) next to the band, so a value near a boundary is read as near a boundary.
+
+### PAGASA heat index
+
+Categories, read from PAGASA product pages (iHeatMAP and panahon.gov.ph) and the DOST announcement of iHeatMAP:
+
+| Category | Heat index (C) | Colour (DOST 2025) | Effect (DOST 2025 English; PAGASA infographic in Filipino) | Status |
+|---|---|---|---|---|
+| Not hazardous | below 27 | | | VERIFIED (panahon.gov.ph) |
+| Caution | 27 to 32 | yellow | "prolonged exposure and activity may result in fatigue. Continuing such activities could also lead to heat cramps." | VERIFIED |
+| Extreme Caution | 33 to 41 | yellow-orange | "heat cramps and heat exhaustion are possible, and ongoing activity could result in heat stroke." | VERIFIED |
+| Danger | 42 to 51 | red-orange | "heat cramps and heat exhaustion are likely, and heat stroke is probable with continued exposure" | VERIFIED |
+| Extreme Danger | 52 and above | red | "heat stroke is imminent" | VERIFIED |
+
+PAGASA's infographic notes: "Heat index values adapted from Steadman, 1979; classification threshold adapted from National Weather Services, National Oceanic and Atmospheric Administration (NWS-NOAA)." One DOST article gives the Extreme Caution band as 32 to 41 C; all PAGASA product pages give 33 to 41 C and are followed here. The categories are integer-bounded; Blagden rounds the heat index to the nearest whole degree before classifying, a Blagden choice.
+
+Formula. A PAGASA lecture (Heat Index Monitoring and Early Warning System of DOST-PAGASA, 20 March 2024) states the heat index is "obtained by multiple regression analysis (from Steadman's table) carried out by Rothfusz (1990)" and that the "HI value has an error of +/- 1.3 degrees". The equation, read from the US National Weather Service page, with $T$ in degrees Fahrenheit and $RH$ in percent:
+
+$$HI = -42.379 + 2.04901523\,T + 10.14333127\,RH - 0.22475541\,T\,RH - 0.00683783\,T^2 - 0.05481717\,RH^2 + 0.00122874\,T^2 RH + 0.00085282\,T\,RH^2 - 0.00000199\,T^2 RH^2$$
+
+Adjustments: if $RH < 13$ and $80 \le T \le 112$, subtract $\frac{13 - RH}{4}\sqrt{\frac{17 - |T - 95|}{17}}$; if $RH > 85$ and $80 \le T \le 87$, add $\frac{RH - 85}{10}\cdot\frac{87 - T}{5}$. Procedure: first compute $HI_{simple} = 0.5\,(T + 61.0 + 1.2\,(T - 68.0) + 0.094\,RH)$ and average it with $T$; if that is 80 F or higher, apply the full regression with any adjustment, otherwise keep the simple result. "The Rothfusz regression is not valid for extreme temperature and relative humidity conditions beyond the range of data considered by Steadman." Status: equation and procedure VERIFIED (NWS page); the +/- 1.3 F error VERIFIED from Rothfusz's 1990 technical attachment, which also states the assumptions of a 5 knot wind, shade, and long trousers with a short-sleeved shirt.
+
+What PAGASA publishes: a daily highest heat index for 77 stations, computed from station observations for the past five days and forecast for two days from ECMWF model output, stamped at 5:00 pm, with hourly forecasts on iHeatMAP. The product footnote states it "was designed for the general warm, dry season of the country" and is "most reliable in the absence of rainfall events." Blagden computes the heat index from the hourly forecast temperature and humidity at the venue with the equation above and labels it "heat index on the PAGASA scale", since it is not PAGASA's own published value. Status: VERIFIED for the published products; the exact observation hour behind the daily value is UNVERIFIED.
+
+### Why the two scales disagree on a race morning
+
+A Manila morning at 29 C and 85 percent humidity gives a heat index in the PAGASA Caution band, while the same air with sun on it gives a WBGT in the red or black flag band. The heat index assumes shade, rest and a fixed light wind; WBGT counts the sun on a globe and the evaporation off a wick. Blagden shows both and says this in one sentence.
+
+### Valid input ranges and limitations
+
+- Heat index: the regression is defined by the NWS procedure above and is not valid beyond Steadman's data; Blagden does not report a heat index below 27 C as a category other than "not hazardous".
+- Flag thresholds come from temperate-climate guidance for non-acclimatised populations; footnote f of the 2007 stand allows local adaptation. Blagden shows the bands as published and does not shift them.
+- Band widths are 5 C while the WBGT model error is about 1 C.
+- Blagden gives training insight, not a go or no-go decision. The organiser view repeats the published text and does not add thresholds of its own.
+
+### References
+
+- Armstrong LE, Casa DJ, Millard-Stafford M, Moran DS, Pyne SW, Roberts WO. Exertional heat illness during training and competition. Medicine and Science in Sports and Exercise 2007;39(3):556-572. https://doi.org/10.1249/MSS.0b013e31802fa199 ; full-text copy read at https://kgrlaw.com/wp-content/uploads/2022/11/Exhibit-G-ACSM-Position-Stand-11.29.2022.pdf
+- Roberts WO. Determining a "do not start" temperature for a marathon on the basis of adverse outcomes. Medicine and Science in Sports and Exercise 2010;42(2):226-232. Copy read at https://www.fisiologiadelejercicio.com/wp-content/uploads/2019/04/2010_Roberts_Determining-a-do-not-start-temperature-for-a-marathon-on-the-basis-of-adverse-outcomes.pdf
+- Bermon S, Adami PE. Meteorological risks in Doha 2019 Athletics World Championships: health considerations from organizers. Frontiers in Sports and Active Living 2019. https://www.frontiersin.org/articles/10.3389/fspor.2019.00058/full
+- Grundstein AJ, Hosokawa Y, Casa DJ, Stearns RL, Jardine JF. Frontiers in Sports and Active Living 2019. https://www.frontiersin.org/journals/sports-and-active-living/articles/10.3389/fspor.2019.00042/full
+- World Athletics. Competition Medical Guidelines for World Athletics Series Events, second edition, October 2020. https://worldathletics.org/about-iaaf/documents/health-science
+- Racinais S, et al. Consensus recommendations on training and competing in the heat. British Journal of Sports Medicine 2015;49:1164-1173. https://pmc.ncbi.nlm.nih.gov/articles/PMC4602249/
+- Roberts WO, Armstrong LE, Sawka MN, Yeargin SW, Heled Y, O'Connor FG. ACSM expert consensus statement on exertional heat illness. Current Sports Medicine Reports 2021;20(9):470-484. https://doi.org/10.1249/JSR.0000000000000878 (not read)
+- DOST-PAGASA iHeatMAP. https://src.panahon.gov.ph/pubfiles/cad/iaas/ihif_new.html ; heat index page https://bagong.pagasa.dost.gov.ph/weather/heat-index ; panahon.gov.ph heat index https://www.panahon.gov.ph/heat_index.html
+- DOST. iHeatMap, an online monitoring guide for heat index, 21 April 2025. https://www.dost.gov.ph/knowledge-resources/news/86-2025-news/3971-iheatmap-an-online-monitoring-guide-for-heat-index.html
+- DOST-PAGASA. Heat index monitoring and early warning system, lecture, 20 March 2024. https://pubfiles.pagasa.dost.gov.ph/climps/climateforum/speciallecture.pdf
+- DOST-PAGASA. Official statement on creating extreme heat protocol, 12 April 2024. https://www.pagasa.dost.gov.ph/press-release/155
+- US National Weather Service. The heat index equation. https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml
+- Rothfusz LP. The heat index "equation". NWS Technical Attachment SR 90-23, 1990. Copy at https://www.weather.gov/media/wrh/online_publications/TAs/ta9024.pdf
+- Steadman RG. The assessment of sultriness, Part I. Journal of Applied Meteorology 1979;18:861-873 (not read; cited by PAGASA and NWS)
+
 ## 6. Running performance in heat
 
 ### Purpose
