@@ -266,6 +266,129 @@ Using the heart-rate estimate in place of measured temperature is established in
 - Buller MJ, Welles AP, Friedl KE. Wearable physiological monitoring for human thermal-work strain optimization. Journal of Applied Physiology 2018;124(2):432-441. https://doi.org/10.1152/japplphysiol.00353.2017 (abstract read)
 - US Patent US11564579B2 (PSI table attributed to Moran 1998; row alignment unverified). https://patents.google.com/patent/US11564579B2/en
 
+## 4. Outdoor WBGT from forecast weather
+
+### Purpose
+
+Compute the wet bulb globe temperature at a race venue for each hour of the race window from forecast air temperature, humidity, wind, solar radiation and pressure (section 7), using the physics-based model of Liljegren et al. (2008). WBGT feeds the risk categories in section 5 and the heat adjustment in section 6.
+
+### Definition
+
+$$WBGT_{outdoor} = 0.7\,T_{nwb} + 0.2\,T_g + 0.1\,T_a$$
+
+$$WBGT_{no\ sun} = 0.7\,T_{nwb} + 0.3\,T_g$$
+
+Read from the NIOSH 2016 criteria document: "the calculation of the WBGT for indoors is WBGT = 0.7tnwb + 0.3tg and the calculation of the WBGT for outdoors is WBGT = 0.7tnwb + 0.2tg + 0.1ta." The same weighting is given by Parsons (2006) quoting ISO 7243, and by the OSHA Technical Manual. Status: VERIFIED. The ISO 7243 text itself was not accessible; the index originates with Yaglou and Minard (1957), whose paper was not read.
+
+- $T_{nwb}$, natural wet bulb: "the temperature measured by a thermometer in which the sensor is covered by a wetted cotton wick and is exposed only to the natural prevailing air movement" (NIOSH). It is not the psychrometric wet bulb, which is aspirated and shaded. Lemke and Kjellstrom report the natural wet bulb "up to 1.5 C higher than the psychrometric wet bulb temperature indoors and nearly 10 C higher outdoors in the sun." The ISO sensor is a cylinder 6 +/- 1 mm in diameter and 30 +/- 5 mm long (Parsons).
+- $T_g$, globe: the temperature at the centre of a matt black 150 mm copper sphere with emissivity 0.95 (NIOSH; Parsons quoting ISO 7243).
+- $T_a$, dry bulb air temperature in the shade.
+
+### The Liljegren model
+
+Liljegren JC, Carhart RA, Lawday P, Tschopp S, Sharp R. Modeling the wet bulb globe temperature using standard meteorological measurements. Journal of Occupational and Environmental Hygiene 2008;5(10):645-655. https://doi.org/10.1080/15459620802310770 . The abstract states the model "is composed of separate submodels of the natural wet bulb and globe temperatures that are based on fundamental principles of heat and mass transfer, has no site-dependent parameters, and achieves an accuracy of better than 1 degree C based on comparisons with wet bulb globe temperature measurements at all depots." Status: abstract VERIFIED (primary); full text paywalled and not read. Model internals below were read from Liljegren's own C code (Argonne, "WBGT, Version 1.1", as redistributed in the mdljts/wbgt repository) and from two faithful ports (ECMWF thermofeel, PyWBGT). Lemke and Kjellstrom (2012) describe the equation structure and report that Liljegren's comparisons "varied by less than 1 C for 95% of the time".
+
+Inputs: air temperature, relative humidity, barometric pressure, wind speed with its measurement height, global horizontal solar irradiance, the fraction of irradiance that is direct beam, and the solar zenith angle (from date, time, latitude and longitude).
+
+Natural wet bulb submodel: steady-state energy balance on a wetted cylinder, solved by fixed-point iteration. Convection from a cylinder-in-crossflow Nusselt correlation, radiation from sun and surroundings, evaporation from the wick. Structure quoted by Lemke and Kjellstrom: "h(Ta-Tnwb) + eps_w(SR - sigma Tnwb^4) - kQ(Ps-Pw)/(Pa-Pw) = 0" where the terms are convection, radiation and evaporation. With no solar radiation the model treats the natural wet bulb as equal to the psychrometric wet bulb (Lemke and Kjellstrom).
+
+Globe submodel: steady-state energy balance on a sphere with a sphere-in-air Nusselt correlation, solved iteratively.
+
+| Constant | Value | Unit | Meaning | Read from | Status |
+|---|---|---|---|---|---|
+| EMIS_WICK | 0.95 | none | wick emissivity | wbgt.h; thermofeel | VERIFIED (code) |
+| ALB_WICK | 0.4 | none | wick albedo | same | VERIFIED (code) |
+| D_WICK | 0.007 | m | wick diameter | same | VERIFIED (code) |
+| L_WICK | 0.0254 | m | wick length | same | VERIFIED (code) |
+| EMIS_GLOBE | 0.95 | none | globe emissivity | same; PyWBGT | VERIFIED (code) |
+| ALB_GLOBE | 0.05 | none | globe albedo | same | VERIFIED (code) |
+| D_GLOBE | 0.0508 | m | globe diameter in the code (2 inch), not the 150 mm ISO globe | same | VERIFIED (code); whether the paper reconciles this with the 150 mm standard is UNVERIFIED |
+| EMIS_SFC | 0.999 | none | ground emissivity | same | VERIFIED (code) |
+| ALB_SFC | 0.45 | none | ground albedo | same | VERIFIED (code) |
+| STEFANB | 5.6696e-8 | W per m2 per K4 | Stefan-Boltzmann constant as used in the code | wbgt.h | VERIFIED (code) |
+| sphere Nusselt | $Nu = 2 + 0.6\,Re^{1/2}\,Pr^{1/3}$ | none | globe convection | thermofeel port | VERIFIED (code) |
+| MIN_SPEED | 0.13 | m/s | floor on wind speed in the Reynolds number | wbgt.h; thermofeel; PyWBGT | VERIFIED (code) |
+| REF_HEIGHT | 2.0 | m | height the wind is converted to | wbgt.h | VERIFIED (code) |
+| CZA_MIN | 0.00873 | none | cosine of 89.5 degrees; below it the sun is treated as down | wbgt.h; thermofeel | VERIFIED (code) |
+| NORMSOLAR_MAX | 0.85 | none | cap on measured over clear-sky irradiance when deriving the direct fraction | wbgt.h | VERIFIED (code) |
+| direct fraction clamp | 0 to 0.9 | none | thermofeel clamps the direct-beam fraction to that range | thermofeel | VERIFIED (code) |
+| CONVERGENCE, MAX_ITER | 0.02, 500 | deg C, count | iteration stop rules | wbgt.h | VERIFIED (code) |
+
+Wind conversion. The code "estimate[s] 2-m wind speed for all stability conditions" with a power law $u_2 = u_z\,(2/z)^p$ whose exponent depends on a Pasquill-Gifford stability class derived from solar elevation, irradiance and wind, with reference "EPA-454/5-99-005, 2000, section 6.2.5". Exponent tables: urban {0.15, 0.15, 0.20, 0.25, 0.30, 0.30}, rural {0.07, 0.07, 0.10, 0.15, 0.35, 0.55} by stability class. Status: VERIFIED (code). It is not a logarithmic profile. thermofeel adds a KNMI floor of 0.62 m/s on the 10 m wind before scaling. Blagden uses the urban exponents for Metro Manila venues and the rural set for Clark, a Blagden choice.
+
+Direct-beam fraction. Liljegren's code derives it from the ratio of measured to clear-sky irradiance. Blagden has the forecast direct and diffuse components (section 7), so the fraction is $f_{dir} = I_{direct} / (I_{direct} + I_{diffuse})$ on the horizontal plane, clamped to 0 to 0.9 and set to 0 when the sun is below 89.5 degrees zenith, as in thermofeel. Blagden choice, consistent with the code's definition of the fraction.
+
+Solar zenith. Liljegren's code uses "the low precision formulas for the Sun's coordinates given in the Astronomical Almanac of 1990", cross-checked against Michalsky's (1988) program. Blagden implements the same formulas and tests them against the NREL Solar Position Algorithm via pvlib in the development test suite.
+
+### Validation accuracy
+
+| Source | Result | Status |
+|---|---|---|
+| Liljegren 2008 abstract | "better than 1 degree C" against measured WBGT at all depots | VERIFIED (primary abstract) |
+| Lemke and Kjellstrom 2012 | differences "less than 1 C for 95% of the time" in Liljegren's comparisons; their own 4-day test in Nelson, New Zealand: RMSE 0.95 C | VERIFIED |
+| Carter et al. 2020 (GeoHealth) | Liljegren-type model with station inputs versus a Kestrel 5400 at three Alabama sites: RMSE 0.97 to 1.32 C, bias 0.54 to 1.22 C | VERIFIED (secondary full text) |
+
+A WBGT error of about 1 C is the same width as several of the risk bands in section 5, so Blagden shows the band and the number together, and states the error.
+
+### Why the simplified approximation is wrong for outdoor races
+
+The Australian Bureau of Meteorology approximation is $WBGT = 0.567\,T_a + 0.393\,e + 3.94$ with $e$ the vapour pressure in hPa. The Bureau's own page states: "Values for the black globe temperature and natural wet-bulb temperature cannot be accurately determined from a standard meteorological site", "Real variations of sunshine and wind are not taken into account", and "The formula is likely to overestimate the WBGT in cloudy or windy conditions, or when the sun is low or below the horizon." Lemke and Kjellstrom traced it to an indoor regression by Gagge and Nishi (1976) and concluded "the Australian Bureau of Meteorology formula quoted on their web site is incorrect." Kong and Huber (2022) compared it with Liljegren's model and wrote "sWBGT greatly overestimates heat stress in hot-humid areas" and "We recommend discontinuing the use of sWBGT"; their 2024 paper puts the peak of its bias at "an overestimation of approximately 5 C". Status: VERIFIED.
+
+For a Manila race morning the sun goes from below the horizon to strong within the window, and the approximation cannot see that change. Blagden does not use it, not even as a fallback. When solar data are missing, Blagden reports no WBGT rather than an approximate one.
+
+### Implementations surveyed
+
+| Implementation | Language | Licence | Method | Maintained | Status |
+|---|---|---|---|---|---|
+| Liljegren C code (Argonne, redistributed in mdljts/wbgt) | C | UChicago Argonne notice: permissive with attribution and an acknowledgment clause, not public domain | full model | wrapper last commit 2017 | VERIFIED |
+| ECMWF thermofeel 2.3.0 | Python | Apache-2.0 | `calculate_wbgt_liljegren` (full model, KNMI operational); also a Stull-plus-quartic hybrid and the BoM approximation; solar zenith from earthkit-meteo | yes, 2026-07 | VERIFIED |
+| PyWBGT (Kong) | Cython | CC BY-NC-SA 4.0 | full model | last commit 2022-02 | VERIFIED |
+| lwbgt 1.2.1 | C with Python and R bindings | Apache-2.0 and the Argonne notice | the original Argonne calculation, "bit for bit" under matched compiler settings | yes, 2026-10 | VERIFIED |
+| kwodzicki/pywbgt 3.0.7 | Python and C | GPL-3.0 | Liljegren, Dimiceli, Bernard; solar position via pvlib | yes, 2026-07 | VERIFIED |
+| HeatStress (Casanueva) | R | MIT | Liljegren with hard-coded pressure 1010 hPa, direct fraction 0.8 and no wind-height adjustment | light, 2026-11 | VERIFIED |
+| pythermalcomfort | Python | MIT | ISO 7243 weighting only; needs measured natural wet bulb and globe | yes | VERIFIED |
+| JavaScript or TypeScript Liljegren port | | | none found | | UNVERIFIED (absence) |
+
+### Blagden's approach
+
+Blagden ports the Liljegren method itself, in Python as the reference and in TypeScript for the browser (D-001), following the structure and constants of the Argonne code as read above. Reasons: no JavaScript port exists, the Python port keeps the core dependency-light, and both ports are checked against two independent oracles in the development test suite: thermofeel's `calculate_wbgt_liljegren` and lwbgt, which reproduces the Argonne code bit for bit. Agreement within 0.1 C across a grid of Manila-like conditions is the acceptance test. The Argonne acknowledgment is reproduced in the documentation because the port follows that code.
+
+### Valid input ranges
+
+- Air temperature 20 to 45 C, relative humidity 20 to 100 percent, pressure 950 to 1050 hPa, 10 m wind 0 to 20 m/s, irradiance 0 to 1200 W/m2. Outside these the result is flagged.
+- Solar zenith at or beyond 89.5 degrees: sun treated as down.
+- Iteration failure returns no value, as thermofeel does, never a guess.
+
+### Limitations
+
+- The globe in the model is 50.8 mm, the ISO globe is 150 mm. The validation against depot instruments stands, but whether and how the paper reconciles the two is not known until the paper is read.
+- Forecast irradiance and wind are the least accurate inputs (section 7).
+- The model is steady state; the real 150 mm globe takes up to 20 minutes to equilibrate (Lemke and Kjellstrom), so hourly values are the right resolution.
+- Cloud is only represented through the forecast irradiance.
+- Outdoor only; the Bernard method is recommended indoors and is out of scope.
+
+### References
+
+- NIOSH. Criteria for a recommended standard: occupational exposure to heat and hot environments. DHHS (NIOSH) Publication 2016-106. https://www.cdc.gov/niosh/docs/2016-106/pdfs/2016-106.pdf
+- Parsons K. Heat stress standard ISO 7243 and its global application. Industrial Health 2006;44:368-379. https://www.jstage.jst.go.jp/article/indhealth/44/3/44_3_368/_pdf
+- Yaglou CP, Minard D. Control of heat casualties at military training centers. AMA Archives of Industrial Health 1957;16(4):302-316. PMID 13457450 (not read)
+- Liljegren JC, Carhart RA, Lawday P, Tschopp S, Sharp R. Modeling the wet bulb globe temperature using standard meteorological measurements. Journal of Occupational and Environmental Hygiene 2008;5(10):645-655. https://doi.org/10.1080/15459620802310770 (abstract read)
+- Liljegren JC. WBGT Version 1.1, C source, Copyright 2008 UChicago Argonne LLC. https://raw.githubusercontent.com/mdljts/wbgt/master/src/wbgt.c and wbgt.h
+- Lemke B, Kjellstrom T. Calculating workplace WBGT from meteorological data: a tool for climate change assessment. Industrial Health 2012;50:267-278. https://www.jniosh.johas.go.jp/en/indu_hel/doc/IH_50_4_267.pdf
+- Kong Q, Huber M. Explicit calculations of wet bulb globe temperature compared with approximations and why it matters for labor productivity. Earth's Future 2022;10(3):e2021EF002334. https://doi.org/10.1029/2021EF002334 (abstract read)
+- Kong Q, Huber M. GeoHealth 2024. https://doi.org/10.1029/2024GH001068 ; open text https://europepmc.org/article/PMC/PMC11439757
+- Carter AW, et al. GeoHealth 2020. https://doi.org/10.1029/2019GH000231
+- Australian Bureau of Meteorology. Thermal comfort observations (approximation and caveats). http://reg.bom.gov.au/info/thermal_stress/
+- ECMWF thermofeel. https://github.com/ecmwf/thermofeel ; https://thermofeel.readthedocs.io/en/2.3.0/guide/heatforce/
+- PyWBGT. https://github.com/QINQINKONG/PyWBGT
+- lwbgt. https://github.com/zyf0717/lwbgt ; https://pypi.org/project/lwbgt/
+- kwodzicki/pywbgt. https://github.com/kwodzicki/pywbgt
+- HeatStress. https://github.com/anacv/HeatStress
+- pythermalcomfort. https://github.com/CenterForTheBuiltEnvironment/pythermalcomfort
+- OSHA Technical Manual, Section III Chapter 4. https://www.osha.gov/otm/section-3-health-hazards/chapter-4
+- OSHA outdoor WBGT calculator (Liljegren algorithm). https://www.osha.gov/heat-exposure/wbgt-calculator
+- EPA-454/5-99-005 (2000), section 6.2.5, cited by the Liljegren code for the wind profile (not read)
+
 ## 6. Running performance in heat
 
 ### Purpose
