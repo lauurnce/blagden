@@ -113,3 +113,11 @@ Decision: Blagden computes the Physiological Strain Index from the ECTemp estima
 Reason: The original paper could not be read by automated means and the three secondary bandings disagree. Showing a label whose cut-points cannot be sourced would violate the science-first rule. The number itself rests on a formula confirmed by three independent sources.
 
 Alternatives considered: Adopt the USARIEM slide banding attributed to its slide (possible later, once compared with the 1998 table). Skip PSI in v0.1 (rejected: the number is useful and sourced).
+
+## D-015 · 2026-11-09 · Heat adjustment formula for v0.1
+
+Decision: Predicted time = baseline time x (1 + k x max(0, race WBGT - baseline WBGT)). The slope k is 0.0018 per C for elite runners (baseline marathon-equivalent under 2:30) and 0.0060 per C for everyone else. The interval uses slope ranges 0.0010 to 0.0030 (elite) and 0.0040 to 0.0080 (non-elite), and the upper slope doubles for degrees above 25 C WBGT. Baseline WBGT is taken from the archive when the baseline race is known, otherwise 10 C with a flag. Every result carries level, extrapolation and default flags, and is never shown without its interval. No distance or acclimatisation terms.
+
+Reason: The verified evidence is Ely 2007's quartile means for elite marathoners and the restated slopes for well-trained runners, Mantzios 2022's 0.3 to 0.4 percent per C outside the optimum, and El Helou 2012's accelerating air-temperature losses. A linear model with level-dependent slopes is the most that those numbers support. Recreational runners above 25 C WBGT are outside all of it, so the model widens rather than pretends.
+
+Alternatives considered: Fit El Helou's quadratics directly (rejected: air temperature, not WBGT). Discipline-specific slopes from Mantzios (rejected: elite only and inconsistent in order). A fixed percentage per race (rejected: ignores how hot the morning is).
