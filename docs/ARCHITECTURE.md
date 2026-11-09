@@ -710,3 +710,16 @@ Privacy controls that ship with the deployment:
 - Vercel request logs contain the forecast page URL and the viewer's IP, as for any site; they never contain file contents because no file is ever sent.
 
 The Python package is published to PyPI as `blagden` at release 0.1.0 with `uv build` and `uv publish`, using a trusted-publisher GitHub Actions workflow triggered by a `v*` tag. A release is cut only when the CI pipeline on `main` is green.
+
+## 9. Risk register
+
+| # | Risk | Likelihood | Impact | Mitigation | Owner phase |
+|---|---|---|---|---|---|
+| 1 | A core temperature estimate is read as a medical measurement or a go or no-go signal | medium | high | `caveats` is a required field of `CoreTempSeries` and of every output type that includes it; the UI always shows the 0.63 C band and the above-39.0 C sentence; the brief's forbidden-word list rejects "safe", "diagnose", "guaranteed"; wording reviewed in B14 | B6, B10, B13, B14 |
+| 2 | Heat-adjusted predictions for recreational runners above 25 C WBGT are extrapolated and mislead | high | medium | interval always shown with the point; `extrapolated` flag rendered as text, not an icon; validation plan with a pre-stated success criterion ships in B14; slopes are constants that the club data will refit | B9, B14 |
+| 3 | Forecast irradiance or wind error, or a provider outage, flips a WBGT band or leaves no forecast | high | medium | WBGT shown as a number with 1.0 C model error beside the band; hourly timeline rather than one value; forecast model named; a clear "no forecast available" state; the client is the only module that knows the provider | B7, B8, B13 |
+| 4 | An unverified or wrong number reaches code | medium | high | `blagden.constants` has no UNVERIFIED status; a test scans numeric literals in the ported modules; each `Const` must point at a SCIENCE.md section; derived numbers are tagged DERIVED with their arithmetic in the spec | B5, every phase |
+| 5 | Python and TypeScript drift apart | medium | high | golden fixtures asserted by both suites in CI; `constants.ts` generated, staleness fails CI; tolerances stated per field; the fixture check runs in pre-commit | B5, B12 |
+| 6 | A run file or personal data leaks through the web stack | low | high | no upload path exists; CSP connect-src allow-list; no analytics or error reporting; Playwright asserts the network allow-list; test fixtures synthetic; `data/raw/` excluded locally | B13 |
+| 7 | Real-world activity files break ingest (vendor quirks, Smart Recording, wrist sensors, missing fields) | medium | medium | MIT parsers that implement the published profile; synthetic fixtures cover every-second, Smart Recording, pauses, dropouts and cadence lock; quality flags carried to the UI; clear error when a file has no heart rate; Lawrence's own files tested locally from the excluded folder, never committed | B5, B13 |
+| 8 | Optional LLM wording introduces a number or a claim that was not computed | medium | medium | grounding check on every numeric token with fallback to the template; forbidden words; provider off by default; the LLM never sees raw heart-rate data, only the `Brief` fields | B10 |
