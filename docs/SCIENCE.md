@@ -266,6 +266,101 @@ Using the heart-rate estimate in place of measured temperature is established in
 - Buller MJ, Welles AP, Friedl KE. Wearable physiological monitoring for human thermal-work strain optimization. Journal of Applied Physiology 2018;124(2):432-441. https://doi.org/10.1152/japplphysiol.00353.2017 (abstract read)
 - US Patent US11564579B2 (PSI table attributed to Moran 1998; row alignment unverified). https://patents.google.com/patent/US11564579B2/en
 
+## 6. Running performance in heat
+
+### Purpose
+
+Turn a baseline finish-time prediction made for neutral weather into a prediction for the forecast WBGT, with an honest interval. Two parts: the baseline (Riegel or PaceBrain) and the heat adjustment. The adjustment is where the evidence is thinnest for Blagden's users, so this section states exactly what is sourced and where the model extrapolates.
+
+### Baseline predictors
+
+Riegel. The formula in common use is
+
+$$T_2 = T_1 \left(\frac{D_2}{D_1}\right)^{1.06}$$
+
+where $T_1$ is a known time over distance $D_1$ and $T_2$ the predicted time over $D_2$. Riegel's 1981 article states the underlying form $t = a x^b$ with $b$ = 1.06 for activities in the "endurance range" of 3.5 to 230 minutes, covering running, swimming and walking. Status: formula and exponent VERIFIED from a secondary source (Wikipedia, citing Riegel PS, American Scientist 1981;69(3):285-290, PMID 7235349); the primary article returned server errors and was not read. Riegel gives no uncertainty; the baseline interval for a Riegel prediction is therefore UNVERIFIED and must be supplied as a declared assumption, not a sourced value.
+
+PaceBrain (github.com/lauurnce/pacebrain, MIT). A tabular neural network that takes weekly mileage, easy-run pace, longest recent run and race distance, and returns a finish time in minutes for 5, 10, 21.1 or 42.2 km. Its README states the models "are trained entirely on synthetic data and have never seen a real run", reports a validation mean absolute error of 4.12 minutes on that synthetic set, ships no weights, and makes no reference to weather. Status: VERIFIED from the repository README on 2026-11-09. Its output is taken as a neutral-weather baseline with no interval of its own.
+
+### Evidence on heat and performance
+
+| Source | Data | Weather index and range | Finding | Status |
+|---|---|---|---|---|
+| Ely MR, Cheuvront SN, Roberts WO, Montain SJ 2007 | 7 North American marathons, 140 race-years; top 3 and 25th, 50th, 100th, 300th place versus course record | WBGT 5.1 to 25 C in quartiles 5.1-10, 10.1-15, 15.1-20, 20.1-25 | top men slower than the course record by "1.7 +/- 1.5, 2.5 +/- 2.1, 3.3 +/- 2.0, and 4.5 +/- 2.3%" across the four quartiles; top women 3.2, 3.2, 3.8, 5.4 percent; "The 25th-, 50th-, 100th-, and 300th-place finishers slowed more than faster runners as WBGT increased"; "performance is more negatively affected for slower populations of runners" | VERIFIED (primary abstract); regression form and nomogram UNVERIFIED (full text not read) |
+| Mantzios et al. 2022, restating Ely 2007 | | | "performance decrements of ~0.1%, ~0.3%, and ~0.6% for every degree increase in WBGT for elite men, elite women, and well-trained runners" | VERIFIED (secondary) |
+| Montain SJ, Ely MR, Cheuvront SN 2007 (review) | same 140 race-years | WBGT | "performance times slow progressively as weather warms above 5-10 degrees C wet bulb globe temperature ... slower runners suffer a greater performance penalty than elite runners" | VERIFIED (primary abstract) |
+| Mantzios K et al. 2022 | 1258 races, 7867 athletes, 1936 to 2019: marathon, 50 km and 20 km race walking, 10,000 m, 5000 m | WBGT -7 to 33 C; only 7 percent of races in high heat (23.1 to 28 C) and 1 percent above 28 C; marathon models exclude the 25th to 300th place runners | optimum "7.5 C-15 C WBGT"; "For every degree WBGT outside these optimum conditions, performance declined by 0.3%-0.4%"; heat slopes per 1 C WBGT: marathon 0.2 percent, 5000 m 0.3 percent, 10,000 m 0.04 percent, 20 km walk 0.4 percent, 50 km walk 1.1 percent; WBGT had higher predictive power (R2 0.11 to 0.47) than air temperature (R2 0.04 to 0.34) | VERIFIED (primary full text, open access) |
+| El Helou N et al. 2012 | 6 major marathons 2001 to 2010, 1,791,972 finishers | air temperature 1.7 to 25.2 C (4 h race mean); no WBGT | air temperature the most predictive parameter; quadratic fit; optimum 3.8 to 9.9 C by level; speed loss at optimum +10 C: elite men 1.44 percent, median men 3.91 percent, third-quartile men 4.61 percent; at +15 C: 3.29, 9.26, 11.01 percent; at +20 C (beyond observed data): 6.0, 17.73, 21.42 percent; "at a population level, temperature causes its full effect whatever the initial capacity" | VERIFIED (primary full text and Table S3) |
+| Knechtle B et al. 2019 | Boston 1972 to 2018, 580,990 results | air temperature; WBGT in bins up to 16 to 20 C | "+1 C: all finishers slower by 00:01:47; annual winners by 00:00:20"; WBGT increases "related to worsened performances" | VERIFIED (primary full text) |
+| Vihma T 2010 | Stockholm 1980 to 2008 | air temperature | air temperature the strongest correlate (r 0.66 to 0.73, highest for slowest runners); slower runners more affected, extended to 4.7 h finishers | VERIFIED (primary abstract); slopes UNVERIFIED |
+| Ely BR et al. 2009 | 17 competitive runners, 8 km time trials | WBGT about 13 C and about 27 C | running velocity not different above versus below 40 C rectal temperature | VERIFIED (primary abstract) |
+| Racinais S et al. 2015 (consensus) | | | heat acclimatisation over 1 to 2 weeks is "the most important intervention"; no race-data quantification | VERIFIED (primary full text) |
+| Comprehensive Physiology 2025 meta-regression (211 papers) | laboratory heat acclimation | | time trial performance improved "3.1% [1.8, 4.5]" | VERIFIED (primary abstract) |
+
+No source quantifies the slowdown of recreational runners (finish times beyond about 3:40 for the marathon) against WBGT, and no source quantifies heat-acclimatised versus non-acclimatised populations in race data. Both are UNVERIFIED and are treated as gaps, not filled.
+
+### Where extrapolation begins
+
+- WBGT above 25 C: beyond Ely 2007. Mantzios 2022 reaches 33 C but with 1 percent of races above 28 C and no non-elite marathoners.
+- Finish times beyond about 3:40 for the marathon, or the equivalent at other distances: outside every WBGT-based source.
+- Air temperature above 25.2 C: beyond El Helou 2012; its +20 C cells are model extrapolation.
+
+Metro Manila race mornings sit at roughly 25 to 30 C WBGT (section 4), so every Blagden prediction for a recreational runner is extrapolated on both axes and must say so.
+
+### The v0.1 adjustment model
+
+Point estimate:
+
+$$T_{pred} = T_{base}\,\bigl(1 + k_L \cdot \max(0,\; W_{race} - W_{base})\bigr)$$
+
+Interval:
+
+$$T_{low} = T_{base,low}\,\bigl(1 + k_{L,low}\,\Delta W\bigr),\qquad
+T_{high} = T_{base,high}\,\bigl(1 + k_{L,high}\,\Delta W_{\le 25} + 2\,k_{L,high}\,\Delta W_{> 25}\bigr)$$
+
+where $\Delta W = \max(0, W_{race} - W_{base})$ is split into the part at or below 25 C WBGT and the part above it.
+
+| Symbol | Value | Unit | Basis | Status |
+|---|---|---|---|---|
+| $W_{race}$ | forecast WBGT at the venue, averaged over the runner's expected time on course | deg C | section 4 | computed |
+| $W_{base}$ | WBGT of the race the baseline time came from, when known (archive, section 7); otherwise 10 C, flagged | deg C | 10 C is the upper edge of Ely's coolest quartile and inside Mantzios's optimum | Blagden choice, flagged when defaulted |
+| $k_{elite}$ | 0.0018 per C; range 0.0010 to 0.0030 | fraction per deg C | slope of Ely's top-men quartile means (1.7, 2.5, 3.3, 4.5 percent at quartile midpoints 7.5, 12.5, 17.5, 22.5 C): least-squares slope 0.184 percent per C, arithmetic on verified numbers; range from Mantzios's restatement for elite men and women | derived from VERIFIED values |
+| $k_{nonelite}$ | 0.0060 per C; range 0.0040 to 0.0080 | fraction per deg C | 0.6 percent per C WBGT for well-trained runners (Mantzios restating Ely); range brackets El Helou's median-finisher air-temperature losses (0.4 to 0.6 percent per C over the first 15 C above optimum) and Knechtle's Boston all-finisher slope (about 0.7 percent per C of air temperature) | VERIFIED values from different indices; the combination is Blagden's |
+| Level rule | elite if the baseline marathon-equivalent time is under 2:30:00, else non-elite | | Ely's elite group is the top three finishers; his well-trained group spans 2:14 to 3:40 | Blagden choice |
+| Doubling above 25 C | the upper slope doubles for degrees above 25 C | | El Helou's quadratic fits show the per-degree loss roughly doubling from the +10 to +15 band to the +15 to +20 band (median men 1.07 to 1.69 percent per C); Blagden applies that shape to the upper bound only | Blagden choice, motivated by VERIFIED values |
+| $T_{base,low}$, $T_{base,high}$ | from the predictor when it supplies an interval; otherwise a declared assumption passed in by the caller | min | PaceBrain reports MAE 4.12 min on synthetic data; Riegel has none | UNVERIFIED for Riegel |
+| Distance dependence | none in v0.1 | | Mantzios's discipline slopes are elite-only and inconsistent in order (10,000 m smaller than 5000 m) | UNVERIFIED, so not modelled |
+| Acclimatisation | none in v0.1 | | no race-data effect size exists | UNVERIFIED, so not modelled (D-004) |
+
+Every prediction carries: `level`, `extrapolated` (true when $W_{race}$ > 25 C or the runner is non-elite with a marathon-equivalent above 3:40), `baseline_wbgt_defaulted`, and the interval. The brief (section 5 and the product spec) must never show the point estimate without the interval.
+
+### Validation plan for later phases
+
+Collect, with consent, for each club runner and race: the baseline prediction and its source, $W_{base}$, the venue WBGT from the archive at the start and at the runner's finish, and the actual finish time. Score the mean absolute error of $T_{pred}$ against $T_{base}$. Success means a lower error for the adjusted prediction and a calibrated interval (about 80 percent of results inside the 80 percent interval). The slopes above are the first things to refit.
+
+### Limitations
+
+- The adjustment is linear in WBGT; the sources show a continuous slowing but their functional forms (Ely's nomogram) could not be read.
+- Slopes come from temperate marathons and from elite or well-trained runners; recreational runners in humid heat are not represented.
+- Humidity is only in the model through WBGT. Sources using air temperature alone (El Helou, Knechtle, Vihma) were used for ranges, not for the point slope.
+- PaceBrain's baseline is itself trained on synthetic data.
+- Individual variation, hydration, pacing and acclimatisation are not modelled; Mantzios et al. list all of them as unmodelled modifiers.
+
+### References
+
+- Ely MR, Cheuvront SN, Roberts WO, Montain SJ. Impact of weather on marathon-running performance. Medicine and Science in Sports and Exercise 2007;39(3):487-493. https://doi.org/10.1249/mss.0b013e31802d3aba (abstract read; PMID 17473775)
+- Montain SJ, Ely MR, Cheuvront SN. Marathon performance in thermally stressing conditions. Sports Medicine 2007;37(4-5):320-323. https://doi.org/10.2165/00007256-200737040-00012 (abstract read)
+- Ely MR, Martin DE, Cheuvront SN, Montain SJ. Effect of ambient temperature on marathon pacing is dependent on runner ability. Medicine and Science in Sports and Exercise 2008. https://doi.org/10.1249/mss.0b013e3181788da9 (abstract read)
+- Ely BR, Ely MR, Cheuvront SN, Kenefick RW, DeGroot DW, Montain SJ. Evidence against a 40 C core temperature threshold for fatigue in humans. Journal of Applied Physiology 2009. https://doi.org/10.1152/japplphysiol.00577.2009 (abstract read)
+- Mantzios K, Ioannou LG, Panagiotaki Z, Ziaka S, Periard JD, Racinais S, Nybo L, Flouris AD. Effects of weather parameters on endurance running performance: discipline-specific analysis of 1258 races. Medicine and Science in Sports and Exercise 2022;54(1):153-161. https://doi.org/10.1249/MSS.0000000000002769 ; open text https://europepmc.org/article/PMC/PMC8677617
+- El Helou N, Tafflet M, Berthelot G, Tolaini J, Marc A, Guillaume M, Hausswirth C, Toussaint JF. Impact of environmental parameters on marathon running performance. PLoS ONE 2012;7(5):e37407. https://doi.org/10.1371/journal.pone.0037407
+- Knechtle B, et al. The role of weather conditions on running performance in the Boston Marathon from 1972 to 2018. PLoS ONE 2019;14(3):e0212797. https://doi.org/10.1371/journal.pone.0212797
+- Vihma T. Effects of weather on the performance of marathon runners. International Journal of Biometeorology 2010;54:297-306. https://doi.org/10.1007/s00484-009-0280-x (abstract read)
+- Racinais S, et al. Consensus recommendations on training and competing in the heat. British Journal of Sports Medicine 2015;49:1164-1173. https://doi.org/10.1136/bjsports-2015-094915
+- Influence of exercise heat acclimation protocol characteristics on adaptation kinetics: a quantitative review with Bayesian meta-regressions. Comprehensive Physiology 2025. https://doi.org/10.1002/cph4.70017 (abstract read)
+- Riegel PS. Athletic records and human endurance. American Scientist 1981;69(3):285-290. PMID 7235349 (not read; formula via https://en.wikipedia.org/wiki/Peter_Riegel)
+- PaceBrain repository. https://github.com/lauurnce/pacebrain
+
 ## 7. Weather data: Open-Meteo
 
 ### Purpose
