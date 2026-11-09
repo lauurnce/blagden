@@ -81,3 +81,27 @@ Decision: Request hourly values with `timezone=Asia/Manila`, `wind_speed_unit=ms
 Reason: The documentation gives temperature, humidity, wind and pressure as instantaneous values at the indicated hour, while default radiation is the mean of the preceding hour. Mixing an instant temperature with a preceding-hour radiation mean would pair the wrong sun with the right air at dawn, when irradiance changes fastest. The instant radiation variables keep all inputs consistent at one moment. Philippine time has no daylight saving, so the fixed offset is exact. Open-Meteo's terms note that requests routed through Vercel may be rate-limited earlier, which supports the browser-direct call chosen in D-003.
 
 Alternatives considered: Preceding-hour mean radiation with hour-ending labels (rejected: inconsistent with the instantaneous air variables). The provider's own `wet_bulb_temperature_2m` (rejected: undocumented unit and valid time in the definition table, and it is a psychrometric wet bulb, not the natural wet bulb that WBGT needs). 15-minute data (rejected: interpolated from hourly outside Europe and North America).
+
+## D-011 · 2026-11-09 · ECTemp v0.1 uses the 2013 quadratic observation model
+
+Decision: Implement the Buller et al. (2013) extended Kalman filter with the quadratic heart-rate model and the parameters in section 1 of docs/SCIENCE.md. The 2018 sigmoid observation model is recorded in the spec and deferred to a labelled variant.
+
+Reason: Every quadratic parameter was read from three agreeing sources (a US Army patent reproducing the paper text and MATLAB appendix, an open-access paper co-authored by Buller, and independent code copies). The sigmoid's parameters are verified only from a patent, and the derivative the filter needs is garbled in the patent HTML. The authors state the sigmoid gives nearly identical estimates to the quadratic at higher temperatures, which is where running heart rates sit.
+
+Alternatives considered: Sigmoid as default (rejected for now: derivative unverified). Re-fitted parameters for runners from the patent's elite-runner example (rejected: a single example, not a validated fit).
+
+## D-012 · 2026-11-09 · ECTemp starting conditions
+
+Decision: When no measured starting temperature is given, start at 37.0 C with variance 0.01, following the recommendation in Hunt et al. (2019). When the user supplies a measured starting temperature, start there with variance 0, as in the 2013 validation. Both are explicit parameters of the estimator.
+
+Reason: The often-quoted 37.1 C default could not be verified from a primary source. With variance 0 and no measurement the gain is near zero for several minutes, so the estimate lags; the small non-zero variance recommended by the authors' group avoids that.
+
+Alternatives considered: 37.1 C with variance 0 (rejected: unverified pairing). 37.0 C with variance 0.02 as used by de Korte et al. (2022) (acceptable; the Buller co-authored recommendation was preferred).
+
+## D-013 · 2026-11-09 · Activity file parsers
+
+Decision: Python reads FIT with fitdecode (MIT), GPX with gpxpy (Apache-2.0) plus a namespace lookup for the Garmin heart-rate extension, and TCX with the standard library XML parser. The browser reads FIT with fit-file-parser (MIT) and GPX and TCX with DOMParser using namespace-aware element lookups. The official Garmin FIT SDKs are not used.
+
+Reason: The Garmin FIT Protocol License is non-sublicensable, forbids making the SDK available to third parties, and excludes safety-related applications; a bundled browser build would redistribute it. The MIT parsers implement the same published profile. TCX is small enough that a dependency adds more risk than code.
+
+Alternatives considered: Garmin SDKs (rejected: licence). python-fitparse (rejected: maintainer points to fitdecode; last release 2020). @we-gold/gpxjs (rejected: keys extensions by prefix rather than namespace). tcx-js (rejected: licence file unavailable, no release since 2019).
