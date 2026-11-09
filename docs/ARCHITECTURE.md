@@ -619,3 +619,37 @@ $$T_2 = T_1 \left(\frac{D_2}{D_1}\right)^{1.06}$$
 - Output: a point estimate. Riegel publishes no uncertainty, so `interval_fraction` is a declared assumption the caller sets, default `None`, and the heat-adjusted interval then comes from the slope range alone (D-015).
 - The known race's WBGT, when the race date and venue are given, is fetched from the archive and becomes `wbgt_base_c`; otherwise 10 C with the flag (D-015).
 - `ManualBaseline` takes a time directly, for runners with a coach's target, and is labelled `source="manual"`.
+
+## 6. Testing strategy
+
+| Layer | Tool | What it proves | Where |
+|---|---|---|---|
+| Unit | pytest | each function on hand-checked values from docs/SCIENCE.md, including the B3 hand example | tests/ mirrors src/blagden |
+| Golden | pytest and vitest | both languages reproduce the committed fixtures within tolerance (section 4) | fixtures/golden |
+| Property | hypothesis | numerical stability and invariants over wide random inputs | tests/property |
+| Parity | vitest | the TypeScript port matches Python | web/tests/parity |
+| Oracle | pytest, dev dependencies only | the WBGT port agrees with thermofeel and lwbgt within 0.1 C on a Manila grid (D-016); solar agrees with pvlib within 1e-4 in cos zenith | tests/oracle |
+| Constants | pytest | every numeric literal in physio, weather and predict is a `Const` or on the structural allow-list; every `Const` points at an existing SCIENCE.md section | tests/test_constants.py |
+| Smoke | pytest with Typer's runner | every CLI command runs on the synthetic fixtures and exits 0; `--json` output validates against the contracts | tests/cli |
+| Build smoke | GitHub Actions | `pnpm build` succeeds; `uv build` produces a wheel that installs in a clean environment | CI |
+| End to end | Playwright, Chromium | load /demo, upload a synthetic .fit, see the core temperature chart and the caveat text; open /forecast with a stubbed Open-Meteo response and see five flags; assert no network request other than Open-Meteo | web/e2e |
+
+Property tests, each stated as an invariant:
+
+- ECTemp: outputs are finite for any heart-rate sequence in 25 to 250 bpm of any length up to 600 minutes; variance stays within (0, 0.05]; at a constant heart rate the estimate converges to the inverse of the quadratic within 0.01 C by minute 600; a higher constant heart rate gives a higher estimate at every minute; a minute without an observation leaves the estimate unchanged and raises the variance by exactly gamma squared.
+- PSI: zero at baseline; linear in each input; `above_scale` is true exactly when the value exceeds 10.
+- WBGT: finite inside the valid ranges; non-decreasing in air temperature, humidity and irradiance; non-increasing in wind; with the sun down the natural wet bulb equals the psychrometric wet bulb within 0.05 C and the globe is within 3 C of air temperature.
+- Heat index: the NWS procedure order is followed (simple formula averaged with temperature decides whether the regression applies); the result equals the simple formula below the gate.
+- Solar: cos zenith in [0, 1]; zero at local midnight for Manila; maximum within one hour of local solar noon.
+- Riegel and heat adjustment: scaling the known time scales the prediction; `extrapolated` is true whenever race WBGT exceeds 25 C; the interval always contains the point estimate.
+
+Coverage targets, enforced with `fail_under` in Python and vitest thresholds in TypeScript:
+
+| Scope | Target |
+|---|---|
+| blagden.physio, blagden.weather (pure math), blagden.predict | 95 percent lines and branches |
+| blagden package overall | 85 percent lines and branches |
+| web/lib/core | 90 percent lines |
+| web/lib/ingest | 80 percent lines |
+
+Tests never touch the network: the Open-Meteo client is tested against recorded responses under `tests/data/open_meteo/`, and the Playwright forecast test intercepts the request.
