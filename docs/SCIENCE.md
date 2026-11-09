@@ -78,7 +78,7 @@ $$v_t = (1 - k_t\,c_t)\,\hat{v}_t$$
 
 Note 1. The same patent gives $\gamma$ = 0.022 in the model-fitting text and in the MATLAB appendix, but its figure captions for an elite-runner example refer to "the original Tcore variance gamma = 0.024". The fitting text and code are taken as authoritative. The discrepancy is recorded here so it is not rediscovered later.
 
-Derived quantities (arithmetic from the verified coefficients, not read from a source): the observation quadratic peaks at $CT = -b_1 / (2 b_2)$ = 42.04 deg C, where it predicts 194.4 bpm. Above that temperature the model predicts heart rate falling with temperature, which the authors call incorrect (US12426839B2). At a constant heart rate the estimate converges to the temperature that solves $b_2 CT^2 + b_1 CT + b_0 = HR$ on the rising branch, for example about 38.0 deg C for 120 bpm, 39.0 deg C for 152 bpm, and 39.3 deg C for 160 bpm.
+Derived quantities (arithmetic from the verified coefficients, not read from a source): the observation quadratic peaks at $CT = -b_1 / (2 b_2)$ = 42.05 deg C, where it predicts 195.0 bpm. Above that temperature the model predicts heart rate falling with temperature, which the authors call incorrect (US12426839B2). At a constant heart rate the estimate converges to the temperature that solves $b_2 CT^2 + b_1 CT + b_0 = HR$ on the rising branch, for example about 38.0 deg C for 120 bpm, 39.0 deg C for 152 bpm, and 39.3 deg C for 160 bpm.
 
 ### Valid input ranges
 
