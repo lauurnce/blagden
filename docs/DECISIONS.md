@@ -73,3 +73,11 @@ Decision: The per-day commit count is measured against midnight Asia/Manila (UTC
 Reason: The count must not depend on the machine's timezone setting. macOS abbreviates Philippine Standard Time as PST, which is easy to mistake for Pacific time, so the window is derived from UTC plus eight hours.
 
 Alternatives considered: Machine local time (works while the machine stays on Asia/Manila, but breaks silently if the timezone changes).
+
+## D-010 · 2026-11-09 · Open-Meteo request shape for race-morning WBGT
+
+Decision: Request hourly values with `timezone=Asia/Manila`, `wind_speed_unit=ms`, and these variables: `temperature_2m`, `relative_humidity_2m`, `dew_point_2m`, `wind_speed_10m`, `surface_pressure`, `cloud_cover`, `shortwave_radiation_instant`, `direct_radiation_instant`, `diffuse_radiation_instant`. Compute WBGT at each hour mark from instantaneous values only, and interpolate between hour marks for display. Convert 10 m wind to 2 m in Blagden (section 4 of docs/SCIENCE.md). Use `surface_pressure`, not `pressure_msl`. Keep requests at or below 10 variables and 16 days so each counts as one call.
+
+Reason: The documentation gives temperature, humidity, wind and pressure as instantaneous values at the indicated hour, while default radiation is the mean of the preceding hour. Mixing an instant temperature with a preceding-hour radiation mean would pair the wrong sun with the right air at dawn, when irradiance changes fastest. The instant radiation variables keep all inputs consistent at one moment. Philippine time has no daylight saving, so the fixed offset is exact. Open-Meteo's terms note that requests routed through Vercel may be rate-limited earlier, which supports the browser-direct call chosen in D-003.
+
+Alternatives considered: Preceding-hour mean radiation with hour-ending labels (rejected: inconsistent with the instantaneous air variables). The provider's own `wet_bulb_temperature_2m` (rejected: undocumented unit and valid time in the definition table, and it is a psychrometric wet bulb, not the natural wet bulb that WBGT needs). 15-minute data (rejected: interpolated from hourly outside Europe and North America).
