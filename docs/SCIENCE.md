@@ -21,6 +21,114 @@ This document records every method, equation, parameter and threshold that Blagd
 7. Weather data: Open-Meteo
 8. Activity files: FIT, GPX and TCX
 
+## 1. ECTemp: core temperature from sequential heart rate
+
+### Purpose
+
+Estimate core body temperature $CT_t$ minute by minute from heart rate alone, using the extended Kalman filter published by Buller et al. (2013). This is the only physiological estimate Blagden makes from a run file. Everything downstream (the Physiological Strain Index in section 3, the limitations shown to the user) depends on it.
+
+### Source status
+
+The 2013 paper in Physiological Measurement is paywalled, and only its abstract could be read. Every equation and parameter below was read from three independent places that agree with one another: US patent US10702165B2 (assignee US Army), whose description reproduces the 2013 model development text and its MATLAB appendix; Hunt et al. (2019), an open-access paper co-authored by Buller that restates the six equations; and several independent open-source implementations. Values are tagged VERIFIED on that basis. Equation numbering as printed in the journal is not known and is not used here.
+
+### Equations
+
+Heart rate is reduced to one-minute means. Where samples are more frequent than one per minute the mean of the minute is used; where they are less frequent, values are linearly interpolated (patent text).
+
+Time update (state model). Core temperature is modelled as a random walk:
+
+$$\hat{CT}_t = CT_{t-1}$$
+
+$$\hat{v}_t = v_{t-1} + \gamma^2$$
+
+Observation model. Heart rate is a quadratic function of core temperature plus Gaussian noise:
+
+$$HR_t = b_2\,CT_t^2 + b_1\,CT_t + b_0 + g,\qquad g \sim N(0,\sigma^2)$$
+
+Linearisation (derivative of the observation model at the predicted state):
+
+$$c_t = 2 b_2\,\hat{CT}_t + b_1 = -9.1428\,\hat{CT}_t + 384.4286$$
+
+Kalman gain:
+
+$$k_t = \frac{\hat{v}_t\,c_t}{c_t^2\,\hat{v}_t + \sigma^2}$$
+
+Measurement update:
+
+$$CT_t = \hat{CT}_t + k_t\left(HR_t - \left(b_2\,\hat{CT}_t^2 + b_1\,\hat{CT}_t + b_0\right)\right)$$
+
+$$v_t = (1 - k_t\,c_t)\,\hat{v}_t$$
+
+### Parameters
+
+| Symbol | Value | Unit | Meaning | Read from | Status |
+|---|---|---|---|---|---|
+| $a_1$, $a_0$ | 1, 0 | none, deg C | time-update coefficients (identity) | US10702165B2; Hunt 2019 | VERIFIED |
+| $\gamma$ | 0.022 | deg C per minute (standard deviation) | process noise | US10702165B2 text and MATLAB appendix; Hunt 2019 | VERIFIED, see note 1 |
+| $\gamma^2$ | 0.000484 | deg C squared | variance added per minute | same | VERIFIED |
+| $b_0$ | -7887.1 | bpm | observation intercept | US10702165B2; Hunt 2019; independent code copies | VERIFIED |
+| $b_1$ | 384.4286 | bpm per deg C | observation linear term | same | VERIFIED |
+| $b_2$ | -4.5714 | bpm per deg C squared | observation quadratic term | same | VERIFIED |
+| $\sigma$ | 18.88 | bpm (standard deviation) | observation noise; "mean standard deviation for the binned heart rate = 18.88 +/- 3.78" | US10702165B2; Hunt 2019 | VERIFIED |
+| $\sigma^2$ | 356.4544 | bpm squared | gain denominator term | same | VERIFIED |
+| $\Delta t$ | 1 | minute | time step | US10702165B2; USARIEM product page | VERIFIED |
+| $CT_0$, $v_0$ with a measured start | measured value, 0 | deg C, deg C squared | "the initial variance was set to zero indicating high confidence in these values" | US10702165B2 | VERIFIED |
+| $CT_0$, $v_0$ with no measurement | 37.0, 0.01 | deg C, deg C squared | "set an initial ECTemp (e.g., a resting deep body temperature of 37.0 C) and set v = 0.01" | Hunt 2019 (Buller co-author) | VERIFIED (secondary) |
+| $CT_0$ = 37.1 | 37.1 | deg C | often quoted default; attributed by Falcone 2024 to Buller 2015 (Ergonomics), which could not be read | Falcone 2024 | UNVERIFIED |
+
+Note 1. The same patent gives $\gamma$ = 0.022 in the model-fitting text and in the MATLAB appendix, but its figure captions for an elite-runner example refer to "the original Tcore variance gamma = 0.024". The fitting text and code are taken as authoritative. The discrepancy is recorded here so it is not rediscovered later.
+
+Derived quantities (arithmetic from the verified coefficients, not read from a source): the observation quadratic peaks at $CT = -b_1 / (2 b_2)$ = 42.04 deg C, where it predicts 194.4 bpm. Above that temperature the model predicts heart rate falling with temperature, which the authors call incorrect (US12426839B2). At a constant heart rate the estimate converges to the temperature that solves $b_2 CT^2 + b_1 CT + b_0 = HR$ on the rising branch, for example about 38.0 deg C for 120 bpm, 39.0 deg C for 152 bpm, and 39.3 deg C for 160 bpm.
+
+### Valid input ranges
+
+- Heart rate as one-minute means, in beats per minute, from a chest or wrist sensor. The development data used an Equivital EQ02 sensor; the authors do not say "chest strap".
+- Development data: 17 male US Army volunteers (age 23 +/- 4 years), 24 to 36 deg C air temperature, 42 to 97 percent relative humidity, core temperatures 36.0 to 40.0 deg C. Validation: 83 volunteers, 150 sessions, more than 52,000 observations, across laboratory and field studies with varied clothing, hydration and acclimation.
+- Stated validity in later work: acceptable up to 38.5 deg C in protective clothing (Hunt 2019); tracked measured temperature up to 40.0 deg C in a hot group of Royal Marines recruits (Buller 2020, abstract).
+- Heart rates above 194 bpm cannot map to a higher temperature in this model, and estimates below 36 deg C require heart rates below 27 bpm (US12426839B2).
+
+### Validation statistics (2013)
+
+| Quantity | Value | Read from | Status |
+|---|---|---|---|
+| Bias | -0.03 +/- 0.32 deg C | 2013 abstract | VERIFIED (primary abstract) |
+| 95 percent limits of agreement | +/- 0.63 deg C | 2013 abstract | VERIFIED (primary abstract) |
+| Weighted mean RMSE | 0.30 +/- 0.13 deg C | US10702165B2; USARIEM page | VERIFIED |
+| Reference comparison | esophageal versus rectal methods average limits of agreement of +/- 0.58 deg C | 2013 abstract | VERIFIED |
+
+### Limitations
+
+- Population: young, fit, mostly male soldiers. The model has "no adjustment for height, weight, body composition, fitness, or age" (US10702165B2). Performance is expected to degrade as fitness deviates from the training data (US12426839B2).
+- Heart rate is the only input. In running, heart rate is driven by pace as well as heat, so the estimate rises toward the steady-state temperature for the sustained heart rate whatever the true core temperature is doing. Falcone et al. (2024) report that heart-rate models "overestimate CT for very high work rates" and underestimate at low work rates.
+- The authors state the assumption of normally distributed heart rate "has the effect of slightly under and over estimating the rate of rise of core body temperature for low and high core body temperatures respectively" (US10702165B2).
+- Sensitivity above 39.0 deg C is low in elite athletes (de Korte et al. 2022, section 2). That finding was obtained with the sigmoid variant below, which the authors describe as giving nearly identical estimates to the quadratic at higher temperatures, so it is taken to apply to both.
+- Starting value: with $v_0 = 0$ the gain is tiny at first and the estimate barely moves for several minutes. A start without a measurement should use the small non-zero variance recommended by Hunt et al. (2019).
+- The patent reports a larger process noise ($\gamma$ = 0.043) fitted to elite distance runners. No parameter has been fitted to recreational runners in humid heat; Blagden does not individualise parameters in v0.1.
+
+### Later revisions and the choice for v0.1
+
+Looney et al. (2018) replaced the quadratic with a generalised logistic (sigmoid) observation model to improve resting estimates. The fitted form, read from US patent US12426839B2 (Buller and Looney), is
+
+$$HR_t = 41 + \frac{152}{\left(1 + 0.06\,e^{-0.89\,(\hat{CT}_t - 37.84)}\right)^{1/0.07}}$$
+
+with the time update, process noise and observation noise unchanged. The abstract reports a smaller resting bias (-0.04 vs -0.19 deg C) and RMSE (0.26 vs 0.35 deg C) and states that the sigmoid produces "nearly identical estimates to the original quadratic equation at higher CT". The typeset form of its derivative is garbled in the patent HTML and has not been verified; the full text of Looney 2018 could not be read. Status: parameters VERIFIED (patent), derivative UNVERIFIED.
+
+Blagden v0.1 implements the 2013 quadratic model. Reasons: every parameter is verified from three agreeing sources; running heart rates sit far above the resting range where the sigmoid differs; and the sigmoid derivative needed by the filter is not yet verified. The sigmoid is recorded here so it can be added as a labelled variant once its derivative is checked against the patent PDF or the Looney paper.
+
+Related later work, recorded for completeness: Buller et al. (2020) found the estimate tracked measured temperature up to 40.0 deg C in a hot group but overestimated in a warm group (bias 0.34 deg C) and proposed a correction factor (abstract only). Buller et al. (2023, 2025) introduced an adaptive Physiological Strain Index that uses skin temperature as well; it needs a sensor Blagden does not have.
+
+### References
+
+- Buller MJ, Tharion WJ, Cheuvront SN, Montain SJ, Kenefick RW, Castellani J, Latzka WA, Roberts WS, Richter M, Jenkins OC, Hoyt RW. Estimation of human core temperature from sequential heart rate observations. Physiological Measurement 2013;34(7):781-798. https://doi.org/10.1088/0967-3334/34/7/781 (abstract read; full text paywalled)
+- US Patent US10702165B2, Estimation of human core temperature from sequential heart rate observations. https://patents.google.com/patent/US10702165B2/en (reproduces the 2013 model text and MATLAB appendix)
+- Hunt AP, Buller MJ, Maley MJ, Costello JT, Stewart IB. Validity of a noninvasive estimation of deep body temperature when wearing personal protective equipment during exercise and recovery. Military Medical Research 2019;6:20. https://doi.org/10.1186/s40779-019-0208-7 ; open text at https://pmc.ncbi.nlm.nih.gov/articles/PMC6567444/
+- Looney DP, Buller MJ, Gribok AV, Leger JL, Potter AW, Rumpler WV, Tharion WJ, Welles AP, Friedl KE, Hoyt RW. Estimating resting core temperature using heart rate. Journal for the Measurement of Physical Behaviour 2018;1(2):79-86. https://doi.org/10.1123/jmpb.2017-0003 (abstract read)
+- US Patent US12426839B2 (Buller, Looney), sigmoid observation model. https://patents.google.com/patent/US12426839B2/en
+- Buller MJ, Delves SK, Fogarty AL, Veenstra BJ. On the real-time prevention and monitoring of exertional heat illness in military personnel. Physiological Measurement 2020;41:065011. https://doi.org/10.1088/1361-6579/ab934b (abstract read)
+- Buller MJ, Tharion WJ, Duhamel CM, Yokota M. Real-time core body temperature estimation from heart rate for first responders wearing different levels of personal protective equipment. Ergonomics 2015;58(11):1830-1841. https://doi.org/10.1080/00140139.2015.1036792 (abstract read)
+- Falcone T, et al. Biphasic Kalman filter for core temperature estimation. Frontiers in Public Health 2024;12:1219595. https://doi.org/10.3389/fpubh.2024.1219595
+- USARIEM, Core body temperature algorithm product page. https://usariem.health.mil/index.cfm/research/products/cbt_algorithm
+
 ## 7. Weather data: Open-Meteo
 
 ### Purpose
