@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+
+# Node
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+coverage/
+
+# Build output
+build/
+dist/
+
+# macOS
+.DS_Store
+._*
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Raw data (real run files never enter the repo)
+data/raw/
