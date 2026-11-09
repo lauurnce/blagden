@@ -7,7 +7,7 @@ Build steps B1 to B14. One step per working session. Each step ends with a gate 
 - [x] B2 Repository setup: license, gitignore, brief, decision log, progress checklist, first push
 
 ## Day 2
-- [ ] B3 Science specification: docs/SCIENCE.md with every method, equation, parameter and threshold sourced; decision entries for each recommendation
+- [x] B3 Science specification: docs/SCIENCE.md with every method, equation, parameter and threshold sourced; decision entries for each recommendation
 
 ## Day 3
 - [ ] B4 Python package scaffold: uv project, pyproject, pytest, ruff, CI, docs/ARCHITECTURE.md
