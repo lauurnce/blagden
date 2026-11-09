@@ -213,3 +213,116 @@ Latitude and longitude in decimal degrees. Venue presets in Blagden are fixed co
 - Licence: https://open-meteo.com/en/licence
 - Pricing and limits: https://open-meteo.com/en/pricing
 - Source and README: https://github.com/open-meteo/open-meteo
+
+## 8. Activity files: FIT, GPX and TCX
+
+### Purpose
+
+Read heart rate, time and position from the three common export formats and produce the one-minute heart-rate series that section 1 needs. This section fixes where each value lives, its type and unit, and which parsing libraries Blagden uses. Field types for FIT were read from Garmin's own SDK profile source; GPX and TCX details were read from the published XML schemas; licences were read from each project's LICENSE file.
+
+### FIT (Garmin)
+
+Record messages (global message number 20) hold the time series. The documentation states: "Records contain timestamps with a one-second resolution, although devices may store data at a lower rate. Devices may also use the Smart Recording technique resulting in Record messages being recorded at irregular time intervals." Only the timestamp and one other value are required per record.
+
+| Field | Base type | Scale, offset | Unit | Notes | Status |
+|---|---|---|---|---|---|
+| `timestamp` (field 253) | uint32 | 1, 0 | s | seconds since the FIT epoch 1989-12-31 00:00:00 UTC; Unix seconds = value + 631065600 | VERIFIED |
+| `heart_rate` | uint8 | 1, 0 | bpm | invalid value 0xFF means missing | VERIFIED |
+| `position_lat`, `position_long` | sint32 | 1, 0 | semicircles | degrees = semicircles x 180 / 2^31 | unit VERIFIED (profile); formula VERIFIED only from a Garmin developer forum reply, consistent with the sint32 range |
+| `distance` | uint32 | 100, 0 | m | stored in centimetres | VERIFIED |
+| `speed` | uint16 | 1000, 0 | m/s | stored in mm/s | VERIFIED |
+| `enhanced_speed` (field 73) | uint32 | 1000, 0 | m/s | wider range than `speed` | VERIFIED |
+| `altitude` | uint16 | 5, 500 | m | | VERIFIED |
+| `enhanced_altitude` (field 78) | uint32 | 5, 500 | m | | VERIFIED |
+| `cadence` | uint8 | 1, 0 | rpm | | VERIFIED |
+
+Scale and offset rule, quoted from the protocol document: "the binary quantity is divided by the scale factor and then the offset is subtracted, yielding a floating point quantity." Invalid markers: uint8 0xFF, uint16 0xFFFF, sint32 0x7FFFFFFF, uint32 0xFFFFFFFF. A `timestamp` below 0x10000000 is a relative count, not an epoch value.
+
+Time zone: the `activity` message carries `local_timestamp` (type `local_date_time`, seconds since the FIT epoch in local time). The offset is local minus UTC. "Not all manufacturers include the Local Timestamp property, so it should always be checked for a valid value before using", and the documented fallback is a time zone lookup from the first record's GPS position. There is no record-level local time field.
+
+Sport: `session.sport` and `lap.sport` are enums where 1 = running; `sub_sport` has 1 = treadmill, 2 = street, 3 = trail, 4 = track.
+
+Recording modes: "Smart Recording aims to reduce file size by only recording messages when a significant change in a value is detected. Every Second Recording records the messages to the file every second". Pauses are marked by timer events, not by gaps alone: "devices will use Timer events to indicate when the recording of data has been paused and then restarted."
+
+Developer fields exist (protocol 2.0): `developer_data_id` (message 207) and `field_description` (message 206) describe custom fields that may appear in records.
+
+### GPX 1.1
+
+Namespace `http://www.topografix.com/GPX/1/1`. A track point `trkpt` carries required attributes `lat` and `lon`, "always in decimal degrees, and always in WGS84 datum", with ranges -90 to 90 and -180 to below 180. Child `ele` is elevation in metres. Child `time` is `xsd:dateTime`: "Date and time in are in Univeral Coordinated Time (UTC), not local time! Conforms to ISO 8601". Child `extensions` accepts any element from another namespace. A `trkseg` is one continuous span; the schema says to start a new segment where GPS reception was lost.
+
+Heart rate lives in the Garmin TrackPointExtension, matched by namespace URI (the `gpxtpx:` prefix is a document convention):
+
+| Namespace | Element | Type | Status |
+|---|---|---|---|
+| `http://www.garmin.com/xmlschemas/TrackPointExtension/v1` | `hr` | `BeatsPerMinute_t`, unsignedByte, minimum 1 | VERIFIED |
+| same | `cad` | unsignedByte, maximum 254 | VERIFIED |
+| same | `atemp` | degrees Celsius | VERIFIED |
+| `http://www.garmin.com/xmlschemas/TrackPointExtension/v2` | `hr`, `cad` as v1, plus `speed`, `course`, `bearing` | | VERIFIED |
+
+### TCX (Training Center Database v2)
+
+Namespace `http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2`. A `Trackpoint` has `Time` (`xsd:dateTime`, the only required child), optional `Position` with `LatitudeDegrees` and `LongitudeDegrees` (doubles, same ranges as GPX), `AltitudeMeters`, `DistanceMeters`, `HeartRateBpm/Value` (unsignedByte, minimum 1), `Cadence` (maximum 254), `SensorState` and `Extensions`. The schema gives no documentation for `Time`; the zone comes from the `xsd:dateTime` designator in the file. `Activity` has a required `Sport` attribute with values Running, Biking, Other. `Lap` has a required `StartTime` and holds `TotalTimeSeconds`, `DistanceMeters`, optional average and maximum heart rate, and `Track` elements.
+
+Run cadence and speed sit in the ActivityExtension v2 namespace `http://www.garmin.com/xmlschemas/ActivityExtension/v2`, element `TPX` with `Speed`, `RunCadence` and `Watts`. The `ns3:` prefix seen in exports is not normative.
+
+### One-minute series for section 1
+
+The ECTemp rule (section 1): "Where data had sampling rates more frequent than the one minute intervals the mean of all values occurring in that minute was used" and "Where the sampling rate was greater than one minute, values were linearly interpolated." Blagden applies it as follows. These are Blagden's choices, not source values:
+
+- Minute bins start at the first valid sample and are aligned to the device clock in UTC.
+- A sample counts only when heart rate is present and valid (not 0xFF, not absent, within 25 to 250 bpm).
+- Within a recording segment, a minute with no valid sample is filled by linear interpolation when the gap is 5 minutes or shorter; longer gaps and timer pauses get no observation, so the filter runs its time update only, and the minutes are flagged.
+- Each minute records how many samples it averaged; a minute with fewer than 3 samples is flagged as low support.
+
+### Libraries
+
+| Library | Language | Licence (from LICENSE file) | Latest release | Notes | Status |
+|---|---|---|---|---|---|
+| fitdecode | Python | MIT | 0.11.0, 2025-08 | FIT decode incl. developer fields; recommended by the python-fitparse maintainer | VERIFIED |
+| python-fitparse | Python | MIT | 1.2.0, 2020-09 | maintainer states limited time and points to fitdecode | VERIFIED |
+| garmin-fit-sdk | Python | FIT Protocol License Agreement (not OSI) | 21.221.0, 2026-11 | decode only; see licence below | VERIFIED |
+| gpxpy | Python | Apache-2.0 | 1.6.2, 2023-11 (repo active 2026-11) | extensions kept as ElementTree elements; no built-in heart-rate accessor, read `hr` by namespace | VERIFIED |
+| python-tcxparser | Python | BSD-2-Clause (per GitHub and PyPI classifiers; file text is unlabelled BSD) | 2.4.0, 2025-03 | minimal | VERIFIED |
+| tcxreader | Python | MIT | 0.4.11, 2025-03 | per-point hr, position, time, TPX speed | VERIFIED |
+| fit-file-parser | TypeScript | MIT | 6.2.7, 2026-10 | Node 20+; developer fields; metres and m/s by default | VERIFIED |
+| @garmin/fitsdk | JavaScript | FIT Protocol License Agreement (not OSI) | 21.221.0, 2026-11 | see licence below | VERIFIED |
+| @we-gold/gpxjs | TypeScript | MIT | 1.2.1, 2026-10 | keys extension children by prefix such as `gpxtpx:hr`, not by namespace URI | VERIFIED |
+| gpxparser | JavaScript | MIT | 3.0.8, 2021-06 | no extension support | VERIFIED |
+| tcx-js | TypeScript | UNVERIFIED (repository gone; registry says MIT) | 1.0.1, 2019 | not recommended | UNVERIFIED |
+| Browser DOMParser | built in | none | | `getElementsByTagNameNS` resolves Garmin namespaces independent of prefix | VERIFIED |
+
+### Garmin FIT SDK licence
+
+The Python and JavaScript SDKs ship an identical LICENSE.txt, the "Flexible and Interoperable Data Transfer (FIT) Protocol License Agreement". Quoted terms: the grant is "a non-exclusive, royalty-free, non-transferable, non-sublicensable, limited license to use the Licensed Technology for Licensee's internal business purposes"; the licensee may not "distribute, publish, transfer or otherwise make available the Licensed Technology ... to any third party for any reason" except as set out in the agreement; may not distribute it under a licence that requires source disclosure; and may not use it in "hazardous environments, systems or applications, any safety response systems or other safety-critical applications". The licence is not on the OSI list and is identified in package metadata as `LicenseRef-FIT-Protocol-License-Agreement`. Whether an MIT project may depend on it is a legal question with no authoritative source; what is certain is that a bundled browser build would redistribute the SDK. Blagden does not use it.
+
+### Valid input ranges
+
+- Heart rate 1 to 254 bpm by schema; Blagden accepts 25 to 250 bpm and flags the rest.
+- Latitude -90 to 90, longitude -180 to below 180, decimal degrees, WGS84.
+- Timestamps must be non-decreasing; duplicates are dropped.
+- Files without any heart rate are rejected with a clear message, since section 1 cannot run.
+
+### Limitations
+
+- Smart Recording leaves few samples per minute during steady running; the minute mean is then noisy. The low-support flag carries this forward.
+- No format marks optical versus chest-strap heart rate or sensor dropouts. Quality flags are Blagden's own (section 1 limitations).
+- FIT files may lack `local_timestamp`; GPX times are UTC; TCX zone depends on the designator. Blagden stores UTC and derives local time from the venue or a zone lookup.
+- The semicircle conversion is verified from a Garmin forum reply, not a documentation article.
+
+### References
+
+- Garmin FIT protocol: https://developer.garmin.com/fit/protocol/
+- Garmin FIT activity file type: https://developer.garmin.com/fit/file-types/activity/
+- Garmin FIT cookbook, date and time: https://developer.garmin.com/fit/cookbook/datetime/
+- Garmin FIT cookbook, decoding activity files: https://developer.garmin.com/fit/cookbook/decoding-activity-files/
+- Garmin FIT cookbook, developer data: https://developer.garmin.com/fit/cookbook/developer-data/
+- Garmin FIT profile source (Python SDK): https://raw.githubusercontent.com/garmin/fit-python-sdk/main/garmin_fit_sdk/profile.py
+- Garmin FIT Protocol License Agreement: https://raw.githubusercontent.com/garmin/fit-python-sdk/main/LICENSE.txt
+- Semicircle conversion (Garmin developer forum): https://forums.garmin.com/developer/fit-sdk/f/discussion/280125/record-the-latitude-and-longitude-format-of-the-message
+- GPX 1.1 schema: https://www.topografix.com/GPX/1/1/gpx.xsd
+- Garmin TrackPointExtension v1: https://www8.garmin.com/xmlschemas/TrackPointExtensionv1.xsd ; v2: https://www8.garmin.com/xmlschemas/TrackPointExtensionv2.xsd
+- Garmin TrainingCenterDatabase v2: https://www8.garmin.com/xmlschemas/TrainingCenterDatabasev2.xsd ; ActivityExtension v2: https://www8.garmin.com/xmlschemas/ActivityExtensionv2.xsd
+- fitdecode: https://github.com/polyvertex/fitdecode ; python-fitparse: https://github.com/dtcooper/python-fitparse ; gpxpy: https://github.com/tkrajina/gpxpy ; python-tcxparser: https://github.com/vkurup/python-tcxparser ; tcxreader: https://github.com/alenrajsp/tcxreader
+- fit-file-parser: https://github.com/jimmykane/fit-parser ; @garmin/fitsdk: https://github.com/garmin/fit-javascript-sdk ; @we-gold/gpxjs: https://github.com/We-Gold/gpxjs ; gpxparser: https://github.com/Luuka/GPXParser.js
+- DOMParser: https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
+- OSI licence list: https://opensource.org/licenses
