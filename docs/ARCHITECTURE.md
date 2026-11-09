@@ -400,3 +400,114 @@ web/
 Function names and field names in `lib/core` are the camelCase spelling of the Python names (`ectempStep`, `heatIndexC`), and JSON keys are identical snake_case in both languages so fixtures need no mapping.
 
 Change from the proposal: WBGT, solar, heat index, risk and the brief renderer are ported, not only the filter, because the forecast panel runs in the browser (D-003) and the brief is shown there. The LLM path is not ported.
+
+## 3. Data contracts
+
+Rules that apply to every shape below:
+
+- Keys are snake_case and identical in Python and TypeScript. Fixtures therefore need no field mapping.
+- Units are in the key name: `_c` degrees Celsius, `_c2` degrees Celsius squared, `_bpm` beats per minute, `_mps` metres per second, `_hpa` hectopascals, `_wm2` watts per square metre, `_s` seconds, `_km` kilometres, `_deg` degrees, `_pct` percent, `_m` metres.
+- Time inside the package and in fixtures is `time_utc_s`, Unix seconds as a number. CLI `--json` output and the web UI add `time_local` as ISO 8601 with the venue offset, for people.
+- Missing numbers are `null` in JSON and `NaN` in arrays. Booleans are never missing.
+- Every result that a person will read carries `caveats` (fixed sentences from docs/SCIENCE.md) and, where a model error is known, `model_error_c`.
+
+### 3.1 Minute series (ingest to physio)
+
+```json
+{
+  "start_utc_s": 1773187200.0,
+  "hr_bpm": [142.3, 145.0, null, 151.2],
+  "n_samples": [58, 60, 0, 31],
+  "segment_id": [0, 0, 0, 0],
+  "flags": [[], [], ["gap", "interpolated"], ["low_support"]],
+  "cadence_rpm": [86.0, 87.1, null, 86.4]
+}
+```
+
+Flag vocabulary: `gap` (no sample in the minute), `interpolated` (value filled across a gap of 5 minutes or less), `pause` (inside a recording pause, never interpolated), `low_support` (fewer than 3 samples), `cadence_lock` (heart rate tracked cadence for 3 or more minutes), `out_of_range` (sample outside 25 to 250 bpm, excluded).
+
+### 3.2 Core temperature series (physio output)
+
+```json
+{
+  "ct_c": [37.004, 37.021, 37.021, 37.047],
+  "var_c2": [0.0098, 0.0097, 0.0102, 0.0100],
+  "gain": [0.00128, 0.00124, 0.0, 0.00121],
+  "observed": [true, true, false, true],
+  "loa_c": 0.63,
+  "confidence": ["high", "high", "low", "medium"],
+  "caveats": [
+    "Estimated from heart rate alone with the ECTemp method; not a measurement.",
+    "In 101 elite athletes exercising in heat the method detected fewer than half of readings above 39.0 C (de Korte et al. 2022)."
+  ],
+  "params": {"ct0_c": 37.0, "var0_c2": 0.01, "model": "quadratic_2013"}
+}
+```
+
+Confidence rule: `high` when observed and no flags; `medium` when `low_support` or `interpolated`; `low` when `cadence_lock`, `pause`, `gap`, or when `ct_c` is above 39.0.
+
+### 3.3 PSI series
+
+```json
+{"psi": [0.0, 0.4, null, 1.1], "above_scale": [false, false, false, false],
+ "ct0_c": 37.0, "hr0_bpm": 70.0, "hr0_defaulted": true}
+```
+
+### 3.4 Hourly weather (client output; also the shape the browser builds from the Open-Meteo response)
+
+```json
+{"time_utc_s": 1773180000.0, "t_air_c": 26.4, "rh_pct": 88.0, "dewpoint_c": 24.3,
+ "wind10_mps": 1.9, "pressure_hpa": 1008.2, "cloud_pct": 40.0,
+ "ghi_wm2": 0.0, "direct_wm2": 0.0, "diffuse_wm2": 0.0,
+ "model": "best_match", "fetched_utc_s": 1773100000.0}
+```
+
+### 3.5 WBGT point
+
+```json
+{"time_utc_s": 1773187200.0, "wbgt_c": 27.9, "tnwb_c": 25.6, "tg_c": 38.1, "t_air_c": 28.0,
+ "wind2_mps": 1.3, "cos_zenith": 0.42, "fdir": 0.71, "model_error_c": 1.0, "flags": []}
+```
+
+### 3.6 Heat index point and risk label
+
+```json
+{"time_utc_s": 1773187200.0, "hi_c": 32.0, "hi_f": 89.6, "pagasa_category": "caution"}
+```
+
+```json
+{"flag": "red", "racinais_level": "high",
+ "acsm2007_text": "Risk for unfit, nonacclimatized individuals is high",
+ "wa2020_band": "warning"}
+```
+
+### 3.7 Baseline and heat-adjusted prediction
+
+```json
+{"distance_km": 42.195, "time_s": 14400.0, "lo_s": null, "hi_s": null, "source": "riegel",
+ "inputs": {"known_distance_km": 21.1, "known_time_s": 6600.0, "exponent": 1.06}, "warnings": []}
+```
+
+```json
+{"time_s": 15955.0, "lo_s": 15437.0, "hi_s": 16992.0, "level": "nonelite", "k_per_c": 0.006,
+ "wbgt_race_c": 28.0, "wbgt_base_c": 10.0, "delta_wbgt_c": 18.0,
+ "extrapolated": true, "baseline_wbgt_defaulted": true, "baseline": {"...": "as above"}}
+```
+
+### 3.8 Brief
+
+```json
+{"venue_name": "SM Mall of Asia grounds", "window_local": "04:00 to 09:00 PHT",
+ "wbgt_by_hour": [["04:00", "25.1", "red"], ["05:00", "25.0", "red"], ["06:00", "26.2", "red"], ["07:00", "28.4", "black"]],
+ "heat_index_peak": ["34", "extreme_caution"],
+ "pace_cap_min_per_km": "6:20", "finish_point": "4:25:55", "finish_range": ["4:17:17", "4:43:12"],
+ "back_off_time_local": "07:00", "core_temp_peak_c": null, "psi_peak": null,
+ "caveats": ["..."], "attribution": "Weather data by Open-Meteo.com (CC BY 4.0)",
+ "allowed_numbers": ["04:00", "09:00", "25.1", "25.0", "26.2", "28.4", "34", "6:20", "4:25:55", "4:17:17", "4:43:12", "07:00"]}
+```
+
+`allowed_numbers` is computed by `build_brief` from every other field, so the grounding check and the template renderer always agree on what may appear in the text.
+
+### 3.9 Synthetic run files
+
+`fixtures/synthetic/` holds small .fit, .gpx and .tcx files written by `scripts/make_synthetic_runs.py` from a documented heart-rate model (warm-up ramp, steady state, surges, a pause, a dropout, a cadence-lock stretch). Each file has a sidecar JSON with the intended minute means so the ingest tests assert against known truth. No real track is ever committed (PROJECT_BRIEF privacy rule).
