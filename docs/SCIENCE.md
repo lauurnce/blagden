@@ -199,6 +199,73 @@ Wherever a core temperature estimate is displayed, Blagden states: the estimate 
 - de Korte JQ et al. Frontiers in Sports and Active Living 2022;4:882254. https://doi.org/10.3389/fspor.2022.882254 ; full text https://www.frontiersin.org/articles/10.3389/fspor.2022.882254/full
 - Buller MJ et al. 2013 and Looney DP et al. 2018, Buller MJ et al. 2020: see section 1.
 
+## 3. Physiological Strain Index
+
+### Purpose
+
+Summarise combined thermal and cardiovascular strain on a 0 to 10 scale from core temperature and heart rate relative to a resting baseline. In Blagden the core temperature input is the ECTemp estimate from section 1, so the result is an estimated PSI and inherits the limitations of sections 1 and 2.
+
+### Source status
+
+The primary paper (Moran, Shitzer and Pandolf 1998) is listed as free to read by the publisher but returned access errors to automated requests. Only its abstract was read, through Europe PMC. The equation, input definitions and ceilings below were read from peer-reviewed secondary sources that cite the 1998 paper and from a USARIEM presentation by Buller. The original category table could not be read, so the strain bands are UNVERIFIED.
+
+### Equation
+
+$$PSI_t = 5\,\frac{T_{c,t} - T_{c,0}}{39.5 - T_{c,0}} + 5\,\frac{HR_t - HR_0}{180 - HR_0}$$
+
+Each term contributes 0 to 5 points, "then summed to represent physiological strain on a 10-point scale (0 = no strain, 10 = very high strain)" (Notley et al. 2018). The abstract states: "The index rates the physiological strain on a universal scale of 0-10."
+
+### Parameters
+
+| Symbol | Value | Unit | Meaning | Read from | Status |
+|---|---|---|---|---|---|
+| 39.5 | 39.5 | deg C | upper limit of rectal temperature: "39.5 indicates that the upper limit of rectal temperature is 39.5 C" | Sun and Dong 2022; Buller USARIEM slides | VERIFIED (secondary) |
+| 180 | 180 | bpm | upper limit of heart rate: "180 indicates that the upper limit of the heart rate is 180 bpm" | same | VERIFIED (secondary) |
+| 5, 5 | 5 | points | weight of each system | Notley et al. 2018 | VERIFIED (secondary) |
+| $T_{c,t}$, $T_{c,0}$ | | deg C | rectal temperature at time t and at time 0 (pre-exposure baseline) | Ko et al. 2020 | VERIFIED (secondary) |
+| $HR_t$, $HR_0$ | | bpm | heart rate at time t and at time 0 | Ko et al. 2020 | VERIFIED (secondary) |
+| Strain bands | five labels no or little, low, moderate, high, very high | | cut-points differ between sources: a USARIEM slide gives below 5 low, 5 to 6 moderate, 7 to 8 high, 9 to 10 very high, above 10 extreme; a patent table attributed to Moran 1998 pairs 0 to 1, 2 to 3, 4 to 5, 6 to 7, 8 to 9; a 2026 paper uses 0 to 2.9, 3 to 6.9, 7 to 10 | three secondary sources | UNVERIFIED |
+
+### Inputs in Blagden
+
+These are Blagden's conventions, recorded because published implementations silently vary the baselines and ceiling:
+
+- $T_{c,t}$ is the ECTemp estimate for minute t (section 1).
+- $T_{c,0}$ is the filter's starting temperature (37.0 deg C by default, or the measured start the user supplied).
+- $HR_0$ is the user's resting heart rate. When none is supplied, 70 bpm is used and the result is flagged as using a default baseline. Bernard et al. (2026) fix the same convention: "baseline Tre and HR were taken as 36.5 C and 70 bpm".
+- The ceilings 39.5 deg C and 180 bpm are not changed per user in v0.1.
+- Negative values are reported as 0. Values above 10 are reported as above scale rather than clamped, since the formula exceeds 10 whenever heart rate passes 180 bpm or the estimate passes 39.5 deg C.
+
+### Valid input ranges
+
+- "The index is suitable in instances in which rectal temperature ranges from 36.5 to 39.5 C and heart rate is between 60 and 180 beats per minute" (Notley et al. 2018).
+- Development data: 100 men exercising at 40 deg C and 40 percent relative humidity, walking at 1.34 m/s on a 2 percent grade for 120 min; validation on 7 men in protective clothing (1998 abstract). The abstract states validity still needs "extending ... to women and other age groups".
+
+### Estimated core temperature inside PSI
+
+Using the heart-rate estimate in place of measured temperature is established in field use by the method's authors. A USARIEM presentation reports agreement between PSI from estimated and from measured temperature of bias 0.05 and limits of agreement +/- 1.00 PSI units, and an independent check on 30 US Marines of -0.01 +/- 1.20. The temperature error of about +/- 0.6 deg C therefore becomes roughly +/- 1 point on the 10-point scale. Buller et al. (2025), on 5,080 Marine recruits, report that "Estimated core temperature only identified 23.3% of EHIs" (exertional heat illnesses), while a skin-temperature adapted index identified 86.7 percent. Heart rate also enters both terms when the temperature is itself estimated from heart rate, so the two terms are not independent; this is a structural observation about the combination, not a finding from a source.
+
+### Limitations
+
+- The category bands are unverified until the 1998 table is read. Blagden v0.1 shows the number and the two scale anchors only (D-014).
+- Fixed ceilings misrepresent some groups. Buller et al. (2023) found end-of-exercise PSI "too-high" for elite athletes (11.4 +/- 0.8) and "too-low" for workers in encapsulating clothing, and proposed an adaptive critical temperature using skin temperature, which Blagden does not have.
+- Male-only development and validation samples.
+- Baseline conventions differ across papers; Blagden pins its own above and labels a default baseline when used.
+- All limitations of sections 1 and 2 apply, including low sensitivity above 39.0 deg C.
+
+### References
+
+- Moran DS, Shitzer A, Pandolf KB. A physiological strain index to evaluate heat stress. American Journal of Physiology 1998;275(1):R129-R134. https://doi.org/10.1152/ajpregu.1998.275.1.R129 . PMID 9688970. Abstract read via Europe PMC; full text not read.
+- Ko Y, et al. Journal of Physiological Anthropology 2020;39:10 (reproduces the equation and input definitions). https://pmc.ncbi.nlm.nih.gov/articles/PMC7158155/
+- Sun and Dong 2022 (ceiling definitions). https://pmc.ncbi.nlm.nih.gov/articles/PMC9367783/
+- Notley SR, Flouris AD, Kenny GP. On the use of wearable physiological monitors to assess heat strain during occupational heat stress. Applied Physiology, Nutrition, and Metabolism 2018. Copy read at https://togetherforsaferroads.org/wp-content/uploads/sites/341/notley-et-al-2018-on-the-use-of-wearable-physiological-monitors-to-assess-heat-strain-during-occupational-heat-stress.pdf
+- Buller MJ. Real-time PSI assessment (USARIEM presentation). https://nrt.org/sites/58/files/RT%20PSI%20Assessment%20-%20M.%20Buller.pdf
+- Bernard et al. 2026 (fixed baselines 36.5 C and 70 bpm). https://pmc.ncbi.nlm.nih.gov/articles/PMC13166069/
+- Buller MJ, Atkinson E, Driver K, Tharion WJ, Ely BR, Cheuvront SN, Charkoudian N. Individualized monitoring of heat illness risk: novel adaptive physiological strain index. Physiological Measurement 2023;44(10). https://doi.org/10.1088/1361-6579/acf991 (abstract read)
+- Buller MJ et al. Skin temperature adapted physiological strain index (aPSI) predicts exertional heat illness. Physiological Measurement 2025;46(11). https://doi.org/10.1088/1361-6579/ae05ae (abstract read)
+- Buller MJ, Welles AP, Friedl KE. Wearable physiological monitoring for human thermal-work strain optimization. Journal of Applied Physiology 2018;124(2):432-441. https://doi.org/10.1152/japplphysiol.00353.2017 (abstract read)
+- US Patent US11564579B2 (PSI table attributed to Moran 1998; row alignment unverified). https://patents.google.com/patent/US11564579B2/en
+
 ## 7. Weather data: Open-Meteo
 
 ### Purpose
