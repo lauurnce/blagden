@@ -687,3 +687,26 @@ GitHub Actions, `.github/workflows/ci.yml`, on every push and pull request, with
 4. `package`: `uv build`, then install the wheel into a fresh virtual environment and run `blagden version` and `blagden analyze fixtures/synthetic/steady_60min.fit --json`.
 
 Oracle tests (thermofeel, lwbgt, pvlib) run in the `python` job as development dependencies; they never enter the package's runtime dependencies.
+
+## 8. Deployment
+
+The web app deploys on Vercel from the GitHub repository with root directory `web/`, framework Next.js (App Router), package manager pnpm, Node 24. Pushes to `main` deploy production; every other push gets a preview URL. No environment variables are required because no API keys exist. The landing page is static. The demo and forecast pages are client components; no server-side code handles run files, and there is no upload endpoint.
+
+Where the forecast page gets its weather:
+
+| Option | How | For | Against |
+|---|---|---|---|
+| Browser calls Open-Meteo directly (chosen, D-003 and D-010) | `fetch` from the user's device to `api.open-meteo.com`; CORS is allowed (`access-control-allow-origin: *` observed) | rate limits count per user, not per Vercel address; no server sees a run file next to a forecast request; one fewer moving part; works on static hosting | the user's IP and the venue coordinates reach Open-Meteo; no shared cache, so popular race mornings repeat the same request; a terms or CORS change breaks the page until a route is added |
+| Vercel route handler proxies Open-Meteo | `app/api/forecast/route.ts` fetches and returns with `Cache-Control: s-maxage=900, stale-while-revalidate=3600` | shared cache across users; one place to add attribution headers or switch providers; hides the user from Open-Meteo | Open-Meteo's terms warn that requests through Vercel "might be rate-limited earlier than expected"; a server now sits between the user and the data; adds a function to monitor |
+| Pre-computed JSON for the venue presets | a scheduled job writes `public/forecast/<venue>.json` | zero runtime calls; fastest page | stale between runs; needs a scheduler and storage; cannot serve an arbitrary date |
+
+Decision: browser-direct for v0.1. The client in `lib/weather/openMeteo.ts` is the only module that knows the URL, so moving to the route handler later is a one-file change plus a route. The page shows the Open-Meteo attribution link next to the chart as the licence requires.
+
+Privacy controls that ship with the deployment:
+
+- No analytics, no error-reporting service, no cookies.
+- Content Security Policy with `connect-src 'self' https://api.open-meteo.com https://archive-api.open-meteo.com` so a dependency cannot phone home with a run file.
+- The Playwright test fails if any request leaves the page to a host other than those.
+- Vercel request logs contain the forecast page URL and the viewer's IP, as for any site; they never contain file contents because no file is ever sent.
+
+The Python package is published to PyPI as `blagden` at release 0.1.0 with `uv build` and `uv publish`, using a trusted-publisher GitHub Actions workflow triggered by a `v*` tag. A release is cut only when the CI pipeline on `main` is green.
