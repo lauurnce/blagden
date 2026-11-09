@@ -566,3 +566,56 @@ Cases include the hand-worked example from the B3 teach-back, steady-state runs,
 ### 4.4 Shared inputs
 
 `shared/brief_templates.json` and `shared/venues.json` are read by both languages, and `constants.ts` is generated from `blagden.constants` by `scripts/make_fixtures.py --constants` so a parameter can only be changed in one place. A test fails if `constants.ts` is stale.
+
+## 5. PaceBrain
+
+### 5.1 What the checkout shows
+
+Read from ../pacebrain on 2026-11-09:
+
+- Package `pacebrain` 0.1.0, Python 3.9 or newer, dependencies torch, numpy, pandas, scikit-learn, matplotlib, streamlit.
+- Inference API: `load_finish_model(cfg)`, `load_scaler(cfg)`, `predict_finish_time(model, scaler, features: dict) -> float` (minutes), with `FinishPredictorConfig(checkpoint_path="models/finish_predictor.pt", ...)`. The six features are `weekly_mileage_km`, `avg_pace_min_per_km`, `long_run_km`, `days_since_long_run`, `runs_per_week`, `race_distance_km`.
+- Training ranges checked by its CLI: weekly mileage 20 to 120 km, easy pace 4.5 to 7.5 min/km, long run 10 to 35 km, days since long run 3 to 21, runs per week 3 to 7, race distances 5, 10, 21.1 and 42.2 km only.
+- The checkpoint exists locally (14 KB) but is gitignored; the repository ships no weights.
+- MODEL_CARD.md: "Do not use these models to plan a real race. They have never seen a real run." On its own synthetic validation set the MLP has MAE 4.12 minutes; the repository's log-linear regression baseline reaches 1.98 minutes.
+- No notion of weather anywhere in the code.
+- `pacebrain.eval.riegel_predict` exists, with an audit showing plain Riegel mis-specified against the synthetic formula.
+
+### 5.2 Proposal: postpone the PaceBrain adapter to v0.2, keep the seam
+
+Recommendation, which changes the B1 answer recorded in D-002 and needs Lawrence's approval:
+
+- v0.1 ships `BaselinePredictor` (section 2.5) with two implementations: `RiegelPredictor` and `ManualBaseline` (the runner types a recent race or a target time).
+- The PaceBrain adapter is specified here and built in v0.2, when PaceBrain has been trained on real runs and its model card no longer says not to use it for real races.
+
+Reasons:
+
+1. The model card says the model must not be used to plan a real race, and a race-morning brief is exactly that.
+2. Its six inputs are not in a run file and not in a forecast, so the CLI and web demo would need six extra fields for a number that the card says not to trust.
+3. torch, pandas, scikit-learn, matplotlib and streamlit for a 2,561-parameter network is a heavy extra; on the synthetic data the repository's own log-linear regression is twice as accurate.
+4. No weights ship, so every user would have to train first.
+
+Cost of including it anyway: about 8 commits in B9 for the adapter, a fake-predictor test double, and an "experimental" label on every output. The build plan in section 10 assumes postponement and marks where those commits would go.
+
+### 5.3 Adapter contract for v0.2
+
+```python
+class PaceBrainPredictor:
+    """Optional extra: pip install blagden[pacebrain]. Imports pacebrain lazily."""
+    def __init__(self, *, checkpoint_path: Path, weekly_mileage_km: float, avg_pace_min_per_km: float,
+                 long_run_km: float, days_since_long_run: float = 7.0, runs_per_week: float = 4.0) -> None: ...
+    def predict(self, distance_km: float) -> BaselinePrediction:
+        """source="pacebrain"; warnings carry PaceBrain's own training-range messages; lo_s and hi_s are
+        None until PaceBrain publishes a validated interval. Raises a clear error when the checkpoint is missing."""
+```
+
+The extra would depend on `pacebrain @ git+https://github.com/lauurnce/pacebrain` pinned to a tag. The adapter is never ported to TypeScript, so the web demo offers Riegel and manual baselines only in every version.
+
+### 5.4 The Riegel fallback
+
+$$T_2 = T_1 \left(\frac{D_2}{D_1}\right)^{1.06}$$
+
+- Inputs: one known distance and time, ideally a recent race. Valid for efforts of 3.5 to 230 minutes (SCIENCE.md 6); outside that range the prediction carries a warning.
+- Output: a point estimate. Riegel publishes no uncertainty, so `interval_fraction` is a declared assumption the caller sets, default `None`, and the heat-adjusted interval then comes from the slope range alone (D-015).
+- The known race's WBGT, when the race date and venue are given, is fetched from the archive and becomes `wbgt_base_c`; otherwise 10 C with the flag (D-015).
+- `ManualBaseline` takes a time directly, for runners with a coach's target, and is labelled `source="manual"`.
