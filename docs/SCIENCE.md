@@ -129,6 +129,76 @@ Related later work, recorded for completeness: Buller et al. (2020) found the es
 - Falcone T, et al. Biphasic Kalman filter for core temperature estimation. Frontiers in Public Health 2024;12:1219595. https://doi.org/10.3389/fpubh.2024.1219595
 - USARIEM, Core body temperature algorithm product page. https://usariem.health.mil/index.cfm/research/products/cbt_algorithm
 
+## 2. ECTemp validation in elite athletes
+
+### Purpose
+
+Record the independent validation of the heart-rate method in athletes exercising in heat, so that the limitations Blagden shows next to every core temperature estimate carry a citation and exact numbers. All items were read from the open-access primary text.
+
+### Source
+
+de Korte JQ, Veenstra BJ, van Rijswick M, Derksen EJK, Hopman MTE, Bongers CCWG, Eijsvogels TMH. A heart rate based algorithm to estimate core temperature responses in elite athletes exercising in the heat. Frontiers in Sports and Active Living 2022;4:882254. https://doi.org/10.3389/fspor.2022.882254 . PMID 35813051, PMCID PMC9256956. Status: VERIFIED (primary, full text read).
+
+### Study design
+
+| Item | Value | Status |
+|---|---|---|
+| Participants | 106 Dutch elite athletes completed the protocol; 101 in the analysed cohort (49 male, 52 female) after 3 sensor losses and 2 abnormal temperature curves | VERIFIED |
+| Sports | 13 outdoor disciplines, grouped as endurance, mixed, power and skill | VERIFIED (group counts UNVERIFIED) |
+| Conditions | "ambient temperature 31.6 +/- 1.0 C, relative humidity 74 +/- 5%, Wet Bulb Globe Temperature 28.6 +/- 0.8 C, ambient vapor pressure 3.45 kPa" | VERIFIED |
+| Protocol | cycle ergometer: 20 min warm-up at about 70 percent of maximal heart rate, then workload increased by 5 percent every 3 min to volitional exhaustion; 44 min on average | VERIFIED |
+| Reference temperature | ingestible telemetric capsule (myTemp) at 10 s intervals | VERIFIED |
+| Heart rate | Polar V800 chest strap at 1 s intervals, reduced to one-minute means | VERIFIED |
+| Algorithm | ECTemp with the sigmoid observation model (Looney 2018, Buller 2020), not the 2013 quadratic; coefficients not printed in the paper | VERIFIED |
+| Start conditions | fixed start at 37.0 C with starting variance 0.02 | VERIFIED |
+
+### Results
+
+| Quantity | Value | Where in the paper | Status |
+|---|---|---|---|
+| Correlation, all observations | r = 0.86 | Results | VERIFIED |
+| Systematic bias | 0.15 +/- 0.36 C (Results); 0.15 +/- 0.29 C (Abstract) | both; the two standard deviations disagree in the source | VERIFIED, discrepancy noted |
+| 95 percent limits of agreement | +/- 0.45 C | Results and Abstract | VERIFIED |
+| RMSE | 0.35 +/- 0.18 C | Results and Abstract | VERIFIED |
+| Peak temperature agreement (range 37.6 to 40.4 C) | r = 0.57; bias -0.02 +/- 0.47 C; limits of agreement +/- 0.92 C; RMSE 0.47 C | Results | VERIFIED |
+| Mean absolute error | not reported | | VERIFIED absent |
+
+Classification performance by estimated-temperature threshold (Table 2, 5,025 observations):
+
+| Threshold | Sensitivity | Status |
+|---|---|---|
+| 37.75 to 38.75 C | 73 to 96 percent, specificity 72 to 93 percent | VERIFIED |
+| above 38.75 C | 73 percent | VERIFIED |
+| above 39.0 C | 48 percent (Table 2); rounded to 50 percent in the Abstract; specificity 97 percent | VERIFIED, discrepancy noted |
+| above 39.25 C | 13 percent | VERIFIED |
+| above 39.5 C | 4 percent | VERIFIED |
+| above 39.75 C | 0 percent | VERIFIED |
+
+Quoted finding: "a low to very-low sensitivity (50-0%) for Tc-est thresholds >39.0 C, due to a high prevalence of false-negative observations."
+
+### Authors' explanation and conclusion
+
+- "the assumption of a fixed relationship between the cardiovascular and thermoregulatory system captured by two single parameters (i.e., HR and Tc)" and "the use of a single input parameter (i.e., HR) contains insufficient information to reflect the cumulative thermoregulatory and cardiovascular effects of prolonged exercise in the heat."
+- Dehydration shifts the relationship: "if the HR - Tc relationship changes, for example due to the redistribution of blood flow and maintenance of blood pressure following dehydration, ECTemp will likely underestimate or overestimate Tc".
+- Conclusion: "the ECTemp algorithm should in its current form, not solely be used to identify (elite) athletes at risk for heat-related disorders due to low sensitivity and high false-negative rate in the upper end of the Tc spectrum." It "can provide a valuable and representative indication of thermal strain in the low- to mid-range of Tc values (37.75-38.75 C)".
+
+### What Blagden shows
+
+Wherever a core temperature estimate is displayed, Blagden states: the estimate is from heart rate alone; in 101 elite athletes exercising in heat the method agreed with measured core temperature within about +/- 0.45 C on average, but detected fewer than half of the observations above 39.0 C; it is an indication of thermal strain, not a measurement, and not a basis for a safety decision. The citation is this paper.
+
+### Valid input ranges and limitations
+
+- The validation covers an incremental cycling test of about 44 minutes in a laboratory at 31.6 C and 74 percent humidity, in elite athletes. Recreational runners, longer durations, outdoor sun and wind, and dehydration over a marathon are outside the validated setting.
+- High temperatures were underrepresented in the data: "Especially higher Tc values are underrepresented."
+- The reference capsule may lag esophageal temperature at the start of exercise and after intensity changes.
+- The paper used the sigmoid variant; Blagden v0.1 uses the quadratic (section 1, D-011). The authors of the sigmoid state the two give nearly identical estimates at higher temperatures, so the high-temperature limitation is taken to apply to both.
+- Cooling and recovery were not studied in this paper.
+
+### References
+
+- de Korte JQ et al. Frontiers in Sports and Active Living 2022;4:882254. https://doi.org/10.3389/fspor.2022.882254 ; full text https://www.frontiersin.org/articles/10.3389/fspor.2022.882254/full
+- Buller MJ et al. 2013 and Looney DP et al. 2018, Buller MJ et al. 2020: see section 1.
+
 ## 7. Weather data: Open-Meteo
 
 ### Purpose
